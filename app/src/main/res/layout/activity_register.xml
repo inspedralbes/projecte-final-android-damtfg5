@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/registrate"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,11 +36,12 @@
 
     <TextView
         android:id="@+id/textViewNomCognom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="132dp"
+        android:layout_height="21dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="56dp"
         android:text="@string/nombre_apellidos"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageButton" />
 
@@ -50,11 +52,13 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:hint="Pedro Ramirez"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewNomCognom" />
-
 
 
     <TextView
@@ -64,6 +68,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="26dp"
         android:text="@string/email"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextNomCognom" />
 
@@ -74,6 +79,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:hint="hola@gmail.com"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +94,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="26dp"
         android:text="@string/telefono"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextEmail" />
 
@@ -96,11 +105,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:hint="666555444"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTelefono"
-        android:inputType="phone"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewTelefono" />
 
     <TextView
         android:id="@+id/textViewContraseña"
@@ -109,6 +121,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="26dp"
         android:text="@string/contraseña"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextTelefono" />
 
@@ -119,11 +132,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
+        android:hint="123asa"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewContraseña"
-        android:inputType="textPassword"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewContraseña" />
 
     <ImageButton
         android:id="@+id/imageButtonMostrarContraseña"
@@ -132,11 +148,24 @@
         android:layout_alignEnd="@id/editTextContraseña"
         android:layout_centerVertical="true"
         android:layout_marginStart="335dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="435dp"
         android:background="@android:color/transparent"
         android:padding="8dp"
         android:src="@drawable/eye_closed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="325dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/button_selectorbg2"
+        android:onClick="launchInici"
+        android:text="Crear Cuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextContraseña" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
