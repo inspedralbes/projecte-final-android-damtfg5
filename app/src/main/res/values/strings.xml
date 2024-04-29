@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjectoFinal</string>
+    <string name="registrarme">Registrarme\n</string>
+    <string name="iniciar_sesion">Iniciar Sesion\n</string>
+    <string name="registrate">Registrate</string>
+    <string name="nombre_apellidos">Nombre y Apellidos\n</string>
+    <string name="email">Email</string>
+    <string name="telefono">Teléfono</string>
+    <string name="contraseña">Contraseña</string>
+</resources>
