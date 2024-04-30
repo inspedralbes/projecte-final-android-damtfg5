@@ -296,7 +296,7 @@
                     android:drawableEnd="@drawable/calendario"
                     android:text="Fecha de Nacimiento"
                     android:background="@drawable/textview_selectorbg"
-                    android:layout_marginEnd="10dp"
+                    android:layout_margin="5dp"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -334,7 +334,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textViewGendre" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageViewExtendeGendre"
