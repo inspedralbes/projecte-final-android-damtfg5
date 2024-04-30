@@ -25,7 +25,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        com.example.projectetf2.EditarPerfil activity = (com.example.projectetf2.EditarPerfil) getActivity();
+        EditarPerfil activity = (EditarPerfil) getActivity();
         activity.processDatePickerResult(year, month, dayOfMonth);
     }
 }
