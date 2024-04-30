@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.projectofinal.Inici">
+
+    <item
+        android:title="Jugar"
+        android:id="@+id/jugar"
+        android:icon="@drawable/jugar"/>
+    <item android:title="Descubrir"
+        android:id="@+id/descubrir"
+        android:icon="@drawable/descubrir"/>
+    <item android:title="Comunidad"
+        android:id="@+id/comunidad"
+        android:icon="@drawable/comunidad"/>
+    <item android:title="Perfil"
+        android:id="@+id/perfil"
+        android:icon="@drawable/perfil"/>
+</menu>
