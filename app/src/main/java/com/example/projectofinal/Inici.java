@@ -52,4 +52,9 @@ public class Inici extends AppCompatActivity {
         Intent intent = new Intent(Inici.this,EditarPerfil.class);
         startActivity(intent);
     }
+
+    public void launchAñadirAmigo(View view){
+        Intent intent = new Intent(Inici.this,AnadirAmigo.class);
+        startActivity(intent);
+    }
 }
