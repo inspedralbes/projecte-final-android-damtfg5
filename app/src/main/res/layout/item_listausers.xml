@@ -14,8 +14,9 @@
         android:layout_marginEnd="16dp">
         <ImageView
             android:id="@+id/imageViewUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
             android:src="@drawable/perfil"/>
     </androidx.cardview.widget.CardView>
 
