@@ -19,6 +19,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         this.usuarioList = usuarioList;
     }
 
+    public void setUsuario(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,7 +36,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         Usuario usuario = usuarioList.get(position);
         holder.imageViewUsuario.setImageResource(usuario.getImagen());
         holder.textViewNombreUsuario.setText(usuario.getNombre());
-        holder.buttonAgregar.setOnClickListener(new View.OnClickListener() {
+        holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Aquí puedes manejar la acción del botón Agregar
@@ -47,13 +52,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewUsuario;
         TextView textViewNombreUsuario;
-        Button buttonAgregar;
+        Button buttonSeguir;
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewUsuario = itemView.findViewById(R.id.imageViewUsuario);
             textViewNombreUsuario = itemView.findViewById(R.id.textViewNombreUsuario);
-            buttonAgregar = itemView.findViewById(R.id.buttonAgregar);
+            buttonSeguir = itemView.findViewById(R.id.buttonSeguir);
         }
     }
 }

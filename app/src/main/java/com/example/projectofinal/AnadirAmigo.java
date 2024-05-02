@@ -19,14 +19,20 @@ public class AnadirAmigo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_amigo);
 
+        usuarioList = new ArrayList<>();
         recyclerViewListaUsers = findViewById(R.id.recyclerViewListaUsers);
-        // Configurar el RecyclerView con un LinearLayoutManager
+        usuarioAdapter = new UsuarioAdapter(usuarioList);
         recyclerViewListaUsers.setLayoutManager(new LinearLayoutManager(this));
-        // Inicializar el adaptador y configurarlo en el RecyclerView
-        usuarioAdapter = new UsuarioAdapter(new ArrayList<>());
-        usuarioList.add(new Usuario("NombreUsuario", R.drawable.perfil));
-        usuarioAdapter.notifyDataSetChanged();
         recyclerViewListaUsers.setAdapter(usuarioAdapter);
+
+        Usuario user = new Usuario("Daniel",R.drawable.perfil);
+        Usuario user2 = new Usuario("Abuelo abuelo",R.drawable.viejo);
+        usuarioList.add(user);
+        usuarioList.add(user2);
+
+        usuarioAdapter.setUsuario(usuarioList);
+
+
 
 
     }
