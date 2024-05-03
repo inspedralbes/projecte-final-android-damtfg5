@@ -1,5 +1,6 @@
 package com.example.projectofinal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,16 @@ public class FullScreenDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss(); // Cierra el fragmento
+            }
+        });
+
+        ImageButton imageButtonUpload = view.findViewById(R.id.imageButtonUpload);
+        imageButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Abre la actividad CrearEquipo
+                Intent intent = new Intent(getActivity(), CrearEquipo.class);
+                startActivity(intent);
             }
         });
 
