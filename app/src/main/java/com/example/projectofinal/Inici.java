@@ -53,14 +53,16 @@ public class Inici extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isCardOpen) {
+                /*if (isCardOpen) {
                     cardView.setCardBackgroundColor(getResources().getColor(R.color.naranja1));
                     imageButton.setImageResource(R.drawable.add);
                 } else {
                     cardView.setCardBackgroundColor(getResources().getColor(R.color.negro1));
-                    imageButton.setImageResource(R.drawable.clear_white);
-                }
-                isCardOpen = !isCardOpen;
+                    imageButton.setImageResource(R.drawable.clear_white);*/
+                    FullScreenDialogFragment dialogFragment = new FullScreenDialogFragment();
+                    dialogFragment.show(getSupportFragmentManager(), "FullScreenDialogFragment");
+                /*}
+                isCardOpen = !isCardOpen;*/
             }
         });
 
