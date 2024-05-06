@@ -1,6 +1,5 @@
 package com.example.projectofinal;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +33,12 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = usuarioList.get(position);
-        holder.imageViewUsuario.setImageResource(usuario.getImagen());
-        holder.textViewNombreUsuario.setText(usuario.getNombre());
+        holder.imageViewUsuario.setImageResource(Integer.parseInt(usuario.getProfilePic()));
+        holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
         holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí puedes manejar la acción del botón Agregar
+                // Aquí puedes manejar la acción del botón Seguir
             }
         });
     }
