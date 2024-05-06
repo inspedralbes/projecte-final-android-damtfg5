@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,6 +28,8 @@ public class AnadirAmigo extends AppCompatActivity {
     private List<Usuario> usuarioList;
     private EditText editTextBuscar;
     private String URL = "http://192.168.206.176:3001/";
+    private List<Usuario> listaCompletaUsuarios = new ArrayList<>();
+    private List<Usuario> listaUsuariosAleatorios = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,46 +65,54 @@ public class AnadirAmigo extends AppCompatActivity {
 
     private void agregarUsuariosALaLista() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL) // Reemplaza con la URL de tu servidor
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Realizar la solicitud para obtener usuarios aleatorios
         Call<List<Usuario>> call = apiService.getUsers();
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                Log.d("TAG", "onResponse: ");
                 if (response.isSuccessful()) {
                     List<Usuario> usuarios = response.body();
                     if (usuarios != null) {
-                        usuarioList.addAll(usuarios);
-                        usuarioAdapter.notifyDataSetChanged();
+                        listaCompletaUsuarios.addAll(usuarios);
+                        // Selección aleatoria de 5 usuarios
+                        Collections.shuffle(listaCompletaUsuarios);
+                        listaUsuariosAleatorios = listaCompletaUsuarios.subList(0, Math.min(listaCompletaUsuarios.size(), 5));
+                        usuarioAdapter.setUsuario(listaUsuariosAleatorios);
                     }
                 } else {
-                    // Manejar respuesta de error
                     Toast.makeText(AnadirAmigo.this, "Error al obtener usuarios", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                // Manejar error de conexión
                 Toast.makeText(AnadirAmigo.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                 Log.d("ERROR", "onFailure: "+t.getMessage());
             }
         });
     }
 
+
     private void filtrarUsuarios(String texto) {
-        List<Usuario> listaFiltrada = new ArrayList<>();
-        for (Usuario usuario : usuarioList) {
-            if (usuario.getFirstname().toLowerCase().contains(texto.toLowerCase())) {
-                listaFiltrada.add(usuario);
+        if (texto.isEmpty()) {
+            // Si el texto de búsqueda está vacío, mostrar los 5 usuarios aleatorios
+            usuarioAdapter.setUsuario(listaUsuariosAleatorios);
+        } else {
+            // Filtrar la lista completa de usuarios según el texto de búsqueda
+            List<Usuario> listaFiltrada = new ArrayList<>();
+            for (Usuario usuario : listaCompletaUsuarios) {
+                if (usuario.getFirstname().toLowerCase().contains(texto.toLowerCase())) {
+                    listaFiltrada.add(usuario);
+                }
             }
+            usuarioAdapter.setUsuario(listaFiltrada);
         }
-        usuarioAdapter.setUsuario(listaFiltrada);
     }
+
+
 }
