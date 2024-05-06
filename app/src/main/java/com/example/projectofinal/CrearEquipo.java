@@ -7,16 +7,25 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CrearEquipo extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageButtonUsuario;
     private Uri imageUri;
+    private String URL = "http://192.168.206.176:3001/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +38,7 @@ public class CrearEquipo extends AppCompatActivity {
         ImageButton imageButtonClearNE = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
         Button buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
+        Button buttonCrearEquipo = findViewById(R.id.buttonCrearEquipo);
 
         setupEditTextFocusChange(editTextNE, firstLayout, imageButtonClearNE);
         setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
@@ -50,6 +60,45 @@ public class CrearEquipo extends AppCompatActivity {
                 openFileChooser();
             }
         });
+
+        buttonCrearEquipo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String teamName = editTextNE.getText().toString();
+                String logoPic = imageUri.toString();
+                String shortName = editTextAbreviacion.getText().toString();
+
+                // Crea un objeto TeamData con los datos del equipo
+                TeamData teamData = new TeamData(teamName, logoPic, shortName);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(URL) // Reemplaza esto con la URL base de tu servidor
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                // Crea una instancia de la interfaz ApiService
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                // Realiza la solicitud POST al servidor
+                Call<Void> call = apiService.createTeam(teamData);
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            // Manejar la respuesta exitosa
+                            Toast.makeText(CrearEquipo.this, "Equipo creado exitosamente", Toast.LENGTH_SHORT).show();
+                            // Puedes manejar cualquier otra acción aquí, como regresar a la actividad anterior
+                        } else {
+                            // Manejar el error
+                            Toast.makeText(CrearEquipo.this, "Error al crear el equipo", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(CrearEquipo.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void openFileChooser() {
@@ -65,7 +114,6 @@ public class CrearEquipo extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            // Set the image to the ImageView
             imageButtonUsuario.setImageURI(imageUri);
         }
     }
