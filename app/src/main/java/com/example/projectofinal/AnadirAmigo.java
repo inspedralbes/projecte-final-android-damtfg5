@@ -42,7 +42,7 @@ public class AnadirAmigo extends AppCompatActivity {
         agregarUsuariosALaLista();
 
         // Configurar el TextWatcher para el EditText
-        /*editTextBuscar.addTextChangedListener(new TextWatcher() {
+        editTextBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -50,13 +50,13 @@ public class AnadirAmigo extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Filtrar la lista de usuarios
-                //filtrarUsuarios(s.toString());
+                filtrarUsuarios(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
-        });*/
+        });
 
     }
 

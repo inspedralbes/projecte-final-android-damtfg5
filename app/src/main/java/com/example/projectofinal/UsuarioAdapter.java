@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder> {
@@ -33,7 +36,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = usuarioList.get(position);
-        holder.imageViewUsuario.setImageResource(Integer.parseInt(usuario.getProfilePic()));
+        if (usuario.getProfilePic() != null && !usuario.getProfilePic().isEmpty()) {
+            // Cargar la imagen desde la URL utilizando Picasso
+            Picasso.get().load(usuario.getProfilePic()).into(holder.imageViewUsuario);
+        } else {
+            // Si el campo profilePic no contiene una URL válida, puedes cargar una imagen de placeholder o dejar el ImageView vacío
+            holder.imageViewUsuario.setImageResource(R.drawable.perfil); // Cambia placeholder_image por el ID de tu imagen de placeholder
+        }
         holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
         holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
             @Override
