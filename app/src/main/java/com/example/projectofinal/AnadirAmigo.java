@@ -69,7 +69,7 @@ public class AnadirAmigo extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Realizar la solicitud para obtener usuarios aleatorios
-        Call<List<Usuario>> call = apiService.getUsersRandom();
+        Call<List<Usuario>> call = apiService.getUsers();
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
