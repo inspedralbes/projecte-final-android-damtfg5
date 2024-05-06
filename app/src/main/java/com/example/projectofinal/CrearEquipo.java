@@ -1,16 +1,22 @@
 package com.example.projectofinal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class CrearEquipo extends AppCompatActivity {
-
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private ImageView imageButtonUsuario;
+    private Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +28,46 @@ public class CrearEquipo extends AppCompatActivity {
         EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
         ImageButton imageButtonClearNE = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
+        Button buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
 
         setupEditTextFocusChange(editTextNE, firstLayout, imageButtonClearNE);
         setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
         setupImageButtonClear(editTextNE, imageButtonClearNE);
         setupImageButtonClear(editTextAbreviacion, imageButtonClearAbreviacion);
+
+        buttonAñadirGente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddPeopleFragment dialogFragment = new AddPeopleFragment();
+                dialogFragment.show(getSupportFragmentManager(), "AddPeopleFragment");
+            }
+        });
+
+        imageButtonUsuario = findViewById(R.id.imageViewUsuario);
+        imageButtonUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            // Set the image to the ImageView
+            imageButtonUsuario.setImageURI(imageUri);
+        }
     }
 
     private void setupEditTextFocusChange(EditText editText, ConstraintLayout layout, ImageButton button) {
