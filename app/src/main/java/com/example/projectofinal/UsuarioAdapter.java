@@ -27,9 +27,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
     private List<Usuario> usuarioList;
     private String URL = "http://192.168.206.176:3001/";
+    int userId;
 
-    public UsuarioAdapter(List<Usuario> usuarioList) {
+    public UsuarioAdapter(List<Usuario> usuarioList,int userId) {
         this.usuarioList = usuarioList;
+        this.userId = userId;
     }
 
     public void setUsuario(List<Usuario> usuarioList) {
@@ -58,7 +60,8 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FriendRequestBody friendRequestBody = new FriendRequestBody(3, usuario.getId()); // Asegúrate de tener senderId definido en tu actividad
+                FriendRequestBody friendRequestBody = new FriendRequestBody(userId, usuario.getId()); // Asegúrate de tener senderId definido en tu actividad
+                Log.d("ID", userId+", "+usuario.getId());
                 // Enviar la solicitud de amistad al servidor
                 sendFriendRequestToServer(friendRequestBody);
             }

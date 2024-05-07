@@ -1,9 +1,11 @@
 package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,12 +36,15 @@ public class AnadirAmigo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_amigo);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int userId = sharedPreferences.getInt("userId", -1);
         editTextBuscar = findViewById(R.id.editTextBuscador);
         usuarioList = new ArrayList<>();
         recyclerViewListaUsers = findViewById(R.id.recyclerViewListaUsers);
-        usuarioAdapter = new UsuarioAdapter(usuarioList);
+        usuarioAdapter = new UsuarioAdapter(usuarioList,userId);
         recyclerViewListaUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewListaUsers.setAdapter(usuarioAdapter);
+
 
         // Agregar usuarios a la lista
         agregarUsuariosALaLista();
