@@ -61,7 +61,10 @@ public class Login extends AppCompatActivity {
             LoginRequestBody loginRequestBody = new LoginRequestBody(email, password);
             sendLoginRequest(loginRequestBody);
         } else {
-            Toast.makeText(this, "Por favor, ingrese su correo electrónico y contraseña", Toast.LENGTH_SHORT).show();
+            editTextEmail.setHint("¡Email Obligatorio!");
+            editTextEmail.setHintTextColor(getColor(R.color.rojo));
+            editTextPassword.setHint("¡Contraseña Obligatoria!");
+            editTextPassword.setHintTextColor(getColor(R.color.rojo));
         }
     }
     private void sendLoginRequest(LoginRequestBody loginRequestBody) {
@@ -78,7 +81,6 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null && loginResponse.isAuthorization()) {
-                        Toast.makeText(Login.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                         saveUserData(loginResponse.getUserData());
                         Intent intent = new Intent(Login.this, Inici.class);
                         startActivity(intent);
