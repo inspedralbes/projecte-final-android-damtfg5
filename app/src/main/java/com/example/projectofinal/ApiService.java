@@ -14,4 +14,7 @@ public interface ApiService {
     @GET("/getUsers")
     Call<List<Usuario>> getUsers();
 
+    @POST("/sendFriendRequest")
+    Call<Void> sendFriendRequest(@Body FriendRequestBody friendRequestBody);
+
 }
