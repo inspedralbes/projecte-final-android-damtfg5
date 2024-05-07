@@ -1,5 +1,4 @@
 package com.example.projectofinal;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,19 +31,22 @@ public class AnadirAmigo extends AppCompatActivity {
     private String URL = "http://192.168.206.176:3001/";
     private List<Usuario> listaCompletaUsuarios = new ArrayList<>();
     private List<Usuario> listaUsuariosAleatorios = new ArrayList<>();
+    int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_amigo);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int userId = sharedPreferences.getInt("userId", -1);
+        userId = sharedPreferences.getInt("userId", -1);
+
         editTextBuscar = findViewById(R.id.editTextBuscador);
         usuarioList = new ArrayList<>();
         recyclerViewListaUsers = findViewById(R.id.recyclerViewListaUsers);
-        usuarioAdapter = new UsuarioAdapter(usuarioList,userId);
+        usuarioAdapter = new UsuarioAdapter(usuarioList, userId);
         recyclerViewListaUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewListaUsers.setAdapter(usuarioAdapter);
-
 
         // Agregar usuarios a la lista
         agregarUsuariosALaLista();
@@ -65,7 +67,6 @@ public class AnadirAmigo extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
     }
 
     private void agregarUsuariosALaLista() {
@@ -84,9 +85,16 @@ public class AnadirAmigo extends AppCompatActivity {
                     List<Usuario> usuarios = response.body();
                     if (usuarios != null) {
                         listaCompletaUsuarios.addAll(usuarios);
+                        // Filtrar el usuario actualmente autenticado
+                        List<Usuario> listaFiltrada = new ArrayList<>();
+                        for (Usuario usuario : listaCompletaUsuarios) {
+                            if (usuario.getId() != userId) {
+                                listaFiltrada.add(usuario);
+                            }
+                        }
                         // Selección aleatoria de 5 usuarios
-                        Collections.shuffle(listaCompletaUsuarios);
-                        listaUsuariosAleatorios = listaCompletaUsuarios.subList(0, Math.min(listaCompletaUsuarios.size(), 5));
+                        Collections.shuffle(listaFiltrada);
+                        listaUsuariosAleatorios = listaFiltrada.subList(0, Math.min(listaFiltrada.size(), 5));
                         usuarioAdapter.setUsuario(listaUsuariosAleatorios);
                     }
                 } else {
@@ -97,11 +105,10 @@ public class AnadirAmigo extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Toast.makeText(AnadirAmigo.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-                Log.d("ERROR", "onFailure: "+t.getMessage());
+                Log.d("ERROR", "onFailure: " + t.getMessage());
             }
         });
     }
-
 
     private void filtrarUsuarios(String texto) {
         if (texto.isEmpty()) {
@@ -118,6 +125,4 @@ public class AnadirAmigo extends AppCompatActivity {
             usuarioAdapter.setUsuario(listaFiltrada);
         }
     }
-
-
 }
