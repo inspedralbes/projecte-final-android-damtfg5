@@ -92,7 +92,7 @@ public class AnadirAmigo extends AppCompatActivity {
                                 listaFiltrada.add(usuario);
                             }
                         }
-                        // Selección aleatoria de 5 usuarios
+                        // Selección aleatoria de 5 usuario
                         Collections.shuffle(listaFiltrada);
                         listaUsuariosAleatorios = listaFiltrada.subList(0, Math.min(listaFiltrada.size(), 5));
                         usuarioAdapter.setUsuario(listaUsuariosAleatorios);
@@ -118,7 +118,7 @@ public class AnadirAmigo extends AppCompatActivity {
             // Filtrar la lista completa de usuarios según el texto de búsqueda
             List<Usuario> listaFiltrada = new ArrayList<>();
             for (Usuario usuario : listaCompletaUsuarios) {
-                if (usuario.getFirstname().toLowerCase().contains(texto.toLowerCase())) {
+                if (usuario.getFirstname().toLowerCase().contains(texto.toLowerCase()) || usuario.getSurname().toLowerCase().contains(texto.toLowerCase()) ) {
                     listaFiltrada.add(usuario);
                 }
             }
