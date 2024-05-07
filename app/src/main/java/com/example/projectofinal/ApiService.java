@@ -17,4 +17,7 @@ public interface ApiService {
     @POST("/sendFriendRequest")
     Call<Void> sendFriendRequest(@Body FriendRequestBody friendRequestBody);
 
+    @POST("authoritzationLogin")
+    Call<LoginResponse> login(@Body LoginRequestBody loginRequestBody);
+
 }
