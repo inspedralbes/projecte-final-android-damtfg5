@@ -86,4 +86,9 @@ public class Inici extends AppCompatActivity {
         Intent intent = new Intent(Inici.this,AnadirAmigo.class);
         startActivity(intent);
     }
+
+    public void launchNotifications(View view){
+        Intent intent = new Intent(Inici.this,Notifications.class);
+        startActivity(intent);
+    }
 }
