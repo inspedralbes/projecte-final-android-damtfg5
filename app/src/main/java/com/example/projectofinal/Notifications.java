@@ -1,10 +1,13 @@
 package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,39 +38,42 @@ public class Notifications extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        obtenerSolicitudesAmistadPendientes(5);
-    }
+        // Obtener el userId de las SharedPreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int userId = sharedPreferences.getInt("userId", -1);
 
-    private void obtenerSolicitudesAmistadPendientes(int userId) {
+        // Crear un objeto UserIdRequest con el userId
+        UserIdRequest userIdRequest = new UserIdRequest(userId);
+
+        // Iniciar Retrofit y llamar al método para obtener las solicitudes pendientes de amistad
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<FriendRequestBody>> call = apiService.getPendingFriendRequests(userId);
 
-        call.enqueue(new Callback<List<FriendRequestBody>>() {
+        Call<List<Usuario>> call = apiService.getPendingFriendRequests(userIdRequest);
+        call.enqueue(new Callback<List<Usuario>>() {
             @Override
-            public void onResponse(Call<List<FriendRequestBody>> call, Response<List<FriendRequestBody>> response) {
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if (response.isSuccessful()) {
-                    List<FriendRequestBody> friendRequests = response.body();
-                    // Convertir las solicitudes de amistad en objetos Usuario
-                    for (FriendRequestBody friendRequest : friendRequests) {
-                        Usuario usuario = new Usuario(friendRequest.getSenderId(), "", "", "");
-                        notificaciones.add(usuario);
+                    List<Usuario> pendingRequests = response.body();
+                    if (pendingRequests != null) {
+                        notificaciones.addAll(pendingRequests);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(Notifications.this, "No hay solicitudes pendientes", Toast.LENGTH_SHORT).show();
                     }
-                    adapter.notifyDataSetChanged();
                 } else {
-                    // Manejar el caso en el que la respuesta del servidor no sea exitosa
-                    Toast.makeText(Notifications.this, "Error al obtener las solicitudes de amistad", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Notifications.this, "Error al obtener solicitudes pendientes", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<FriendRequestBody>> call, Throwable t) {
-                // Manejar el caso en el que la llamada al servidor falle
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Toast.makeText(Notifications.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                Log.e("Error", "onFailure: " + t.getMessage());
             }
         });
     }

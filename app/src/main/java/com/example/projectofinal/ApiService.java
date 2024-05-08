@@ -21,7 +21,7 @@ public interface ApiService {
     @POST("authoritzationLogin")
     Call<LoginResponse> login(@Body LoginRequestBody loginRequestBody);
 
-    @GET("/getPendingFriendRequests")
-    Call<List<FriendRequestBody>> getPendingFriendRequests(@Query("userId") int userId);
+    @POST("/getPendingFriendRequests")
+    Call<List<Usuario>> getPendingFriendRequests(@Body UserIdRequest userIdRequest);
 
 }
