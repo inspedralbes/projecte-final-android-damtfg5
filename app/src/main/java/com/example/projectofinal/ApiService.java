@@ -24,4 +24,7 @@ public interface ApiService {
     @POST("/pendingFriendRequests")
     Call<List<Usuario>> getPendingFriendRequests(@Body UserIdRequest userIdRequest);
 
+    @POST("/responseFriendRequest")
+    Call<Void> responseFriendRequest(@Body ResponseFriendRequest responseFriendRequest);
+
 }
