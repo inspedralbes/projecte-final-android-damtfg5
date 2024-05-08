@@ -66,7 +66,9 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()) {
-                            // Acción en caso de respuesta exitosa
+                            int position = holder.getAdapterPosition();
+                            usuarios.remove(position);
+                            notifyDataSetChanged();
                         } else {
                             // Acción en caso de respuesta no exitosa
                         }
@@ -94,7 +96,9 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()) {
-                            // Acción en caso de respuesta exitosa
+                            int position = holder.getAdapterPosition();
+                            usuarios.remove(position);
+                            notifyDataSetChanged();
                         } else {
                             // Acción en caso de respuesta no exitosa
                         }
