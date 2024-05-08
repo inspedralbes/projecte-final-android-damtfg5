@@ -5,6 +5,7 @@ public class Usuario {
     private String firstname;
     private String surname;
     private String profilePic;
+    private int idRequest;
 
     // Constructor
     public Usuario(int id, String firstname, String surname, String profilePic) {
@@ -14,7 +15,24 @@ public class Usuario {
         this.profilePic = profilePic;
     }
 
+    public Usuario(int id, String firstname, String surname, String profilePic, int idRequest) {
+        this.id = id;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.profilePic = profilePic;
+        this.idRequest = idRequest;
+    }
+
     // Getters y Setters
+
+    public int getIdRequest() {
+        return idRequest;
+    }
+
+    public void setIdRequest(int idRequest) {
+        this.idRequest = idRequest;
+    }
+
     public int getId() {
         return id;
     }

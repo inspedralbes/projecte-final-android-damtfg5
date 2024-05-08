@@ -60,7 +60,12 @@ public class Notifications extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Usuario> pendingRequests = response.body();
                     if (pendingRequests != null) {
-                        notificaciones.addAll(pendingRequests);
+                        // Convertir las solicitudes de amigos en notificaciones de Usuario
+                        for (Usuario request : pendingRequests) {
+                            Usuario usuario = new Usuario(request.getId(),request.getFirstname(),request.getSurname(),request.getProfilePic(), request.getIdRequest());
+                            // Agregar el usuario a la lista de notificaciones
+                            notificaciones.add(usuario);
+                        }
                         adapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(Notifications.this, "No hay solicitudes pendientes", Toast.LENGTH_SHORT).show();

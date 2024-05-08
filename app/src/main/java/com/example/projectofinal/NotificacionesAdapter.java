@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAdapter.UsuarioViewHolder> {
@@ -33,8 +35,12 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = usuarios.get(position);
+        if (usuario.getProfilePic() != null && !usuario.getProfilePic().isEmpty()) {
+            Picasso.get().load(usuario.getProfilePic()).into(holder.imageViewUsuario);
+        } else {
+            holder.imageViewUsuario.setImageResource(R.drawable.perfil);
+        }
         holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
-        // Aquí podrías cargar la imagen del usuario en el ImageView utilizando alguna biblioteca como Glide o Picasso
         holder.buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
