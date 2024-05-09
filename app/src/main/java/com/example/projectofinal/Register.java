@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,7 +79,7 @@ public class Register extends AppCompatActivity {
                     }
                 }
                 String email = editTextEmail.getText().toString().trim();
-                String password = editTextContraseña.getText().toString().trim();
+                String password = hashPassword(editTextContraseña.getText().toString().trim());
                 String phone = editTextTelefono.getText().toString().trim();
                 String country = "España"; // Obtén el valor del EditText correspondiente
                 String birthDate = "2003-12-26"; // Obtén el valor del EditText correspondiente
@@ -119,6 +122,27 @@ public class Register extends AppCompatActivity {
     public void launchMain(View view){
         Intent intent = new Intent(Register.this, MainActivity.class);
         startActivity(intent);
+    }
+    private String hashPassword(String password) {
+        try {
+            // Crear instancia de MessageDigest con algoritmo SHA-256
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+
+            // Aplicar el algoritmo de hash a la contraseña
+            byte[] hashBytes = digest.digest(password.getBytes());
+
+            // Convertir el arreglo de bytes a una representación hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /*public void launchInici(View view){
