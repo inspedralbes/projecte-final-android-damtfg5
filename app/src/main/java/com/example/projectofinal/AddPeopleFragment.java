@@ -6,13 +6,21 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-public class AddPeopleFragment extends DialogFragment {
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class AddPeopleFragment extends DialogFragment {
+    private RecyclerView recyclerView;
+    private AddPeopleAdapter adapter;
+    private List<Usuario> usuarioList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,6 +33,17 @@ public class AddPeopleFragment extends DialogFragment {
                 dismiss(); // Cierra el fragmento
             }
         });
+
+        recyclerView = view.findViewById(R.id.recycler_viewIP);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inicializar la lista de usuarios
+        usuarioList = new ArrayList<>();
+        // Aquí puedes agregar elementos a usuarioList según tus necesidades
+
+        // Crear y configurar el adaptador
+        adapter = new AddPeopleAdapter(getContext(), usuarioList);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }

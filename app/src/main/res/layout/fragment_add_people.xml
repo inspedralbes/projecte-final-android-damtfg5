@@ -43,6 +43,8 @@
         android:drawablePadding="5dp"
         android:hint="Busca por nombre de jugador"
         android:paddingStart="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -51,6 +53,7 @@
         app:layout_constraintVertical_bias="0.09" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_viewIP"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
