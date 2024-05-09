@@ -161,7 +161,6 @@
         android:layout_height="45dp"
         android:layout_marginTop="108dp"
         android:background="@drawable/button_selectorbg2"
-        android:onClick="launchInici"
         android:text="Crear Cuenta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
