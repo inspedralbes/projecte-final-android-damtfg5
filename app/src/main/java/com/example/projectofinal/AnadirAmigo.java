@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class AnadirAmigo extends AppCompatActivity {
     private List<Usuario> listaCompletaUsuarios = new ArrayList<>();
     private List<Usuario> listaUsuariosAleatorios = new ArrayList<>();
     int userId;
+    ImageButton imageButtonBackInici;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class AnadirAmigo extends AppCompatActivity {
         usuarioAdapter = new UsuarioAdapter(usuarioList, userId);
         recyclerViewListaUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewListaUsers.setAdapter(usuarioAdapter);
+        imageButtonBackInici = findViewById(R.id.imageButtonBackInici);
 
         // Agregar usuarios a la lista
         agregarUsuariosALaLista();
@@ -65,6 +69,12 @@ public class AnadirAmigo extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        imageButtonBackInici.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

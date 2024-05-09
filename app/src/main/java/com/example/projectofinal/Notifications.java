@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class Notifications extends AppCompatActivity {
     private NotificacionesAdapter adapter;
     private List<Usuario> notificaciones;
     private String URL = "http://192.168.206.176:3001/";
+    ImageButton imageButtonBackFR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class Notifications extends AppCompatActivity {
         adapter = new NotificacionesAdapter(this, notificaciones);
 
         recyclerView.setAdapter(adapter);
+        imageButtonBackFR = findViewById(R.id.imageButtonBackFR);
 
         // Obtener el userId de las SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -79,6 +83,13 @@ public class Notifications extends AppCompatActivity {
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Toast.makeText(Notifications.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                 Log.e("Error", "onFailure: " + t.getMessage());
+            }
+        });
+
+        imageButtonBackFR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
