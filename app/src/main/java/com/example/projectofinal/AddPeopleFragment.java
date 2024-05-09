@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -40,18 +41,19 @@ public class AddPeopleFragment extends DialogFragment {
         // Inicializar la lista de usuarios
         usuarioList = new ArrayList<>();
         // Aquí puedes agregar elementos a usuarioList según tus necesidades
-
+        usuarioList.add(new Usuario(1,"a","a",""));
+        usuarioList.add(new Usuario(3,"b","b",""));
+        usuarioList.add(new Usuario(2,"c","c",""));
         // Crear y configurar el adaptador
         adapter = new AddPeopleAdapter(getContext(), usuarioList);
         recyclerView.setAdapter(adapter);
 
         return view;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.AddPeopleDialogStyle);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle2);
     }
 
 }
