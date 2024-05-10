@@ -61,6 +61,14 @@ public class CrearEquipo extends AppCompatActivity {
             }
         });
 
+        ImageButton imageButtonBCE = findViewById(R.id.imageButtonBCE);
+        imageButtonBCE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         buttonCrearEquipo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,8 +151,4 @@ public class CrearEquipo extends AppCompatActivity {
         });
     }
 
-    public void launchInici(View view){
-        Intent intent = new Intent(CrearEquipo.this, Inici.class);
-        startActivity(intent);
-    }
 }

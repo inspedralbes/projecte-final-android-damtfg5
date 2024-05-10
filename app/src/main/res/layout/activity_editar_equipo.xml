@@ -18,11 +18,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonBEE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:onClick="launchInici"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
@@ -40,7 +39,7 @@
         android:text="Editar Equipo"
         android:textColor="@color/negro2"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonBEE"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView

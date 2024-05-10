@@ -6,7 +6,9 @@ import androidx.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -63,6 +65,14 @@ public class EditarEquipo extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<TeamData>> call, Throwable t) {
                 Log.e("TeamRequest", "Error en la solicitud HTTP: " + t.getMessage());
+            }
+        });
+
+        ImageButton imageButtonBEE = findViewById(R.id.imageButtonBEE);
+        imageButtonBEE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
