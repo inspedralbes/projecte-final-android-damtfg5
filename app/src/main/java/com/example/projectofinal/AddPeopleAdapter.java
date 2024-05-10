@@ -25,6 +25,11 @@ public class AddPeopleAdapter extends RecyclerView.Adapter<AddPeopleAdapter.View
         this.usuarioList = usuarioList;
     }
 
+    public void setUsuario(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
