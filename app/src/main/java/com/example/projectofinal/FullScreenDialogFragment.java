@@ -37,6 +37,16 @@ public class FullScreenDialogFragment extends DialogFragment {
             }
         });
 
+        ImageButton imageButtonTeam = view.findViewById(R.id.imageButtonTeam);
+        imageButtonTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Abre la actividad CrearEquipo
+                Intent intent = new Intent(getActivity(), EditarEquipo.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

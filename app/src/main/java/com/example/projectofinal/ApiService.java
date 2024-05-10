@@ -30,4 +30,7 @@ public interface ApiService {
     @POST("/responseFriendRequest")
     Call<Void> responseFriendRequest(@Body ResponseFriendRequest responseFriendRequest);
 
+    @POST("/getTeam")
+    Call<TeamResponse> getTeam(@Body UserIdRequest userId);
+
 }

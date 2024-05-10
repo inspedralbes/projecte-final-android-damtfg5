@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:src="@drawable/team" />
+            android:src="@drawable/createteam" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="145dp"
         android:text="Crear equipo"
         android:textColor="@color/white"
         android:textSize="15sp"
@@ -69,5 +69,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cardViewUpload" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTeam"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72"
+        app:layout_constraintWidth_percent="0.2">
+
+        <ImageButton
+            android:id="@+id/imageButtonTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/team" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="200dp"
+        android:text="Editar Equipo"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewTeam" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
