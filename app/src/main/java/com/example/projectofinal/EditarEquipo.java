@@ -6,6 +6,10 @@ import androidx.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,24 +34,34 @@ public class EditarEquipo extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Crear instancia de ApiService
         ApiService apiService = retrofit.create(ApiService.class);
-
-        // Hacer la solicitud HTTP
         UserIdRequest userIdRequest = new UserIdRequest(userId);
-        Call<TeamData> call = apiService.getTeam(userIdRequest);
-        call.enqueue(new Callback<TeamData>() {
+        Call<List<TeamData>> call = apiService.getTeam(userIdRequest);
+        call.enqueue(new Callback<List<TeamData>>() {
             @Override
-            public void onResponse(Call<TeamData> call, Response<TeamData> response) {
+            public void onResponse(Call<List<TeamData>> call, Response<List<TeamData>> response) {
                 if (response.isSuccessful()) {
-                    TeamData team = response.body();
+                    List<TeamData> teams = response.body();
+                    if (!teams.isEmpty()) {
+                        TeamData team = teams.get(0);
+                        EditText editTextNE = findViewById(R.id.editTextNE);
+                        EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
+                        ImageView imageViewUsuario = findViewById(R.id.imageViewUsuario);
+
+                        editTextNE.setText(team.getTeamName());
+                        editTextAbreviacion.setText(team.getShortName());
+                        String imageUrl = team.getLogoPic();
+                        Picasso.get().load(imageUrl).into(imageViewUsuario);
+                    } else {
+
+                    }
                 } else {
-                    Log.e("TeamResponse", "Error en la respuesta del servidor: " + response.code());
+                    Log.e("TeamResponse", "Error en la respuesta del servidor: " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<TeamData> call, Throwable t) {
+            public void onFailure(Call<List<TeamData>> call, Throwable t) {
                 Log.e("TeamRequest", "Error en la solicitud HTTP: " + t.getMessage());
             }
         });
