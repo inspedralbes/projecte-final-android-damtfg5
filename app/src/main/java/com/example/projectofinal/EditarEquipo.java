@@ -35,20 +35,19 @@ public class EditarEquipo extends AppCompatActivity {
 
         // Hacer la solicitud HTTP
         UserIdRequest userIdRequest = new UserIdRequest(userId);
-        Call<TeamResponse> call = apiService.getTeam(userIdRequest);
-        call.enqueue(new Callback<TeamResponse>() {
+        Call<Team> call = apiService.getTeam(userIdRequest);
+        call.enqueue(new Callback<Team>() {
             @Override
-            public void onResponse(Call<TeamResponse> call, Response<TeamResponse> response) {
+            public void onResponse(Call<Team> call, Response<Team> response) {
                 if (response.isSuccessful()) {
-                    TeamResponse teamResponse = response.body();
-                    Team team = teamResponse.getData();
+                    Team team = response.body();
                 } else {
                     Log.e("TeamResponse", "Error en la respuesta del servidor: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<TeamResponse> call, Throwable t) {
+            public void onFailure(Call<Team> call, Throwable t) {
                 Log.e("TeamRequest", "Error en la solicitud HTTP: " + t.getMessage());
             }
         });
