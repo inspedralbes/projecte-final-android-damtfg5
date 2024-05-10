@@ -1,6 +1,7 @@
 package com.example.projectofinal;
 
 public class TeamData {
+    private int id;
     private String teamName;
     private String logoPic;
     private String shortName;
@@ -9,6 +10,14 @@ public class TeamData {
         this.teamName = teamName;
         this.logoPic = logoPic;
         this.shortName = shortName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTeamName() {
