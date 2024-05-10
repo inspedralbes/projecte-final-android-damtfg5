@@ -1,12 +1,14 @@
 package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,6 +32,28 @@ public class EditarEquipo extends AppCompatActivity {
         setContentView(R.layout.activity_editar_equipo);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = sharedPreferences.getInt("userId", -1);
+        ConstraintLayout firstLayout = findViewById(R.id.firstLayout);
+        ConstraintLayout secondLayout = findViewById(R.id.secondLayout);
+        EditText editTextNE = findViewById(R.id.editTextNE);
+        EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
+        ImageButton imageButtonClearNE = findViewById(R.id.imageButtonClear1);
+        ImageButton imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
+        Button buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
+        Button buttonEditarEquipo = findViewById(R.id.buttonEditarEquipo);
+        ImageView imageViewUsuario = findViewById(R.id.imageViewUsuario);
+
+        setupEditTextFocusChange(editTextNE, firstLayout, imageButtonClearNE);
+        setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
+        setupImageButtonClear(editTextNE, imageButtonClearNE);
+        setupImageButtonClear(editTextAbreviacion, imageButtonClearAbreviacion);
+
+        buttonAñadirGente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddPeopleFragment dialogFragment = new AddPeopleFragment();
+                dialogFragment.show(getSupportFragmentManager(), "AddPeopleFragment");
+            }
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
@@ -46,10 +70,6 @@ public class EditarEquipo extends AppCompatActivity {
                     List<TeamData> teams = response.body();
                     if (!teams.isEmpty()) {
                         TeamData team = teams.get(0);
-                        EditText editTextNE = findViewById(R.id.editTextNE);
-                        EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
-                        ImageView imageViewUsuario = findViewById(R.id.imageViewUsuario);
-
                         editTextNE.setText(team.getTeamName());
                         editTextAbreviacion.setText(team.getShortName());
                         String imageUrl = team.getLogoPic();
@@ -73,6 +93,31 @@ public class EditarEquipo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    private void setupEditTextFocusChange(EditText editText, ConstraintLayout layout, ImageButton button) {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    layout.setBackgroundResource(R.drawable.layout_border_orange);
+                    button.setVisibility(View.VISIBLE);
+                } else {
+                    layout.setBackgroundResource(R.drawable.layout_border);
+                    button.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setupImageButtonClear(EditText editText, ImageButton button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Borrar el texto del EditText cuando se hace clic en el ImageButton
+                editText.setText("");
             }
         });
     }
