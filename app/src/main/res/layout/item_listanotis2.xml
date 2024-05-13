@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="16dp">
         <ImageView
-            android:id="@+id/imageViewUsuario"
+            android:id="@+id/imageViewTeam"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="center"
@@ -22,7 +22,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textViewNombreUsuario"
+        android:id="@+id/textViewIT"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

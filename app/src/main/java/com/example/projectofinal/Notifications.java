@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Notifications extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private NotificacionesAdapter adapter;
+    private CombinedAdapter adapter;
     private List<Usuario> notificaciones;
     private List<TeamData> invitaciones;
     private String URL = "http://192.168.206.176:3001/";
@@ -39,7 +39,7 @@ public class Notifications extends AppCompatActivity {
         notificaciones = new ArrayList<>();
         invitaciones = new ArrayList<>();
 
-        adapter = new NotificacionesAdapter(this, notificaciones);
+        adapter = new CombinedAdapter(this, notificaciones,invitaciones);
 
         recyclerView.setAdapter(adapter);
         imageButtonBackFR = findViewById(R.id.imageButtonBackFR);
@@ -120,6 +120,7 @@ public class Notifications extends AppCompatActivity {
                             Log.d("Team", "IdRequest: "+team.getIdRequestTeam());
                             invitaciones.add(team);
                         }
+                        adapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(Notifications.this, "No hay solicitudes pendientes", Toast.LENGTH_SHORT).show();
                     }
