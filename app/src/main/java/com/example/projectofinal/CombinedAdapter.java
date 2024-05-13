@@ -11,7 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int NOTIFICATION_VIEW_TYPE = 0;
@@ -20,6 +28,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private List<Usuario> notificationItems;
     private List<TeamData> invitationList;
+    private String URL = "http://192.168.206.176:3001/";
 
     public CombinedAdapter(Context context, List<Usuario> notificationItems, List<TeamData> invitationList) {
         this.context = context;
@@ -75,7 +84,75 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         void bind(Usuario item) {
-            notificationText.setText(item.getFirstname()+" "+item.getSurname());
+            notificationText.setText("Solicitud de amistad de "+item.getFirstname()+" "+item.getSurname());
+            if (item.getProfilePic() != null && !item.getProfilePic().isEmpty()) {
+                Picasso.get().load(item.getProfilePic()).into(imageViewUsuario);
+            } else {
+                imageViewUsuario.setImageResource(R.drawable.perfil);
+            }
+            buttonConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int requestId = item.getIdRequest();
+                    String status = "ACCEPT";
+                    ResponseFriendRequest response = new ResponseFriendRequest(requestId, status);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    ApiService apiService = retrofit.create(ApiService.class);
+                    Call<Void> call = apiService.responseFriendRequest(response);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                int position = getAdapterPosition();
+                                notificationItems.remove(position);
+                                notifyDataSetChanged();
+                            } else {
+                                // Acción en caso de respuesta no exitosa
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            // Acción en caso de fallo en la conexión
+                        }
+                    });
+                }
+            });
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int requestId = item.getIdRequest();
+                    String status = "REJECT";
+                    ResponseFriendRequest response = new ResponseFriendRequest(requestId, status);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    ApiService apiService = retrofit.create(ApiService.class);
+                    Call<Void> call = apiService.responseFriendRequest(response);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                int position = getAdapterPosition();
+                                notificationItems.remove(position);
+                                notifyDataSetChanged();
+                            } else {
+                                // Acción en caso de respuesta no exitosa
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            // Acción en caso de fallo en la conexión
+                        }
+                    });
+                }
+            });
         }
     }
 
