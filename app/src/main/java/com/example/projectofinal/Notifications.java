@@ -115,6 +115,10 @@ public class Notifications extends AppCompatActivity {
                     if (pendingRequests != null) {
                         for (TeamData request : pendingRequests) {
                             TeamData team = new TeamData(request.getId(),request.getTeamName(),request.getShortName(),request.getLogoPic(), request.getIdRequest());
+                            Log.d("Team", "ID: "+team.getId());
+                            Log.d("Team", "Name: "+team.getTeamName());
+                            Log.d("Team", "ShortName: "+team.getShortName());
+                            Log.d("Team", "IdRequest: "+team.getIdRequest());
                             invitaciones.add(team);
                         }
                     } else {
