@@ -44,7 +44,6 @@ public class Notifications extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         imageButtonBackFR = findViewById(R.id.imageButtonBackFR);
 
-        // Obtener el userId de las SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int userId = sharedPreferences.getInt("userId", -1);
 
