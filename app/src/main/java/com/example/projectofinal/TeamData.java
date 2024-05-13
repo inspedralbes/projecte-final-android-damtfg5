@@ -5,11 +5,20 @@ public class TeamData {
     private String teamName;
     private String logoPic;
     private String shortName;
+    private int idRequest;
 
     public TeamData(String teamName, String logoPic, String shortName) {
         this.teamName = teamName;
         this.logoPic = logoPic;
         this.shortName = shortName;
+    }
+
+    public TeamData(int id, String teamName, String logoPic, String shortName, int idRequest) {
+        this.id = id;
+        this.teamName = teamName;
+        this.logoPic = logoPic;
+        this.shortName = shortName;
+        this.idRequest = idRequest;
     }
 
     public int getId() {
@@ -42,6 +51,14 @@ public class TeamData {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public int getIdRequest() {
+        return idRequest;
+    }
+
+    public void setIdRequest(int idRequest) {
+        this.idRequest = idRequest;
     }
 }
 
