@@ -114,7 +114,7 @@ public class NotificacionesAdapter extends RecyclerView.Adapter<NotificacionesAd
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+        return usuarios != null ? usuarios.size() : 0;
     }
 
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
