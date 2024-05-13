@@ -113,12 +113,12 @@ public class Notifications extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<TeamData> pendingRequests = response.body();
                     if (pendingRequests != null) {
-                        for (TeamData request : pendingRequests) {
-                            TeamData team = new TeamData(request.getId(),request.getTeamName(),request.getShortName(),request.getLogoPic(), request.getIdRequest());
+                        for (TeamData requestTeam : pendingRequests) {
+                            TeamData team = new TeamData(requestTeam.getId(),requestTeam.getTeamName(),requestTeam.getLogoPic(),requestTeam.getShortName(), requestTeam.getIdRequestTeam());
                             Log.d("Team", "ID: "+team.getId());
                             Log.d("Team", "Name: "+team.getTeamName());
                             Log.d("Team", "ShortName: "+team.getShortName());
-                            Log.d("Team", "IdRequest: "+team.getIdRequest());
+                            Log.d("Team", "IdRequest: "+team.getIdRequestTeam());
                             invitaciones.add(team);
                         }
                     } else {

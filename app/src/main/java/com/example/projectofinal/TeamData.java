@@ -53,11 +53,11 @@ public class TeamData {
         this.shortName = shortName;
     }
 
-    public int getIdRequest() {
+    public int getIdRequestTeam() {
         return idRequest;
     }
 
-    public void setIdRequest(int idRequest) {
+    public void setIdRequestTeam(int idRequest) {
         this.idRequest = idRequest;
     }
 }
