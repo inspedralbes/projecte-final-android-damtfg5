@@ -70,6 +70,9 @@ public class EditarEquipo extends AppCompatActivity {
                     List<TeamData> teams = response.body();
                     if (!teams.isEmpty()) {
                         TeamData team = teams.get(0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("teamId", team.getId());
+                        editor.apply();
                         editTextNE.setText(team.getTeamName());
                         editTextAbreviacion.setText(team.getShortName());
                         String imageUrl = team.getLogoPic();

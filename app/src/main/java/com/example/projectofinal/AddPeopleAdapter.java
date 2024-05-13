@@ -1,6 +1,8 @@
 package com.example.projectofinal;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class AddPeopleAdapter extends RecyclerView.Adapter<AddPeopleAdapter.ViewHolder> {
 
     private List<Usuario> usuarioList;
     private Context context;
+    private String URL = "http://192.168.206.176:3001/";
+    int teamId;
 
     public AddPeopleAdapter(Context context, List<Usuario> usuarioList) {
         this.context = context;
@@ -49,7 +60,34 @@ public class AddPeopleAdapter extends RecyclerView.Adapter<AddPeopleAdapter.View
         holder.buttonInvitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Acción al hacer clic en el botón Invitar
+                inviteUserToTeam(usuario.getId());
+            }
+        });
+    }
+
+    private void inviteUserToTeam(int userId) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int teamId = sharedPreferences.getInt("teamId", -1);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        InviteBody inviteBody = new InviteBody(teamId, userId); // Ajusta esto según tus necesidades
+        Call<Void> call = apiService.inviteUserToTeam(inviteBody);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Manejar la respuesta exitosa
+                } else {
+                    // Manejar respuesta no exitosa
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Manejar fallos en la solicitud
             }
         });
     }

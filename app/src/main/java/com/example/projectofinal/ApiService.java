@@ -33,4 +33,7 @@ public interface ApiService {
     @POST("/getTeam")
     Call<List<TeamData>> getTeam(@Body UserIdRequest userId);
 
+    @POST("/inviteUserToTeam")
+    Call<Void> inviteUserToTeam(@Body InviteBody inviteBody);
+
 }

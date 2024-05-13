@@ -76,29 +76,12 @@ public class AddPeopleFragment extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle2);
     }
 
-    /*private void filtrarUsuarios(String texto) {
-        if (texto.isEmpty()) {
-            // Si el texto de búsqueda está vacío, mostrar los 5 usuarios aleatorios
-            adapter.setUsuario(listaUsuariosAleatorios);
-        } else {
-            // Filtrar la lista completa de usuarios según el texto de búsqueda
-            List<Usuario> listaFiltrada = new ArrayList<>();
-            for (Usuario usuario : usuarioList) {
-                if (usuario.getFirstname().toLowerCase().contains(texto.toLowerCase()) || usuario.getSurname().toLowerCase().contains(texto.toLowerCase()) ) {
-                    listaFiltrada.add(usuario);
-                }
-            }
-            adapter.setUsuario(listaFiltrada);
-        }
-    }*/
-
     private void filtrarUsuarios(String texto) {
         if (texto.isEmpty()) {
-            // Si el texto de búsqueda está vacío, mostrar una lista vacía
             adapter.setUsuario(new ArrayList<>());
         } else {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(URL) // Reemplaza BASE_URL con la URL base de tu servidor
+                    .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
