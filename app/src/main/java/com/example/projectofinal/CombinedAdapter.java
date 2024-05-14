@@ -108,7 +108,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.isSuccessful()) {
                                 int position = getAdapterPosition();
-                                notificationItems.remove(position);
+                                notificationItems.remove(item);
                                 notifyDataSetChanged();
                             } else {
                                 // Acción en caso de respuesta no exitosa
@@ -139,7 +139,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.isSuccessful()) {
                                 int position = getAdapterPosition();
-                                notificationItems.remove(position);
+                                notificationItems.remove(item);
                                 notifyDataSetChanged();
                             } else {
                                 // Acción en caso de respuesta no exitosa
@@ -157,7 +157,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private class InvitationViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageViewUsuario;
+        private ImageView imageViewTeam;
         private TextView invitationText;
         private Button buttonConfirm;
         private Button buttonDelete;
@@ -165,13 +165,84 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         InvitationViewHolder(@NonNull View itemView) {
             super(itemView);
             invitationText = itemView.findViewById(R.id.textViewIT);
-            imageViewUsuario = itemView.findViewById(R.id.imageViewTeam);
+            imageViewTeam = itemView.findViewById(R.id.imageViewTeam);
             buttonConfirm = itemView.findViewById(R.id.buttonConfirm);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
         }
 
         void bind(TeamData item) {
-            invitationText.setText("Invitation for team " + item.getTeamName());
+            invitationText.setText("Invitacion para el equipo " + item.getTeamName());
+            if (item.getLogoPic() != null && !item.getLogoPic().isEmpty()) {
+                Picasso.get().load(item.getLogoPic()).into(imageViewTeam);
+            } else {
+                imageViewTeam.setImageResource(R.drawable.perfil);
+            }
+
+            buttonConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int requestId = item.getIdRequestTeam();
+                    String status = "ACCEPT";
+                    ResponseFriendRequest responseTeam = new ResponseFriendRequest(requestId, status);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    ApiService apiService = retrofit.create(ApiService.class);
+                    Call<Void> call = apiService.responseTeamInvitation(responseTeam);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                int position = getAdapterPosition();
+                                invitationList.remove(item);
+                                notifyDataSetChanged();
+                            } else {
+                                // Acción en caso de respuesta no exitosa
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            // Acción en caso de fallo en la conexión
+                        }
+                    });
+                }
+            });
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int requestId = item.getIdRequestTeam();
+                    String status = "REJECT";
+                    ResponseFriendRequest responseTeam = new ResponseFriendRequest(requestId, status);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    ApiService apiService = retrofit.create(ApiService.class);
+                    Call<Void> call = apiService.responseTeamInvitation(responseTeam);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                int position = getAdapterPosition();
+                                invitationList.remove(item);
+                                notifyDataSetChanged();
+                            } else {
+                                // Acción en caso de respuesta no exitosa
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            // Acción en caso de fallo en la conexión
+                        }
+                    });
+                }
+            });
         }
     }
 }

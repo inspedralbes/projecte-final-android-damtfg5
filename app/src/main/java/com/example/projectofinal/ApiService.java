@@ -39,4 +39,7 @@ public interface ApiService {
     @POST("/pendingTeamInvitations")
     Call<List<TeamData>> getPendingTeamInvitations(@Body UserIdRequest userIdRequest);
 
+    @POST("/responseTeamInvitation")
+    Call<Void> responseTeamInvitation(@Body ResponseFriendRequest responseFriendRequest);
+
 }
