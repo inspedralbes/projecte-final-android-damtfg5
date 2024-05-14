@@ -44,7 +44,7 @@ public class UsersTeamAdapter extends RecyclerView.Adapter<UsersTeamAdapter.View
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return userList != null ? userList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

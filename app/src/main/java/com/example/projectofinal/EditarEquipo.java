@@ -3,6 +3,8 @@ package com.example.projectofinal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,21 +28,33 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EditarEquipo extends AppCompatActivity {
     private String URL = "http://192.168.206.176:3001/";
     int userId;
+    ConstraintLayout firstLayout,secondLayout;
+    EditText editTextNE,editTextAbreviacion;
+    ImageButton imageButtonClearNE,imageButtonClearAbreviacion;
+    Button buttonAñadirGente,buttonEditarEquipo;
+    ImageView imageViewUsuario;
+    RecyclerView recyclerView;
+    private UsersTeamAdapter adapter;
+    private List<Usuario> userList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_equipo);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = sharedPreferences.getInt("userId", -1);
-        ConstraintLayout firstLayout = findViewById(R.id.firstLayout);
-        ConstraintLayout secondLayout = findViewById(R.id.secondLayout);
-        EditText editTextNE = findViewById(R.id.editTextNE);
-        EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
-        ImageButton imageButtonClearNE = findViewById(R.id.imageButtonClear1);
-        ImageButton imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
-        Button buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
-        Button buttonEditarEquipo = findViewById(R.id.buttonEditarEquipo);
-        ImageView imageViewUsuario = findViewById(R.id.imageViewUsuario);
+        firstLayout = findViewById(R.id.firstLayout);
+        secondLayout = findViewById(R.id.secondLayout);
+        editTextNE = findViewById(R.id.editTextNE);
+        editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
+        imageButtonClearNE = findViewById(R.id.imageButtonClear1);
+        imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
+        buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
+        buttonEditarEquipo = findViewById(R.id.buttonEditarEquipo);
+        imageViewUsuario = findViewById(R.id.imageViewUsuario);
+        recyclerView = findViewById(R.id.recyclerviewUsTe);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new UsersTeamAdapter(EditarEquipo.this, userList);
+        recyclerView.setAdapter(adapter);
 
         setupEditTextFocusChange(editTextNE, firstLayout, imageButtonClearNE);
         setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
