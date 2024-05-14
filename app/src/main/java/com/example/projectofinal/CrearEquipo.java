@@ -37,21 +37,12 @@ public class CrearEquipo extends AppCompatActivity {
         EditText editTextAbreviacion = findViewById(R.id.editTextAbreviacion);
         ImageButton imageButtonClearNE = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearAbreviacion = findViewById(R.id.imageButtonClear2);
-        Button buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
         Button buttonCrearEquipo = findViewById(R.id.buttonCrearEquipo);
 
         setupEditTextFocusChange(editTextNE, firstLayout, imageButtonClearNE);
         setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
         setupImageButtonClear(editTextNE, imageButtonClearNE);
         setupImageButtonClear(editTextAbreviacion, imageButtonClearAbreviacion);
-
-        buttonAñadirGente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddPeopleFragment dialogFragment = new AddPeopleFragment();
-                dialogFragment.show(getSupportFragmentManager(), "AddPeopleFragment");
-            }
-        });
 
         imageButtonUsuario = findViewById(R.id.imageViewUsuario);
         imageButtonUsuario.setOnClickListener(new View.OnClickListener() {
