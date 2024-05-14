@@ -6,6 +6,7 @@ public class Usuario {
     private String surname;
     private String profilePic;
     private int idRequest;
+    private String position;
 
     // Constructor
     public Usuario(int id, String firstname, String surname, String profilePic) {
@@ -21,6 +22,14 @@ public class Usuario {
         this.surname = surname;
         this.profilePic = profilePic;
         this.idRequest = idRequest;
+    }
+
+    public Usuario(int id, String firstname, String surname, String profilePic, String position) {
+        this.id = id;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.profilePic = profilePic;
+        this.position = position;
     }
 
     // Getters y Setters
@@ -63,6 +72,14 @@ public class Usuario {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
 
