@@ -43,6 +43,6 @@ public interface ApiService {
     Call<Void> responseTeamInvitation(@Body ResponseFriendRequest responseFriendRequest);
 
     @POST("/teamUsers")
-    Call<List<Usuario>> getTeamUsers(@Body UserIdRequest userIdRequest);
+    Call<List<Usuario>> getTeamUsers(@Body TeamIdRequest idTeam);
 
 }

@@ -33,8 +33,13 @@ public class UsersTeamAdapter extends RecyclerView.Adapter<UsersTeamAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Usuario user = userList.get(position);
-        holder.textViewNombreUsuario.setText(user.getSurname());
+        holder.textViewNombreUsuario.setText(user.getFirstname()+" "+user.getSurname());
         holder.textViewPosicionUsuario.setText(user.getPosition());
+        if (user.getPosition() != null && !user.getPosition().isEmpty()) {
+            holder.textViewPosicionUsuario.setText(user.getPosition());
+        } else {
+            holder.textViewPosicionUsuario.setText("Sin Posicion");
+        }
         if (user.getProfilePic() != null && !user.getProfilePic().isEmpty()) {
             Picasso.get().load(user.getProfilePic()).into(holder.imageViewUsuario);
         } else {

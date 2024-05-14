@@ -95,7 +95,7 @@ public class EditarEquipo extends AppCompatActivity {
                         String imageUrl = team.getLogoPic();
                         Picasso.get().load(imageUrl).into(imageViewUsuario);
 
-                        UserIdRequest teamIdRequest = new UserIdRequest(team.getId());
+                        TeamIdRequest teamIdRequest = new TeamIdRequest(team.getId());
                         Call<List<Usuario>> call1 = apiService.getTeamUsers(teamIdRequest);
                         call1.enqueue(new Callback<List<Usuario>>() {
                             @Override
