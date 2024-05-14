@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -51,6 +53,7 @@ public class EditarEquipo extends AppCompatActivity {
         buttonAñadirGente = findViewById(R.id.buttonAñadirGente);
         buttonEditarEquipo = findViewById(R.id.buttonEditarEquipo);
         imageViewUsuario = findViewById(R.id.imageViewUsuario);
+        userList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerviewUsTe);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new UsersTeamAdapter(EditarEquipo.this, userList);
@@ -91,8 +94,28 @@ public class EditarEquipo extends AppCompatActivity {
                         editTextAbreviacion.setText(team.getShortName());
                         String imageUrl = team.getLogoPic();
                         Picasso.get().load(imageUrl).into(imageViewUsuario);
-                    } else {
 
+                        UserIdRequest teamIdRequest = new UserIdRequest(team.getId());
+                        Call<List<Usuario>> call1 = apiService.getTeamUsers(teamIdRequest);
+                        call1.enqueue(new Callback<List<Usuario>>() {
+                            @Override
+                            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                                if (response.isSuccessful()) {
+                                    userList = response.body();
+                                    if (userList != null) {
+                                        adapter = new UsersTeamAdapter(EditarEquipo.this, userList);
+                                        recyclerView.setAdapter(adapter);
+                                    }
+                                } else {
+                                    Log.e("UserListResponse", "Error en la respuesta del servidor: " + response.message());
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                                Log.e("UserListRequest", "Error en la solicitud HTTP: " + t.getMessage());
+                                Toast.makeText(EditarEquipo.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 } else {
                     Log.e("TeamResponse", "Error en la respuesta del servidor: " + response.message());

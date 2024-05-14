@@ -42,4 +42,7 @@ public interface ApiService {
     @POST("/responseTeamInvitation")
     Call<Void> responseTeamInvitation(@Body ResponseFriendRequest responseFriendRequest);
 
+    @POST("/teamUsers")
+    Call<List<Usuario>> getTeamUsers(@Body UserIdRequest userIdRequest);
+
 }
