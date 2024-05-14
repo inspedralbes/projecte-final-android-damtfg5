@@ -7,6 +7,8 @@ public class Usuario {
     private String profilePic;
     private int idRequest;
     private String position;
+    private int idTeam;
+    private String amigo;
 
     // Constructor
     public Usuario(int id, String firstname, String surname, String profilePic) {
@@ -80,6 +82,22 @@ public class Usuario {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public int getIdTeam() {
+        return idTeam;
+    }
+
+    public void setIdTeam(int idTeam) {
+        this.idTeam = idTeam;
+    }
+
+    public String getAmigo() {
+        return amigo;
+    }
+
+    public void setAmigo(String amigo) {
+        this.amigo = amigo;
     }
 }
 

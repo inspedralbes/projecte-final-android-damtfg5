@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -55,13 +56,23 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             holder.imageViewUsuario.setImageResource(R.drawable.perfil);
         }
         holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
-        holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FriendRequestBody friendRequestBody = new FriendRequestBody(userId, usuario.getId());
-                sendFriendRequestToServer(friendRequestBody);
-            }
-        });
+
+        if(usuario.getAmigo().equals("Amigo")){
+            holder.buttonSeguir.setText("Amigos");
+            holder.buttonSeguir.setBackgroundResource(R.drawable.button_amigobg);
+            Context context = holder.buttonSeguir.getContext();
+            holder.buttonSeguir.setTextColor(ContextCompat.getColor(context, R.color.white));
+
+        }else{
+            holder.buttonSeguir.setBackgroundResource(R.drawable.button_selectorbg1);
+            holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FriendRequestBody friendRequestBody = new FriendRequestBody(userId, usuario.getId());
+                    sendFriendRequestToServer(friendRequestBody);
+                }
+            });
+        }
     }
 
     @Override
