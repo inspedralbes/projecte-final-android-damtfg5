@@ -36,6 +36,7 @@ public class EditarPerfil extends AppCompatActivity {
         ImageButton imageButtonClearNC = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearEmail = findViewById(R.id.imageButtonClear2);
         ImageButton imageButtonClearPhone = findViewById(R.id.imageButtonClear3);
+        ImageButton imageButtonBackPerfil = findViewById(R.id.imageButtonBP);
         TextView textViewfecha = findViewById(R.id.textViewFecha);
         // Habilitar el TextView y cambiar su color a naranja cuando se detecten cambios
         textViewCambiosGuardados.setEnabled(true);
@@ -58,6 +59,13 @@ public class EditarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDatePicker();
+            }
+        });
+
+        imageButtonBackPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

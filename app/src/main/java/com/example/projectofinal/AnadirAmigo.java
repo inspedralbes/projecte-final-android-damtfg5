@@ -87,7 +87,9 @@ public class AnadirAmigo extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<Usuario>> call = apiService.getUsers();
+        UserIdRequest userIdRequest = new UserIdRequest(userId);
+
+        Call<List<Usuario>> call = apiService.getUsers(userIdRequest);
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {

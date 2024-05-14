@@ -1,11 +1,13 @@
 package com.example.projectofinal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,10 +35,13 @@ public class AddPeopleFragment extends DialogFragment {
     private List<Usuario> usuarioList;
     private EditText editTextBuscador;
     private String URL = "http://192.168.206.176:3001/";
+    int userId;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_people, container, false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        userId = sharedPreferences.getInt("userId", -1);
 
         ImageButton imageButton = view.findViewById(R.id.imageButtonCloseAP);
         editTextBuscador = view.findViewById(R.id.editTextBuscador);
@@ -86,7 +91,8 @@ public class AddPeopleFragment extends DialogFragment {
                     .build();
 
             ApiService apiService = retrofit.create(ApiService.class);
-            Call<List<Usuario>> call = apiService.getUsers();
+            UserIdRequest userIdRequest = new UserIdRequest(userId);
+            Call<List<Usuario>> call = apiService.getUsers(userIdRequest);
             call.enqueue(new Callback<List<Usuario>>() {
                 @Override
                 public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {

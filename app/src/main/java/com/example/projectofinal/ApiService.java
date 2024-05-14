@@ -18,8 +18,8 @@ public interface ApiService {
     @POST("/createTeam")
     Call<Void> createTeam(@Body TeamData teamData);
 
-    @GET("/getUsers")
-    Call<List<Usuario>> getUsers();
+    @POST("/getUsers")
+    Call<List<Usuario>> getUsers(@Body UserIdRequest userIdRequest);
 
     @POST("/sendFriendRequest")
     Call<Void> sendFriendRequest(@Body FriendRequestBody friendRequestBody);
