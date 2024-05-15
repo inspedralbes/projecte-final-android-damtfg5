@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,23 +52,42 @@ public class AddPeopleAdapter extends RecyclerView.Adapter<AddPeopleAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Usuario usuario = usuarioList.get(position);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        teamId = sharedPreferences.getInt("teamId", -1);
         holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
         if (usuario.getProfilePic() != null && !usuario.getProfilePic().isEmpty()) {
             Picasso.get().load(usuario.getProfilePic()).into(holder.imageViewUsuario);
         } else {
             holder.imageViewUsuario.setImageResource(R.drawable.perfil);
         }
-        holder.buttonInvitar.setOnClickListener(new View.OnClickListener() {
+
+        if(usuario.getIdTeam()==teamId){
+            holder.buttonInvitar.setText("EN EL EQUIPO");
+            holder.buttonInvitar.setBackgroundResource(R.drawable.button_amigobg);
+            Context context = holder.buttonInvitar.getContext();
+            holder.buttonInvitar.setTextColor(ContextCompat.getColor(context, R.color.white));
+            holder.buttonInvitar.setClickable(false);
+        }else{
+            holder.buttonInvitar.setBackgroundResource(R.drawable.button_selectorbg2);
+            holder.buttonInvitar.setText("INVITAR");
+            Context context = holder.buttonInvitar.getContext();
+            holder.buttonInvitar.setTextColor(ContextCompat.getColor(context, R.color.black));
+            holder.buttonInvitar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    inviteUserToTeam(usuario.getId());
+                }
+            });
+        }
+        /*holder.buttonInvitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inviteUserToTeam(usuario.getId());
             }
-        });
+        });*/
     }
 
     private void inviteUserToTeam(int userId) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int teamId = sharedPreferences.getInt("teamId", -1);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())

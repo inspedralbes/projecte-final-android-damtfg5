@@ -65,6 +65,9 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
         }else{
             holder.buttonSeguir.setBackgroundResource(R.drawable.button_selectorbg1);
+            holder.buttonSeguir.setText("SEGUIR");
+            Context context = holder.buttonSeguir.getContext();
+            holder.buttonSeguir.setTextColor(ContextCompat.getColor(context, R.color.black));
             holder.buttonSeguir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
