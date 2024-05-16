@@ -33,7 +33,7 @@ public class ReservaPista extends AppCompatActivity {
             }
         });
 
-        /*Context ctx = getApplicationContext();
+        Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         map = (MapView) findViewById(R.id.map);
         map.getTileProvider().clearTileCache();
@@ -60,7 +60,7 @@ public class ReservaPista extends AppCompatActivity {
         mapController.setCenter(startPoint);
         final Context context = this;
         map.invalidate();
-        createmarker();*/
+        createmarker();
     }
 
     public void createmarker(){
