@@ -77,4 +77,27 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButtonFiltros"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <ImageButton
+        android:id="@+id/imageButtonZoomIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/zoom_buttonbg"
+        android:padding="16dp"
+        android:src="@drawable/add_black"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonZoomOut"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón de zoom out -->
+    <ImageButton
+        android:id="@+id/imageButtonZoomOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/zoom_buttonbg"
+        android:padding="16dp"
+        android:src="@drawable/remove_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

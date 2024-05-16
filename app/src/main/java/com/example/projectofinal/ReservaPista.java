@@ -12,8 +12,6 @@ import android.widget.ImageButton;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.events.ScrollEvent;
-import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.MapTileIndex;
@@ -28,11 +26,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ReservaPista extends AppCompatActivity implements ScrollListener, ZoomListener {
+public class ReservaPista extends AppCompatActivity {
     ImageButton imageButtonBackReserva;
     MapView map;
-    private Marker marker;
-    private GeoPoint markerPosition;
+    ImageButton imageButtonZoomIn;
+    ImageButton imageButtonZoomOut;
     private String URL = "http://192.168.206.176:3001/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +38,27 @@ public class ReservaPista extends AppCompatActivity implements ScrollListener, Z
         setContentView(R.layout.activity_reserva_pista);
 
         imageButtonBackReserva = findViewById(R.id.imageButtonBackReserva);
+        imageButtonZoomIn = findViewById(R.id.imageButtonZoomIn);
+        imageButtonZoomOut = findViewById(R.id.imageButtonZoomOut);
 
         imageButtonBackReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomIn();
+            }
+        });
+
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomOut();
             }
         });
 
@@ -55,7 +69,7 @@ public class ReservaPista extends AppCompatActivity implements ScrollListener, Z
         Configuration.getInstance().setCacheMapTileCount((short)12);
         Configuration.getInstance().setCacheMapTileOvershoot((short)12);
         // Create a custom tile source
-        map.setTileSource(new OnlineTileSourceBase("", 1, 20, 512, ".png",
+        map.setTileSource(new OnlineTileSourceBase("", 1, 20, 730, ".png",
                 new String[] { "https://a.tile.openstreetmap.org/" }) {
             @Override
             public String getTileURLString(long pMapTileIndex) {
@@ -71,7 +85,7 @@ public class ReservaPista extends AppCompatActivity implements ScrollListener, Z
         IMapController mapController = map.getController();
         GeoPoint startPoint;
         startPoint = new GeoPoint(41.39279906, 2.118284722);
-        mapController.setZoom(15.0);
+        mapController.setZoom(14.0);
         mapController.setCenter(startPoint);
         map.invalidate();
         getSpacesFromServer("Barcelona");
@@ -115,34 +129,21 @@ public class ReservaPista extends AppCompatActivity implements ScrollListener, Z
             return;
         }
 
-        markerPosition = new GeoPoint(latitude, longitude);
-        marker = new Marker(map);
-        marker.setPosition(markerPosition);
+        Marker marker = new Marker(map);
+        marker.setPosition(new GeoPoint(latitude, longitude));
         marker.setTitle(title);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         marker.setPanToView(true);
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         map.getOverlays().add(marker);
         map.invalidate();
-
     }
 
-    @Override
-    public boolean onScroll(ScrollEvent event) {
-        // Actualizar la posición del marcador durante el desplazamiento del mapa
-        if (marker != null && markerPosition != null) {
-            marker.setPosition(markerPosition);
-            map.invalidate();
-        }
-        return false; // O true, según sea necesario
+    private void zoomIn() {
+        map.getController().zoomIn();
     }
 
-    @Override
-    public boolean onZoom(ZoomEvent event) {
-        // Actualizar la posición del marcador durante el zoom del mapa
-        if (marker != null && markerPosition != null) {
-            marker.setPosition(markerPosition);
-            map.invalidate();
-        }
-        return false; // O true, según sea necesario
+    private void zoomOut() {
+        map.getController().zoomOut();
     }
+
 }
