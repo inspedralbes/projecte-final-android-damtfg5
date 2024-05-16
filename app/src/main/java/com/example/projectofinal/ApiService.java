@@ -45,4 +45,7 @@ public interface ApiService {
     @POST("/teamUsers")
     Call<List<Usuario>> getTeamUsers(@Body TeamIdRequest idTeam);
 
+    @POST("/getSpaces")
+    Call<List<Space>> getSpaces(@Body MunicipiRequest municipiRequest);
+
 }
