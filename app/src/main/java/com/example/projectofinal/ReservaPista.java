@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ReservaPista extends AppCompatActivity {
+public class ReservaPista extends AppCompatActivity{
     ImageButton imageButtonBackReserva;
     MapView map;
     ImageButton imageButtonZoomIn;
@@ -134,6 +135,16 @@ public class ReservaPista extends AppCompatActivity {
         marker.setTitle(title);
         marker.setPanToView(true);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                Intent intent = new Intent(ReservaPista.this, MarkerInfoActivity.class);
+                intent.putExtra("title", marker.getTitle());
+                intent.putExtra("description", marker.getSnippet());
+                startActivity(intent);
+                return true;
+            }
+        });
         map.getOverlays().add(marker);
         map.invalidate();
     }
