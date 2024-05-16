@@ -110,7 +110,7 @@ public class ReservaPista extends AppCompatActivity {
                         double spaceLatitud = Double.parseDouble(space.getLatitud());
                         double spaceLongitud = Double.parseDouble(space.getLongitud());
 
-                        createMarker(spaceLatitud, spaceLongitud, space.getTipus_d_espai());
+                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal());
                     }
                 } else {
                     // Manejar respuesta no exitosa

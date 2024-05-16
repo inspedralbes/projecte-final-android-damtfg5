@@ -88,7 +88,6 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButtonZoomOut"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón de zoom out -->
     <ImageButton
         android:id="@+id/imageButtonZoomOut"
         android:layout_width="wrap_content"
