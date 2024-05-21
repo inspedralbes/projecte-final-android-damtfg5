@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridLayout;
@@ -78,13 +79,15 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = GridLayout.LayoutParams.WRAP_CONTENT;
         params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        params.setMargins(20, 20, 20, 20);
         cardView.setLayoutParams(params);
-        cardView.setRadius(8); // Redondea las esquinas del CardView
-        cardView.setCardElevation(4); // Elevación del CardView
+        cardView.setRadius(16);
+        cardView.setCardElevation(4);
 
         TextView textViewHour = new TextView(this);
         textViewHour.setText(hour);
-        textViewHour.setPadding(16, 16, 16, 16);
+        textViewHour.setTextColor(Color.BLACK);
+        textViewHour.setPadding(50, 50, 50, 50);
         cardView.addView(textViewHour); // Agrega el TextView al CardView
 
         gridLayout.addView(cardView); // Agrega el CardView al GridLayout
