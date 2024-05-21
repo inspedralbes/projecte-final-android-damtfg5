@@ -68,11 +68,9 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
             }
         });
 
-        for (int hour = 0; hour <= 22; hour++) {
-            for (int minute = 0; minute < 60; minute += 30) {
-                String formattedHour = String.format("%02d:%02d", hour, minute);
-                addHourCard(gridLayout, formattedHour);
-            }
+        List<String> hoursList = HourGenerator.generateHoursFromNowUntil22();
+        for (String hour : hoursList) {
+            addHourCard(gridLayout, hour);
         }
     }
     private void addHourCard(GridLayout gridLayout, String hour) {
