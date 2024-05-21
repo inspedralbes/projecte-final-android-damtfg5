@@ -3,9 +3,11 @@ package com.example.projectofinal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,10 +26,14 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private Switch switchShowAvailableHours;
     GridLayout gridLayout;
     private CardView selectedCardView = null;
+    int teamId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marker_info);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        teamId = sharedPreferences.getInt("teamId", -1);
 
         textViewTitle = findViewById(R.id.textViewtitleRP);
         imageButtonBackMarkerInfo = findViewById(R.id.imageButtonBackMarkerInfo);
