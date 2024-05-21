@@ -2,6 +2,8 @@ package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,7 @@ public class ReservaPista extends AppCompatActivity{
         imageButtonBackReserva = findViewById(R.id.imageButtonBackReserva);
         imageButtonZoomIn = findViewById(R.id.imageButtonZoomIn);
         imageButtonZoomOut = findViewById(R.id.imageButtonZoomOut);
+
 
         imageButtonBackReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +114,7 @@ public class ReservaPista extends AppCompatActivity{
                         double spaceLatitud = Double.parseDouble(space.getLatitud());
                         double spaceLongitud = Double.parseDouble(space.getLongitud());
 
-                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal());
+                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal(),space.getMunicipi(),space.getPaviment());
                     }
                 } else {
                     // Manejar respuesta no exitosa
@@ -125,7 +128,7 @@ public class ReservaPista extends AppCompatActivity{
         });
     }
 
-    private void createMarker(double latitude, double longitude, String title) {
+    private void createMarker(double latitude, double longitude, String title,String municipi, String paviment) {
         if (map == null) {
             return;
         }
@@ -140,7 +143,8 @@ public class ReservaPista extends AppCompatActivity{
             public boolean onMarkerClick(Marker marker, MapView mapView) {
                 Intent intent = new Intent(ReservaPista.this, MarkerInfoActivity.class);
                 intent.putExtra("title", marker.getTitle());
-                intent.putExtra("description", marker.getSnippet());
+                intent.putExtra("municipi", municipi);
+                intent.putExtra("paviment",paviment);
                 startActivity(intent);
                 return true;
             }
