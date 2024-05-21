@@ -2,6 +2,7 @@ package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private DayAdapter dayAdapter;
     private Switch switchShowAvailableHours;
     GridLayout gridLayout;
+    private CardView selectedCardView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         cardView.setLayoutParams(params);
         cardView.setRadius(16);
         cardView.setCardElevation(4);
+        cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
 
         TextView textViewHour = new TextView(this);
         textViewHour.setText(hour);
@@ -90,11 +93,30 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         textViewHour.setPadding(50, 50, 50, 50);
         cardView.addView(textViewHour); // Agrega el TextView al CardView
 
+        cardView.setOnClickListener(v -> {
+            if (selectedCardView != null) {
+                selectedCardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
+                ((TextView) selectedCardView.getChildAt(0)).setTextColor(Color.BLACK);
+            }
+            cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_orange_cardview));
+            textViewHour.setTextColor(Color.WHITE);
+            selectedCardView = cardView;
+
+            // Puedes agregar la lógica para marcar la hora como reservada aquí
+        });
+
         gridLayout.addView(cardView); // Agrega el CardView al GridLayout
     }
 
     public void onItemClick(int position) {
         recyclerView.smoothScrollToPosition(position+3);
-
+        updateScreen();
+    }
+    private void updateScreen() {
+        List<String> hoursList = HourGenerator.generateHoursFromNowUntil22();
+        gridLayout.removeAllViews(); // Borra todos los CardViews existentes
+        for (String hour : hoursList) {
+            addHourCard(gridLayout, hour); // Agrega los nuevos CardViews
+        }
     }
 }
