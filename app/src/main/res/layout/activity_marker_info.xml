@@ -28,13 +28,14 @@
 
     <TextView
         android:id="@+id/textViewtitleRP"
-        android:layout_width="wrap_content"
+        android:layout_width="351dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text="TITULO"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButtonBackMarkerInfo"
         app:layout_constraintTop_toTopOf="parent" />
 

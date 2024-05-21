@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +32,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ReservaPista extends AppCompatActivity{
+public class ReservaPista extends AppCompatActivity {
     ImageButton imageButtonBackReserva;
     MapView map;
     ImageButton imageButtonZoomIn;
     ImageButton imageButtonZoomOut;
     private String URL = "http://192.168.206.176:3001/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,6 @@ public class ReservaPista extends AppCompatActivity{
         imageButtonBackReserva = findViewById(R.id.imageButtonBackReserva);
         imageButtonZoomIn = findViewById(R.id.imageButtonZoomIn);
         imageButtonZoomOut = findViewById(R.id.imageButtonZoomOut);
-
 
         imageButtonBackReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +71,13 @@ public class ReservaPista extends AppCompatActivity{
 
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        map = (MapView) findViewById(R.id.map);
+        map = findViewById(R.id.map);
         map.getTileProvider().clearTileCache();
-        Configuration.getInstance().setCacheMapTileCount((short)12);
-        Configuration.getInstance().setCacheMapTileOvershoot((short)12);
+        Configuration.getInstance().setCacheMapTileCount((short) 12);
+        Configuration.getInstance().setCacheMapTileOvershoot((short) 12);
         // Create a custom tile source
         map.setTileSource(new OnlineTileSourceBase("", 1, 20, 730, ".png",
-                new String[] { "https://a.tile.openstreetmap.org/" }) {
+                new String[]{"https://a.tile.openstreetmap.org/"}) {
             @Override
             public String getTileURLString(long pMapTileIndex) {
                 return getBaseUrl()
@@ -87,8 +90,7 @@ public class ReservaPista extends AppCompatActivity{
 
         map.setMultiTouchControls(true);
         IMapController mapController = map.getController();
-        GeoPoint startPoint;
-        startPoint = new GeoPoint(41.39279906, 2.118284722);
+        GeoPoint startPoint = new GeoPoint(41.39279906, 2.118284722);
         mapController.setZoom(14.0);
         mapController.setCenter(startPoint);
         map.invalidate();
@@ -114,7 +116,7 @@ public class ReservaPista extends AppCompatActivity{
                         double spaceLatitud = Double.parseDouble(space.getLatitud());
                         double spaceLongitud = Double.parseDouble(space.getLongitud());
 
-                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal(),space.getMunicipi(),space.getPaviment());
+                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal(), space.getMunicipi(), space.getPaviment());
                     }
                 } else {
                     // Manejar respuesta no exitosa
@@ -128,23 +130,39 @@ public class ReservaPista extends AppCompatActivity{
         });
     }
 
-    private void createMarker(double latitude, double longitude, String title,String municipi, String paviment) {
+    private void createMarker(double latitude, double longitude, String title, String municipi, String paviment) {
         if (map == null) {
             return;
         }
 
         Marker marker = new Marker(map);
         marker.setPosition(new GeoPoint(latitude, longitude));
+
+        // Obtener la dirección utilizando Geocoder
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        String addressLine = "";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (!addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                addressLine = address.getAddressLine(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         marker.setTitle(title);
         marker.setPanToView(true);
         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        String finalAddressLine = addressLine; // Necesario para usar en el Listener
         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView) {
                 Intent intent = new Intent(ReservaPista.this, MarkerInfoActivity.class);
                 intent.putExtra("title", marker.getTitle());
                 intent.putExtra("municipi", municipi);
-                intent.putExtra("paviment",paviment);
+                intent.putExtra("paviment", paviment);
+                intent.putExtra("address", finalAddressLine);
                 startActivity(intent);
                 return true;
             }
@@ -160,5 +178,4 @@ public class ReservaPista extends AppCompatActivity{
     private void zoomOut() {
         map.getController().zoomOut();
     }
-
 }

@@ -47,9 +47,10 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         String title = getIntent().getStringExtra("title");
         String municipi = getIntent().getStringExtra("municipi");
         String paviment = getIntent().getStringExtra("paviment");
+        String address = getIntent().getStringExtra("address");
 
         // Muestra los datos en los TextView
-        textViewTitle.setText(title+" "+municipi);
+        textViewTitle.setText(address);
 
         dayAdapter.setOnItemClickListener(this);
         imageButtonBackMarkerInfo.setOnClickListener(new View.OnClickListener() {
