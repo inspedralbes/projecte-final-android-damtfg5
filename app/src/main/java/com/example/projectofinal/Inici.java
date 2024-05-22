@@ -34,14 +34,6 @@ public class Inici extends AppCompatActivity {
                     replaceFragment(new FragmentJugar());
                     showImageButton();
                     break;
-                case "descubrir":
-                    replaceFragment(new FragmentDescubrir());
-                    showImageButton();
-                    break;
-                case "comunidad":
-                    replaceFragment(new FragmentComunidad());
-                    showImageButton();
-                    break;
                 case "perfil":
                     replaceFragment(new FragmentPerfil());
                     hideImageButton();

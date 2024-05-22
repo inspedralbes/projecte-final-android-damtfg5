@@ -50,5 +50,7 @@ public interface ApiService {
 
     @POST("/insertGameUserStats")
     Call<Void> insertGameUserStats(@Body GameUserStats userStats);
+    @POST("/addGame")
+    Call<Void> addGame(@Body GameData gameData);
 
 }
