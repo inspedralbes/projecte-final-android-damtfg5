@@ -132,6 +132,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2" />
 
+            <View
+                android:id="@+id/horizontalLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/gris"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texViewNomTeam2" />
+
+            <TextView
+                android:id="@+id/textViewNivelMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amistoso Nivel 1,05 - 3,45"
+                android:textColor="@color/negro1"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine" />
+
+            <Button
+                android:id="@+id/buttonEntrarMatch"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:background="@color/naranja1"
+                android:text="UNIRSE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewNivelMatch"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine"
+                app:layout_constraintVertical_bias="0.0" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

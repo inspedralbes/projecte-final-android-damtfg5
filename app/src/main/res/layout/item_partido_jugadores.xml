@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/cardview_border">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textViewDateMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="Dia"
+                android:textColor="@color/negro2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="2dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/gris"
+                app:layout_constraintStart_toEndOf="@+id/textViewDateMatch"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewTimeMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="5dp"
+                android:text="00:00"
+                android:textColor="@color/negro2"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/textViewLocalitationMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="Calle Asdsdsd Dasasa"
+                android:textColor="@color/negro2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDateMatch" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam1Jugador1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam1Jugador1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam1Jugador2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@id/cardViewTeam1Jugador1"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam1Jugador2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam1Jugador3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@id/cardViewTeam1Jugador2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam1Jugador3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam1Jugador4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="45dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador1">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam1Jugador4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam1Jugador5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="45dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@id/cardViewTeam1Jugador4"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador3">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam1Jugador5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:id="@+id/viewJugadores"
+                android:layout_width="2dp"
+                android:layout_height="170dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/gris"
+                app:layout_constraintStart_toEndOf="@+id/cardViewTeam1Jugador3"
+                app:layout_constraintTop_toTopOf="@+id/textViewLocalitationMatch" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam2Jugador1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/viewJugadores"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam2Jugador1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam2Jugador2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/cardViewTeam2Jugador1"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam2Jugador2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam2Jugador3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/cardViewTeam2Jugador2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLocalitationMatch">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam2Jugador3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam2Jugador4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="45dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/viewJugadores"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador1">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam2Jugador4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam2Jugador5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="45dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/cardViewTeam2Jugador4"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador3">
+
+                <ImageView
+                    android:id="@+id/imageViewTeam2Jugador5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_black" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/texViewNomTeam1J1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador1" />
+            <TextView
+                android:id="@+id/texViewNomTeam1J2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/texViewNomTeam1J1"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador2" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam1J3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/texViewNomTeam1J2"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador3" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam1J4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador4" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam1J5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/texViewNomTeam1J4"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam1Jugador5" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam2J1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="18dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/viewJugadores"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador1" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam2J2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="25dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/texViewNomTeam2J1"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador2" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam2J3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/texViewNomTeam2J2"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador3" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam2J4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/viewJugadores"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador4" />
+
+            <TextView
+                android:id="@+id/texViewNomTeam2J5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:text="Libre"
+                android:textColor="@color/gris"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/texViewNomTeam2J4"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTeam2Jugador5" />
+
+            <View
+                android:id="@+id/horizontalLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="105dp"
+                android:background="@color/gris"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texViewNomTeam2J1" />
+
+            <TextView
+                android:id="@+id/textViewNivelMatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amistoso Nivel 1,05 - 3,45"
+                android:textColor="@color/negro1"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine" />
+
+            <Button
+                android:id="@+id/buttonEntrarMatch"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:background="@color/naranja1"
+                android:text="UNIRSE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewNivelMatch"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
