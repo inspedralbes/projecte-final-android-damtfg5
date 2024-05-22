@@ -48,4 +48,7 @@ public interface ApiService {
     @POST("/getSpaces")
     Call<List<Space>> getSpaces(@Body MunicipiRequest municipiRequest);
 
+    @POST("/insertGameUserStats")
+    Call<Void> insertGameUserStats(@Body GameUserStats userStats);
+
 }
