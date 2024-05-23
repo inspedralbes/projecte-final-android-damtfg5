@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder> {
 
     private List<Usuario> usuarioList;
-    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+    private String URL = "http://192.168.206.176:3001/";
     int userId;
 
     public UsuarioAdapter(List<Usuario> usuarioList,int userId) {

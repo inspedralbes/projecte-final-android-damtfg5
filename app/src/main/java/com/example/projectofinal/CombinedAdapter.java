@@ -28,7 +28,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private List<Usuario> notificationItems;
     private List<TeamData> invitationList;
-    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+    private String URL = "http://192.168.206.176:3001/";
 
     public CombinedAdapter(Context context, List<Usuario> notificationItems, List<TeamData> invitationList) {
         this.context = context;

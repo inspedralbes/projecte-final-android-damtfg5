@@ -26,7 +26,7 @@ public class Notifications extends AppCompatActivity {
     private CombinedAdapter adapter;
     private List<Usuario> notificaciones;
     private List<TeamData> invitaciones;
-    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+    private String URL = "http://192.168.206.176:3001/";
     ImageButton imageButtonBackFR;
 
     @Override
