@@ -28,8 +28,7 @@ public class FragmentDisponibles extends Fragment {
     private RecyclerView recyclerView;
     private MatchAdapter adapter;
     private List<Match> matchList;
-    private String URL = "http://192.168.206.176:3001/";
-    private Socket socket;
+    private Socket socket = SocketManager.getInstance();
 
     @Nullable
     @Override
@@ -43,11 +42,6 @@ public class FragmentDisponibles extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        try {
-            socket = IO.socket(URL);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
         socket.emit("getMatches","");
         socket.connect();
         socket.on("matches", onMatches);

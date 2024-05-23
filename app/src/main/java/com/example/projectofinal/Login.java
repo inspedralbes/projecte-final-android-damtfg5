@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     private EditText editTextPassword;
     private ImageButton imageButtonMostrarContraseña;
     private boolean contraseñaVisible = false;
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +82,7 @@ public class Login extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null && loginResponse.isAuthorization()) {
                         saveUserData(loginResponse.getUserData());
+                        GlobalDataUser.loginResponse = response.body();
                         Intent intent = new Intent(Login.this, Inici.class);
                         startActivity(intent);
                     } else {

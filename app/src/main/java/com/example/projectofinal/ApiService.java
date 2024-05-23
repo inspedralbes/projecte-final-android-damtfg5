@@ -1,6 +1,7 @@
 package com.example.projectofinal;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -53,4 +54,6 @@ public interface ApiService {
     @POST("/addGame")
     Call<Void> addGame(@Body GameData gameData);
 
+    @POST("/getUser")
+    Call<Usuario> getUser(@Body Map<String, Integer> userId);
 }

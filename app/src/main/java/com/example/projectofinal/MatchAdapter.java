@@ -1,6 +1,8 @@
 package com.example.projectofinal;
 
-import android.support.annotation.NonNull;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +10,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import io.socket.client.Socket;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_TWO_TEAMS = 0;
     private static final int TYPE_FIVE_VS_FIVE = 1;
     private List<Match> matchList;
+    private static Socket socket = SocketManager.getInstance();
 
     public MatchAdapter(List<Match> matchList) {
         this.matchList = matchList;
@@ -67,7 +83,6 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private ImageView imageViewTeam2;
         private TextView texViewNomTeam1;
         private TextView texViewNomTeam2;
-        private TextView textViewNivelMatch;
         private Button buttonEntrarMatch;
 
         public TwoTeamsViewHolder(@NonNull View itemView) {
@@ -87,8 +102,9 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textViewTimeMatch.setText(match.getMatchTime());
             textViewLocalitationMatch.setText(match.getMatchLocation());
             // Asignar imágenes de equipos (si tienes la URL de la imagen)
-            // Glide.with(itemView.getContext()).load(match.getTeam1().getLogoPic()).into(imageViewTeam1);
-            // Glide.with(itemView.getContext()).load(match.getTeam2().getLogoPic()).into(imageViewTeam2);
+            Picasso.get().load(match.getTeam1().getLogoPic()).into(imageViewTeam1);
+            Picasso.get().load(match.getTeam2().getLogoPic()).into(imageViewTeam2);
+
             if (!match.getTeam1().getId().equals("No disponible")){
                 texViewNomTeam1.setText(match.getTeam1().getTeamName());
             } else{
@@ -99,16 +115,54 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else{
                 texViewNomTeam2.setText("Libre");
             }
+
             buttonEntrarMatch.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Acción al hacer clic en el botón
+                    // update + socket para entrar a la partida
+                    Context context = v.getContext(); // Obtener el contexto desde la vista
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                    int userId = sharedPreferences.getInt("userId", -1);
+                    getDataUser(userId);
+
                 }
             });
         }
     }
 
+    private static void getDataUser(int userId){
+        String URL = "http://192.168.1.17:3001/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiService apiService = retrofit.create(ApiService.class);
+        Map<String, Integer> userIdMap = new HashMap<>();
+        userIdMap.put("id", userId);
+
+        Call<Usuario> call = apiService.getUser(userIdMap);
+
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful()) {
+                    Usuario usuario = response.body();
+                    // Manejar la respuesta exitosa
+                    Log.d("MainActivity", "User: " + usuario.getIdTeam());
+                } else {
+                    // Manejar errores
+                    Log.e("MainActivity", "Error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e("MainActivity", "Failure: " + t.getMessage());
+            }
+        });
+    }
     static class FiveVsFiveViewHolder extends RecyclerView.ViewHolder {
 
         public FiveVsFiveViewHolder(@NonNull View itemView) {
@@ -116,7 +170,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void bind(Match match) {
+            // Aquí puedes implementar la lógica para el diseño FiveVsFive
         }
     }
 }
-

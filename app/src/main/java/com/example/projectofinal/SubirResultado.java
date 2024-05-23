@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SubirResultado extends AppCompatActivity {
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     int userId;
     ImageButton imageButtonBackResultado;
     @Override
