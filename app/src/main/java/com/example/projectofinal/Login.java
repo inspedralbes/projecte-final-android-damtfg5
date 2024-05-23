@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     private EditText editTextPassword;
     private ImageButton imageButtonMostrarContraseña;
     private boolean contraseñaVisible = false;
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -29,7 +29,7 @@ public class AddPeopleAdapter extends RecyclerView.Adapter<AddPeopleAdapter.View
 
     private List<Usuario> usuarioList;
     private Context context;
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
     int teamId;
 
     public AddPeopleAdapter(Context context, List<Usuario> usuarioList) {

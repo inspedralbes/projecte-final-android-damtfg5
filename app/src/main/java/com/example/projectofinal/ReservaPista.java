@@ -37,7 +37,7 @@ public class ReservaPista extends AppCompatActivity {
     MapView map;
     ImageButton imageButtonZoomIn;
     ImageButton imageButtonZoomOut;
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

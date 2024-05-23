@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ResultadoPartida extends AppCompatActivity {
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
     private EditText editTextTeam1Set1, editTextTeam2Set1, editTextTeam1Set2, editTextTeam2Set2, editTextTeam1Set3, editTextTeam2Set3;
     ImageButton imageButtonBackResultado;
     @Override
