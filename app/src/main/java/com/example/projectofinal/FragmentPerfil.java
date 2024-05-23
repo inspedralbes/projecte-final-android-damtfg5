@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class FragmentPerfil extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private View view; // Variable para la vista del fragmento
 
     public FragmentPerfil() {
         // Required empty public constructor
@@ -59,7 +61,8 @@ public class FragmentPerfil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        // Inflar la vista del fragmento
+        view = inflater.inflate(R.layout.fragment_perfil, container, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         int userId = sharedPreferences.getInt("userId", -1);
         getDataUser(userId);
@@ -84,8 +87,14 @@ public class FragmentPerfil extends Fragment {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Usuario usuario = response.body();
-                    // Manejar la respuesta exitosa
-                    Log.d("FragmentPerfil", "User: " + usuario.getFirstname() + " " + usuario.getSurname());
+                    Log.d("TAG usuario", "onResponse: " + usuario.getTotalGames());
+                    // Actualizar el nombre de usuario en la vista
+                    TextView textViewNombreApellido = view.findViewById(R.id.textViewNombreApellido);
+                    textViewNombreApellido.setText(usuario.getFirstname() + " " + usuario.getSurname());
+
+                    // Actualizar el número de partidos en la vista
+                    TextView textViewContPart = view.findViewById(R.id.textViewContPart);
+                    textViewContPart.setText(String.valueOf(usuario.getTotalGames()));
                 } else {
                     // Manejar errores
                     Log.e("FragmentPerfil", "Error: " + response.code());

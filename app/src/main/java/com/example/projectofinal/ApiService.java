@@ -54,6 +54,9 @@ public interface ApiService {
     @POST("/addGame")
     Call<Void> addGame(@Body GameData gameData);
 
+    @POST("/getUserForAndroid")
+    Call<GlobalDataUser> getUserForAndroid(@Body Map<String, Integer> userId);
+
     @POST("/getUser")
     Call<Usuario> getUser(@Body Map<String, Integer> userId);
 }

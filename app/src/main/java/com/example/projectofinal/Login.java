@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,8 +85,8 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null && loginResponse.isAuthorization()) {
-                        saveUserData(loginResponse.getUserData());
-                        GlobalDataUser.loginResponse = response.body();
+
+                        getDataUser(loginResponse.getUserData().getId());
                         Intent intent = new Intent(Login.this, Inici.class);
                         startActivity(intent);
                     } else {
@@ -100,13 +104,90 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void saveUserData(Usuario userData) {
+    private void getDataUser(int userId){
+        String URL = "http://192.168.1.17:3001/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+        Map<String, Integer> userIdMap = new HashMap<>();
+        userIdMap.put("id", userId);
+
+        Call<GlobalDataUser> call = apiService.getUserForAndroid(userIdMap); // Cambiar el tipo de respuesta a GlobalDataUser
+
+        call.enqueue(new Callback<GlobalDataUser>() {
+            @Override
+            public void onResponse(Call<GlobalDataUser> call, Response<GlobalDataUser> response) {
+                if (response.isSuccessful()) {
+                    GlobalDataUser userData = response.body();
+                    Log.d("EMAIIIIIIIIIIIIIIIIIIIIIIIL", "onResponse: " + userData.getEmail());
+                    saveUserData(userData);
+                    // ... y así sucesivamente para todos los campos
+                } else {
+                    // Manejar errores
+                    Log.e("FragmentPerfil", "Error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GlobalDataUser> call, Throwable t) {
+                Log.e("FragmentPerfil", "Failure: " + t.getMessage());
+            }
+        });
+    }
+
+
+    private void saveUserData(GlobalDataUser userData) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("userId", userData.getId());
+        editor.putInt("userId", userData.getIdUser());
         editor.putString("userName", userData.getFirstname() + " " + userData.getSurname());
-        editor.putString("userProfilePic", userData.getProfilePic());
+        editor.putString("userEmail", userData.getEmail());
+        editor.putInt("userPhone", userData.getPhone());
+        editor.putInt("totalGames", userData.getTotalGames() != null ? userData.getTotalGames() : 0);
+        editor.putInt("dominantHand", userData.getDominantHand() != null ? userData.getDominantHand() : 0);
+        editor.putString("position", userData.getPosition());
+        editor.putInt("height", userData.getHeight());
+        editor.putInt("verticalJump", userData.getVerticalJump());
+        editor.putString("location", userData.getLocation());
+        editor.putString("gender", userData.getGender());
+        editor.putString("birthDate", userData.getBirthDate());
+        editor.putString("bio", userData.getBio());
+        editor.putString("availability", userData.getAvailability());
+        editor.putString("country", userData.getCountry());
+        editor.putString("profilePic", userData.getProfilePic());
+        editor.putInt("userIdTeam", userData.getUserIdTeam() != null ? userData.getUserIdTeam() : 0);
+        editor.putInt("spikePointsTotal", userData.getSpikePointsTotal());
+        editor.putInt("spikeErrorsTotal", userData.getSpikeErrorsTotal());
+        editor.putInt("spikeAttemptsTotal", userData.getSpikeAttemptsTotal());
+        editor.putInt("blockPointsTotal", userData.getBlockPointsTotal());
+        editor.putInt("blockErrorsTotal", userData.getBlockErrorsTotal());
+        editor.putInt("blockReboundsTotal", userData.getBlockReboundsTotal());
+        editor.putInt("servePointsTotal", userData.getServePointsTotal());
+        editor.putInt("serveErrorsTotal", userData.getServeErrorsTotal());
+        editor.putInt("serveAttemptsTotal", userData.getServeAttemptsTotal());
+        editor.putInt("setSuccessfulTotal", userData.getSetSuccessfulTotal() != null ? userData.getSetSuccessfulTotal() : 0);
+        editor.putInt("setErrorsTotal", userData.getSetErrorsTotal() != null ? userData.getSetErrorsTotal() : 0);
+        editor.putInt("setAttemptsTotal", userData.getSetAttemptsTotal() != null ? userData.getSetAttemptsTotal() : 0);
+        editor.putInt("receiveSuccessfulTotal", userData.getReceiveSuccessfulTotal() != null ? userData.getReceiveSuccessfulTotal() : 0);
+        editor.putInt("receiveErrorsTotal", userData.getReceiveErrorsTotal() != null ? userData.getReceiveErrorsTotal() : 0);
+        editor.putInt("receiveAttemptsTotal", userData.getReceiveAttemptsTotal() != null ? userData.getReceiveAttemptsTotal() : 0);
+        editor.putString("rol", userData.getRol());
+        editor.putInt("teamId", userData.getTeamId() != null ? userData.getTeamId() : 0);
+        editor.putString("teamName", userData.getTeamName());
+        editor.putInt("nPlayers", userData.getnPlayers() != null ? userData.getnPlayers() : 0);
+        editor.putString("teamLogoPic", userData.getTeamLogoPic());
+        editor.putString("shortName", userData.getShortName());
+        editor.putInt("teamTotalGames", userData.getTeamTotalGames() != null ? userData.getTeamTotalGames() : 0);
+        editor.putInt("wonGames", userData.getWonGames() != null ? userData.getWonGames() : 0);
+        editor.putInt("lostGames", userData.getLostGames() != null ? userData.getLostGames() : 0);
+        editor.putInt("totalPoints", userData.getTotalPoints() != null ? userData.getTotalPoints() : 0);
+        editor.putInt("idGame", userData.getIdGame() != null ? userData.getIdGame() : 0);
+
         editor.apply();
     }
+
 
 }

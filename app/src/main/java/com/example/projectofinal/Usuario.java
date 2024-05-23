@@ -9,6 +9,7 @@ public class Usuario {
     private String position;
     private int idTeam;
     private String amigo;
+    private int totalGames;
 
     // Constructor
     public Usuario(int id, String firstname, String surname, String profilePic) {
@@ -35,6 +36,14 @@ public class Usuario {
     }
 
     // Getters y Setters
+
+    public int getTotalGames() {
+        return totalGames;
+    }
+
+    public void setTotalGames(int totalGames) {
+        this.totalGames = totalGames;
+    }
 
     public int getIdRequest() {
         return idRequest;
