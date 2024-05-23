@@ -393,10 +393,10 @@
                 android:id="@+id/textViewNivelMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amistoso Nivel 1,05 - 3,45"
+                android:text="Amistoso"
                 android:textColor="@color/negro1"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/horizontalLine" />
 
