@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SubirResultado extends AppCompatActivity {
     private String URL = "http://192.168.206.176:3001/";
     int userId;
+    ImageButton imageButtonBackResultado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,16 @@ public class SubirResultado extends AppCompatActivity {
         EditText editTextErrorsReceive = findViewById(R.id.editTextErrorsReceive);
         EditText editTextAttemptsReceive = findViewById(R.id.editTextAttemptsReceive);
 
+        imageButtonBackResultado = findViewById(R.id.imageButtonBackResultado);
+
         Button buttonSubirStats = findViewById(R.id.buttonSubirStats);
+
+        imageButtonBackResultado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         buttonSubirStats.setOnClickListener(new View.OnClickListener() {
             @Override

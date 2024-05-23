@@ -1,6 +1,8 @@
 package com.example.projectofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +19,8 @@ public class Partidos extends AppCompatActivity {
         setContentView(R.layout.activity_partidos);
 
         imageButtonBackPartidos = findViewById(R.id.imageButtonBackPartidos);
-        buttonaaa=findViewById(R.id.buttonaaaaa);
-        buttonbbb=findViewById(R.id.buttonbbbbb);
+        Button buttonDisponibles = findViewById(R.id.buttonDisponibles);
+        Button buttonTusPartidos = findViewById(R.id.buttonTusPartidos);
         imageButtonBackPartidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,20 +28,28 @@ public class Partidos extends AppCompatActivity {
             }
         });
 
-        buttonaaa.setOnClickListener(new View.OnClickListener() {
+        buttonDisponibles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Partidos.this, SubirResultado.class);
-                startActivity(intent);
+                loadFragment(new FragmentDisponibles());
             }
         });
 
-        buttonbbb.setOnClickListener(new View.OnClickListener() {
+        buttonTusPartidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Partidos.this, ResultadoPartida.class);
-                startActivity(intent);
+                loadFragment(new FragmentTusPartidos());
             }
         });
+
+        // Load the default fragment
+        loadFragment(new FragmentDisponibles());
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

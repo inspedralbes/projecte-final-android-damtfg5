@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ResultadoPartida extends AppCompatActivity {
     private String URL = "http://192.168.206.176:3001/";
     private EditText editTextTeam1Set1, editTextTeam2Set1, editTextTeam1Set2, editTextTeam2Set2, editTextTeam1Set3, editTextTeam2Set3;
+    ImageButton imageButtonBackResultado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,14 @@ public class ResultadoPartida extends AppCompatActivity {
         editTextTeam2Set1 = findViewById(R.id.editTextPointsTeam2Set1);
         editTextTeam2Set2 = findViewById(R.id.editTextPointsTeam2Set2);
         editTextTeam2Set3 = findViewById(R.id.editTextPointsTeam2Set3);
+        imageButtonBackResultado = findViewById(R.id.imageButtonBackResultado);
+
+        imageButtonBackResultado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         buttonSubirStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
