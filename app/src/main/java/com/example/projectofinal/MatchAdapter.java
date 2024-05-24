@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,9 +125,34 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     // Acción al hacer clic en el botón
                     // update + socket para entrar a la partida
                     Context context = v.getContext(); // Obtener el contexto desde la vista
+                    Log.d("TAG", "onClick:  dandoclick");
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    int userId = sharedPreferences.getInt("userId", -1);
-                    getDataUser(userId);
+                    int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
+                    Log.d("userid", "onClick: " + userIdTeam);
+                    boolean isNotIn = false;
+                    if(userIdTeam != Integer.parseInt(match.getTeam1().getId())|| userIdTeam != Integer.parseInt(match.getTeam2().getId())){
+                        isNotIn = true;
+                    }
+
+                    if(!isNotIn){
+                        Log.d("IDTEAMMMMMMMMMMMM NO DENTRO", "onClick:ENTRANDO MI PANA");
+
+                        // Emitir el evento joinMatch
+                        JSONObject matchData = new JSONObject();
+                        try {
+                            matchData.put("idTeam1", match.getTeam1().getId());
+                            matchData.put("idTeam2", match.getTeam2().getId());
+                            matchData.put("id", match.getMatchId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        socket.emit("joinMatch", matchData);
+                    }else{
+                        Log.d("IDTEAMMMMMMMMMMMM DENTRO", "onClick: YA ESTA DENTRO MI PANA");
+                    }
+                    //int userId = sharedPreferences.getInt("userId", -1);
+                    //getDataUser(userId);
 
                 }
             });
