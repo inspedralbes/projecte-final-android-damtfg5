@@ -12,7 +12,7 @@ public class Match {
     // Constructor
     public Match(int matchId, String matchDate, String matchTime, String matchLocation, String status, Team team1, Team team2) {
         this.matchId = matchId;
-        this.matchDate = matchDate;
+        setMatchDate(matchDate);
         this.matchTime = matchTime;
         this.matchLocation = matchLocation;
         this.status = status;
@@ -34,7 +34,11 @@ public class Match {
     }
 
     public void setMatchDate(String matchDate) {
-        this.matchDate = matchDate;
+        if (matchDate != null && matchDate.length() > 10) {
+            this.matchDate = matchDate.substring(0, 10);
+        } else {
+            this.matchDate = matchDate;
+        }
     }
 
     public String getMatchTime() {

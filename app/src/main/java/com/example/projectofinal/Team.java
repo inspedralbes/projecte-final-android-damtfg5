@@ -26,9 +26,6 @@ public class Team {
         this.idGame = idGame;
     }
 
-    // Getters and Setters
-
-
     public String getId() {
         return id;
     }

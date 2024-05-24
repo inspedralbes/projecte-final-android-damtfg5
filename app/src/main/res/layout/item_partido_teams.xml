@@ -142,27 +142,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/texViewNomTeam2" />
 
-            <TextView
-                android:id="@+id/textViewNivelMatch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amistoso"
-                android:textColor="@color/negro1"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="32dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalLine" />
-
             <Button
                 android:id="@+id/buttonEntrarMatch"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/naranja1"
                 android:text="UNIRSE"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textViewNivelMatch"
                 app:layout_constraintTop_toBottomOf="@+id/horizontalLine"
                 app:layout_constraintVertical_bias="0.0" />
 

@@ -1,13 +1,15 @@
 package com.example.projectofinal;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,43 +17,66 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-public class FragmentDisponibles extends Fragment {
+public class DisponiblesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MatchAdapter adapter;
     private List<Match> matchList;
     private Socket socket = SocketManager.getInstance();
+    ImageButton imageButtonBackPartidos;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_disponibles, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_disponibles); // Cambia esto al layout correspondiente
 
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         matchList = new ArrayList<>();
         adapter = new MatchAdapter(matchList);
         recyclerView.setAdapter(adapter);
 
+        imageButtonBackPartidos = findViewById(R.id.imageButtonBackPartidos);
+        Button buttonDisponibles = findViewById(R.id.buttonDisponibles);
+        Button buttonTusPartidos = findViewById(R.id.buttonTusPartidos);
 
-        socket.emit("getMatches","");
+        imageButtonBackPartidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisponiblesActivity.this, Inici.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonDisponibles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        buttonTusPartidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisponiblesActivity.this, TusPartidosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        socket.emit("getMatches", "");
         socket.connect();
         socket.on("matches", onMatches);
-        return view;
     }
 
     private Emitter.Listener onMatches = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            getActivity().runOnUiThread(new Runnable() {
+            runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     matchList.clear();
@@ -103,12 +128,9 @@ public class FragmentDisponibles extends Fragment {
         }
     };
 
-
-
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroy() {
+        super.onDestroy();
         if (socket != null) {
             socket.disconnect();
             socket.off("matches", onMatches);

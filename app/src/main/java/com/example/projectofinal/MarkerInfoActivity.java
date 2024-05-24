@@ -98,27 +98,6 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
             }
         });
 
-        /*List<String> timeSlots1 = new ArrayList<>();
-        timeSlots1.add("9:00 - 11:30");
-        timeSlots1.add("12:00 - 14:30");
-
-        List<String> timeSlots2 = new ArrayList<>();
-        timeSlots2.add("15:00 - 17:30");
-        timeSlots2.add("18:00 - 20:30");
-
-        GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
-        layoutParams.width = 0;
-        layoutParams.height = GridLayout.LayoutParams.WRAP_CONTENT;
-        layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-
-        for (String timeSlot : timeSlots1) {
-            addHourCard(gridLayout, timeSlot);
-        }
-
-        for (String timeSlot : timeSlots2) {
-            addHourCard(gridLayout, timeSlot);
-        }*/
-
         //checkAvailability(selectedDay, municipi);
 
 
