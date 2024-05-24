@@ -37,7 +37,7 @@ public class ReservaPista extends AppCompatActivity {
     MapView map;
     ImageButton imageButtonZoomIn;
     ImageButton imageButtonZoomOut;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://192.168.206.176:3001/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class ReservaPista extends AppCompatActivity {
                         double spaceLatitud = Double.parseDouble(space.getLatitud());
                         double spaceLongitud = Double.parseDouble(space.getLongitud());
 
-                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal(), space.getMunicipi(), space.getPaviment());
+                        createMarker(spaceLatitud, spaceLongitud, space.getActivitat_principal(), space.getRef_espai(), space.getPaviment());
                     }
                 } else {
                     // Manejar respuesta no exitosa

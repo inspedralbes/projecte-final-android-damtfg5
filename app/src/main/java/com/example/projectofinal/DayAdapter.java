@@ -16,6 +16,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     private int selectedItem = RecyclerView.NO_POSITION;
     private OnItemClickListener listener;
 
+    public DayItem getItem(int position) {
+        return dayList.get(position);
+    }
+
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }

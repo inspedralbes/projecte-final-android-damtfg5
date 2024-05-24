@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 public class DayItem {
     private String dayOfWeek;
     private String dayOfMonth;
@@ -32,7 +35,45 @@ public class DayItem {
     public String getMonth() {
         return month;
     }
+
+    public String getDate() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int monthNumber = convertMonthToNumber(month);
+        return String.format(Locale.getDefault(), "%04d/%02d/%02d", year, monthNumber, Integer.parseInt(dayOfMonth));
+    }
+
+    private int convertMonthToNumber(String month) {
+        switch (month.toLowerCase()) {
+            case "jan":
+                return 1;
+            case "feb":
+                return 2;
+            case "mar":
+                return 3;
+            case "apr":
+                return 4;
+            case "may":
+                return 5;
+            case "jun":
+                return 6;
+            case "jul":
+                return 7;
+            case "aug":
+                return 8;
+            case "sep":
+                return 9;
+            case "oct":
+                return 10;
+            case "nov":
+                return 11;
+            case "dec":
+                return 12;
+            default:
+                return 0;
+        }
+    }
 }
+
 
 class DayGenerator {
 

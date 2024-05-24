@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewtitleRP" />
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbarRP"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,12 +69,10 @@
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/textViewMostrarHoras"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewMostrarHoras"
@@ -102,22 +100,26 @@
             <GridLayout
                 android:id="@+id/gridLayout"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:columnCount="5"
                 android:orientation="horizontal"
                 android:layout_marginStart="10dp"
                 android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/reservarPista"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMostrarHoras">
+                app:layout_constraintTop_toBottomOf="@+id/textViewMostrarHoras" />
 
-            </GridLayout>
-
+            <Button
+                android:id="@+id/reservarPista"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Reserva la pista"
+                android:layout_marginStart="100dp"
+                android:background="@drawable/button_selectorbg1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

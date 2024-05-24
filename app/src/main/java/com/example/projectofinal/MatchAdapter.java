@@ -104,9 +104,19 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textViewDateMatch.setText(match.getMatchDate());
             textViewTimeMatch.setText(match.getMatchTime());
             textViewLocalitationMatch.setText(match.getMatchLocation());
-            // Asignar imágenes de equipos (si tienes la URL de la imagen)
-            Picasso.get().load(match.getTeam1().getLogoPic()).into(imageViewTeam1);
-            Picasso.get().load(match.getTeam2().getLogoPic()).into(imageViewTeam2);
+            if(match.getTeam1().getLogoPic()!= null && !match.getTeam1().getLogoPic().isEmpty()){
+                Picasso.get().load(match.getTeam1().getLogoPic()).into(imageViewTeam1);
+            }
+            else{
+                imageViewTeam1.setImageResource(R.drawable.add_black);
+            }
+
+            if(match.getTeam2().getLogoPic()!= null && !match.getTeam2().getLogoPic().isEmpty()){
+                Picasso.get().load(match.getTeam2().getLogoPic()).into(imageViewTeam2);
+            }
+            else{
+                imageViewTeam2.setImageResource(R.drawable.add_black);
+            }
 
             if (!match.getTeam1().getId().equals("No disponible")){
                 texViewNomTeam1.setText(match.getTeam1().getTeamName());
@@ -118,78 +128,42 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else{
                 texViewNomTeam2.setText("Libre");
             }
-
-            buttonEntrarMatch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Acción al hacer clic en el botón
-                    // update + socket para entrar a la partida
-                    Context context = v.getContext(); // Obtener el contexto desde la vista
-                    Log.d("TAG", "onClick:  dandoclick");
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
-                    Log.d("userid", "onClick: " + userIdTeam);
-                    boolean isNotIn = false;
-                    if(userIdTeam != Integer.parseInt(match.getTeam1().getId())|| userIdTeam != Integer.parseInt(match.getTeam2().getId())){
-                        isNotIn = true;
-                    }
-
-                    if(!isNotIn){
-                        Log.d("IDTEAMMMMMMMMMMMM NO DENTRO", "onClick:ENTRANDO MI PANA");
-
-                        // Emitir el evento joinMatch
-                        JSONObject matchData = new JSONObject();
-                        try {
-                            matchData.put("idTeam1", match.getTeam1().getId());
-                            matchData.put("idTeam2", match.getTeam2().getId());
-                            matchData.put("id", match.getMatchId());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            if(match.getStatus().equals("ABIERTA")){
+                buttonEntrarMatch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = v.getContext();
+                        Log.d("TAG", "onClick:  dandoclick");
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
+                        int userId = sharedPreferences.getInt("userId", 0);
+                        Log.d("userid", "onClick: " + userIdTeam);
+                        boolean isNotIn = false;
+                        if(userIdTeam == Integer.parseInt(match.getTeam1().getId())  && !match.getTeam2().getId().equals("No disponible")) {
+                            isNotIn = true;
                         }
+                        if(!isNotIn){
+                            Log.d("IDTEAMMMMMMMMMMMM NO DENTRO", "onClick:ENTRANDO MI PANA");
 
-                        socket.emit("joinMatch", matchData);
-                    }else{
-                        Log.d("IDTEAMMMMMMMMMMMM DENTRO", "onClick: YA ESTA DENTRO MI PANA");
+                            JSONObject matchData = new JSONObject();
+                            try {
+                                matchData.put("idTeam1", Integer.parseInt(match.getTeam1().getId()));
+                                matchData.put("idTeam2", userIdTeam);
+                                matchData.put("id", match.getMatchId());
+                                matchData.put("status","CERRADA");
+                                matchData.put("userId", userId);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            socket.emit("joinMatch", matchData);
+                        }else{
+                            Log.d("IDTEAMMMMMMMMMMMM DENTRO", "onClick: YA ESTA DENTRO MI PANA");
+                        }
                     }
-                    //int userId = sharedPreferences.getInt("userId", -1);
-                    //getDataUser(userId);
-
-                }
-            });
+                });
+            }
         }
-    }
-
-    private static void getDataUser(int userId){
-        String URL = "http://192.168.1.17:3001/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-        Map<String, Integer> userIdMap = new HashMap<>();
-        userIdMap.put("id", userId);
-
-        Call<Usuario> call = apiService.getUser(userIdMap);
-
-        call.enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if (response.isSuccessful()) {
-                    Usuario usuario = response.body();
-                    // Manejar la respuesta exitosa
-                    Log.d("MainActivity", "User: " + usuario.getIdTeam());
-                } else {
-                    // Manejar errores
-                    Log.e("MainActivity", "Error: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.e("MainActivity", "Failure: " + t.getMessage());
-            }
-        });
     }
     static class FiveVsFiveViewHolder extends RecyclerView.ViewHolder {
 
