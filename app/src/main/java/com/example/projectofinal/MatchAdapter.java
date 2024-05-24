@@ -1,6 +1,7 @@
 package com.example.projectofinal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectofinal.databinding.ActivitySubirResultadoBinding;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -110,6 +112,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
             int userId = sharedPreferences.getInt("userId", 0);
+            String rol = sharedPreferences.getString("rol", "");
             Log.d("userid", "onClick: " + userIdTeam);
             boolean isNotIn = false;
             if(userIdTeam == Integer.parseInt(match.getTeam1().getId())  && match.getTeam2().getId().equals("No disponible")) {
@@ -145,7 +148,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             if(match.getStatus().equals("ABIERTA")){
                 boolean finalIsNotIn = isNotIn;
-                if(!isNotIn){
+                if(!isNotIn && rol.equals("captain")){
                     buttonEntrarMatch.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -170,12 +173,44 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         }
                     });
                 }else{
-                    buttonEntrarMatch.setText("Esperando");
+                    buttonEntrarMatch.setText("YA ESTAS DENTRO");
                     buttonEntrarMatch.setBackgroundColor(ContextCompat.getColor(context, R.color.negro1));
                     buttonEntrarMatch.setTextColor(ContextCompat.getColor(context, R.color.white));
 
                 }
 
+            }else if(match.getStatus().equals("CERRADA")){
+                buttonEntrarMatch.setText("ESPERANDO");
+                buttonEntrarMatch.setBackgroundColor(ContextCompat.getColor(context, R.color.negro1));
+                buttonEntrarMatch.setTextColor(ContextCompat.getColor(context, R.color.white));
+                buttonEntrarMatch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(rol.equals("captain")){
+                            Intent intent = new Intent(context, ResultadoPartida.class);
+                            intent.putExtra("team1Id", Integer.parseInt(match.getTeam1().getId()));
+                            intent.putExtra("team2Id", Integer.parseInt(match.getTeam2().getId()));
+                            intent.putExtra("team1Logo", match.getTeam1().getLogoPic());
+                            intent.putExtra("team2Logo", match.getTeam2().getLogoPic());
+                            intent.putExtra("team1Name", match.getTeam1().getTeamName());
+                            intent.putExtra("team2Name", match.getTeam2().getTeamName());
+                            intent.putExtra("userId", userId);
+                            intent.putExtra("gameId", match.getMatchId());
+                            context.startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(context, SubirResultado.class);
+                            intent.putExtra("team1Id", Integer.parseInt(match.getTeam1().getId()));
+                            intent.putExtra("team2Id", Integer.parseInt(match.getTeam2().getId()));
+                            intent.putExtra("userId", userId);
+                            intent.putExtra("gameId", match.getMatchId());
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+            } else if (match.getStatus().equals("FINALIZADA")) {
+                buttonEntrarMatch.setText("FINALIZADA");
+                buttonEntrarMatch.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
+                buttonEntrarMatch.setTextColor(ContextCompat.getColor(context, R.color.white));
             }
         }
     }

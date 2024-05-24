@@ -7,7 +7,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class SocketManager {
-    private static final String SERVER_URL = "http://192.168.206.176:3001/";
+    private static final String SERVER_URL = "http://192.168.1.17:3001/";
     private static Socket mSocket;
     private SocketManager() {
         try {

@@ -3,6 +3,7 @@ package com.example.projectofinal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.socket.client.Socket;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,15 +23,22 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SubirResultado extends AppCompatActivity {
-    private String URL = "http://192.168.206.176:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     int userId;
     ImageButton imageButtonBackResultado;
+    private static Socket socket = SocketManager.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_resultado);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = sharedPreferences.getInt("userId", -1);
+
+        Intent intent = getIntent();
+        int gameId = intent.getIntExtra("gameId", 0);
+        int team1Id = intent.getIntExtra("team1Id", 0);
+        int team2Id = intent.getIntExtra("team2Id", 0);
 
         EditText editTextPointsSpike = findViewById(R.id.editTextPointsSpike);
         EditText editTextErrorsSpike = findViewById(R.id.editTextErrorsSpike);
@@ -81,7 +93,7 @@ public class SubirResultado extends AppCompatActivity {
                 int errorsReceive = Integer.parseInt(editTextErrorsReceive.getText().toString());
                 int attemptsReceive = Integer.parseInt(editTextAttemptsReceive.getText().toString());
 
-                GameUserStats gameUserStats = new GameUserStats(1, userId, pointsSpike, errorsSpike, attemptsSpike, pointsBlock,
+                GameUserStats gameUserStats = new GameUserStats(gameId, userId, pointsSpike, errorsSpike, attemptsSpike, pointsBlock,
                         errorsBlock, attemptsBlock, pointsServe, errorsServe, attemptsServe, successfulSet, errorsSet, attemptsSet,
                         successfulReceive, errorsReceive, attemptsReceive
                 );
@@ -93,6 +105,20 @@ public class SubirResultado extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             // La solicitud fue exitosa
                             Log.d("SubirResultado", "Estadísticas subidas exitosamente");
+                            JSONObject matchData = new JSONObject();
+                            try {
+                                matchData.put("idTeam1", team1Id);
+                                matchData.put("idTeam2", team2Id);
+                                matchData.put("id", gameId);
+                                matchData.put("status","FINALIZADA");
+                                matchData.put("userId", userId);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            socket.emit("joinMatch", matchData);
+                            Intent intent1 = new Intent(SubirResultado.this, Inici.class);
+                            startActivity(intent1);
                         } else {
                             // La solicitud no fue exitosa
                             Log.e("SubirResultado", "Error al subir estadísticas: " + response.message());
