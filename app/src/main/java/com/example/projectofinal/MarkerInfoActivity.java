@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -22,10 +23,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.OnItemClickListener {
     private TextView textViewTitle, textViewMostrarHoras;
@@ -41,6 +48,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private String URL = "http://192.168.206.176:3001/";
     private String selectedDay = "";
     private String selectedHour = "";
+    String municipi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +83,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
 
         // Obtén los datos del Intent
         String title = getIntent().getStringExtra("title");
-        String municipi = getIntent().getStringExtra("municipi");
+        municipi = getIntent().getStringExtra("municipi");
         String paviment = getIntent().getStringExtra("paviment");
         String address = getIntent().getStringExtra("address");
 
@@ -102,10 +110,29 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
             }
         });
 
-        List<String> hoursList = HourGenerator.generateHoursFromNowUntil22();
-        for (String hour : hoursList) {
-            addHourCard(gridLayout, hour);
+        /*List<String> timeSlots1 = new ArrayList<>();
+        timeSlots1.add("9:00 - 11:30");
+        timeSlots1.add("12:00 - 14:30");
+
+        List<String> timeSlots2 = new ArrayList<>();
+        timeSlots2.add("15:00 - 17:30");
+        timeSlots2.add("18:00 - 20:30");
+
+        GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+        layoutParams.width = 0;
+        layoutParams.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+
+        for (String timeSlot : timeSlots1) {
+            addHourCard(gridLayout, timeSlot);
         }
+
+        for (String timeSlot : timeSlots2) {
+            addHourCard(gridLayout, timeSlot);
+        }*/
+
+        //checkAvailability(selectedDay, municipi);
+
 
         reservarPista.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,23 +161,33 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         });
     }
 
-    private void addHourCard(GridLayout gridLayout, String hour) {
+    private void addHourCard(GridLayout gridLayout, String timeSlot, boolean available) {
         CardView cardView = new CardView(this);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        params.width = GridLayout.LayoutParams.WRAP_CONTENT;
+        params.width = 0;
         params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
         params.setMargins(20, 20, 20, 20);
         cardView.setLayoutParams(params);
         cardView.setRadius(16);
         cardView.setCardElevation(4);
-        cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
+
+        // Cambiar el fondo y la clicabilidad de la tarjeta según la disponibilidad
+        if (available) {
+            cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
+            cardView.setClickable(true);
+        } else {
+            cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.disabled_background));
+            cardView.setClickable(false);
+        }
 
         TextView textViewHour = new TextView(this);
-        textViewHour.setText(hour);
+        textViewHour.setText(timeSlot);
         textViewHour.setTextColor(Color.BLACK);
         textViewHour.setPadding(50, 50, 50, 50);
         cardView.addView(textViewHour);
 
+        // Manejar el clic en la tarjeta
         cardView.setOnClickListener(v -> {
             if (selectedCardView != null) {
                 selectedCardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
@@ -159,10 +196,38 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
             cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_orange_cardview));
             textViewHour.setTextColor(Color.WHITE);
             selectedCardView = cardView;
-            selectedHour = hour;
+            selectedHour = timeSlot;
         });
 
         gridLayout.addView(cardView);
+    }
+
+    private void checkAvailability(String selectedDay, String municipi) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+        DayLocationRequest dayLocationRequest = new DayLocationRequest(selectedDay,municipi);
+        Call<List<MatchTime>> call = apiService.getHoursByDay(dayLocationRequest);
+        call.enqueue(new Callback<List<MatchTime>>() {
+            @Override
+            public void onResponse(Call<List<MatchTime>> call, Response<List<MatchTime>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<MatchTime> availableHours = response.body();
+                    updateHourCards(availableHours);
+                } else {
+                    Toast.makeText(MarkerInfoActivity.this, "Error al verificar la disponibilidad", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MatchTime>> call, Throwable t) {
+                // Manejar el error de conexión
+                Toast.makeText(MarkerInfoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -170,14 +235,34 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         recyclerView.smoothScrollToPosition(position + 3);
         DayItem selectedDayItem = dayAdapter.getItem(position);
         selectedDay = selectedDayItem.getDate();
-        updateScreen();
+        checkAvailability(selectedDay, municipi);
     }
 
-    private void updateScreen() {
-        List<String> hoursList = HourGenerator.generateHoursFromNowUntil22();
+    private void updateHourCards(List<MatchTime> availableHours) {
         gridLayout.removeAllViews();
-        for (String hour : hoursList) {
-            addHourCard(gridLayout, hour);
+
+
+        List<String> timeSlots1 = new ArrayList<>();
+        timeSlots1.add("9:00 - 11:30");
+        timeSlots1.add("12:00 - 14:30");
+
+        Log.d("1", "updateHourCards: "+availableHours.get(0).getMatchTime());
+        Log.d("2", "updateHourCards: "+timeSlots1.get(0));
+
+        List<String> timeSlots2 = new ArrayList<>();
+        timeSlots2.add("15:00 - 17:30");
+        timeSlots2.add("18:00 - 20:30");
+
+        for (String timeSlot : timeSlots1) {
+            boolean available = availableHours.contains(timeSlot);
+            addHourCard(gridLayout, timeSlot, available);
+        }
+
+        for (String timeSlot : timeSlots2) {
+            boolean available = availableHours.contains(timeSlot);
+            addHourCard(gridLayout, timeSlot, available);
         }
     }
+
+
 }

@@ -59,4 +59,7 @@ public interface ApiService {
 
     @POST("/getUser")
     Call<Usuario> getUser(@Body Map<String, Integer> userId);
+
+    @POST("hoursPickedByDay")
+    Call<List<MatchTime>> getHoursByDay(@Body DayLocationRequest request);
 }
