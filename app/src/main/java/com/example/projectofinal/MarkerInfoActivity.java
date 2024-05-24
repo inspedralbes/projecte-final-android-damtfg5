@@ -98,18 +98,6 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
             }
         });
 
-        switchShowAvailableHours.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // Si el Switch está activado
-                textViewMostrarHoras.setText("Mostrando solo horas disponibles");
-                // Aquí puedes agregar lógica para mostrar solo las horas disponibles
-            } else {
-                // Si el Switch está desactivado
-                textViewMostrarHoras.setText("Mostrando todas las horas");
-                // Aquí puedes agregar lógica para mostrar todas las horas
-            }
-        });
-
         /*List<String> timeSlots1 = new ArrayList<>();
         timeSlots1.add("9:00 - 11:30");
         timeSlots1.add("12:00 - 14:30");
@@ -173,7 +161,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         cardView.setCardElevation(4);
 
         // Cambiar el fondo y la clicabilidad de la tarjeta según la disponibilidad
-        if (available) {
+        if (!available) {
             cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
             cardView.setClickable(true);
         } else {
@@ -188,16 +176,18 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         cardView.addView(textViewHour);
 
         // Manejar el clic en la tarjeta
-        cardView.setOnClickListener(v -> {
-            if (selectedCardView != null) {
-                selectedCardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
-                ((TextView) selectedCardView.getChildAt(0)).setTextColor(Color.BLACK);
-            }
-            cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_orange_cardview));
-            textViewHour.setTextColor(Color.WHITE);
-            selectedCardView = cardView;
-            selectedHour = timeSlot;
-        });
+        if (!available) {
+            cardView.setOnClickListener(v -> {
+                if (selectedCardView != null) {
+                    selectedCardView.setBackground(ContextCompat.getDrawable(this, R.drawable.border_orange));
+                    ((TextView) selectedCardView.getChildAt(0)).setTextColor(Color.BLACK);
+                }
+                cardView.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_orange_cardview));
+                textViewHour.setTextColor(Color.WHITE);
+                selectedCardView = cardView;
+                selectedHour = timeSlot;
+            });
+        }
 
         gridLayout.addView(cardView);
     }
@@ -217,6 +207,18 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
                 if (response.isSuccessful() && response.body() != null) {
                     List<MatchTime> availableHours = response.body();
                     updateHourCards(availableHours);
+                    switchShowAvailableHours.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        if (isChecked) {
+                            // Si el Switch está activado
+                            textViewMostrarHoras.setText("Mostrando solo horas disponibles");
+                            updateHourCards(availableHours, false); // Mostrar solo las horas no disponibles
+                        } else {
+                            // Si el Switch está desactivado
+                            textViewMostrarHoras.setText("Mostrando todas las horas");
+                            // Aquí puedes agregar lógica para mostrar todas las horas
+                            updateHourCards(availableHours, true); // Mostrar todas las horas
+                        }
+                    });
                 } else {
                     Toast.makeText(MarkerInfoActivity.this, "Error al verificar la disponibilidad", Toast.LENGTH_SHORT).show();
                 }
@@ -246,22 +248,55 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         timeSlots1.add("9:00 - 11:30");
         timeSlots1.add("12:00 - 14:30");
 
-        Log.d("1", "updateHourCards: "+availableHours.get(0).getMatchTime());
-        Log.d("2", "updateHourCards: "+timeSlots1.get(0));
+        List<String> timeSlots2 = new ArrayList<>();
+        timeSlots2.add("15:00 - 17:30");
+        timeSlots2.add("18:00 - 20:30");
+
+        for (String timeSlot : timeSlots1) {
+            boolean available = isHourAvailable(availableHours, timeSlot);
+            addHourCard(gridLayout, timeSlot, available);
+        }
+
+        for (String timeSlot : timeSlots2) {
+            boolean available = isHourAvailable(availableHours, timeSlot);
+            addHourCard(gridLayout, timeSlot, available);
+        }
+    }
+
+    private void updateHourCards(List<MatchTime> availableHours, boolean showUnavailable) {
+        gridLayout.removeAllViews();
+
+        List<String> timeSlots1 = new ArrayList<>();
+        timeSlots1.add("9:00 - 11:30");
+        timeSlots1.add("12:00 - 14:30");
 
         List<String> timeSlots2 = new ArrayList<>();
         timeSlots2.add("15:00 - 17:30");
         timeSlots2.add("18:00 - 20:30");
 
         for (String timeSlot : timeSlots1) {
-            boolean available = availableHours.contains(timeSlot);
-            addHourCard(gridLayout, timeSlot, available);
+            boolean available = isHourAvailable(availableHours, timeSlot);
+            if (showUnavailable || !available) {
+                addHourCard(gridLayout, timeSlot, available);
+            }
         }
 
         for (String timeSlot : timeSlots2) {
-            boolean available = availableHours.contains(timeSlot);
-            addHourCard(gridLayout, timeSlot, available);
+            boolean available = isHourAvailable(availableHours, timeSlot);
+            if (showUnavailable || !available) {
+                addHourCard(gridLayout, timeSlot, available);
+            }
         }
+    }
+
+
+    private boolean isHourAvailable(List<MatchTime> availableHours, String timeSlot) {
+        for (MatchTime matchTime : availableHours) {
+            if (matchTime.getMatchTime().equals(timeSlot)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
