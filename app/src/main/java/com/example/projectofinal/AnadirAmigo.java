@@ -47,7 +47,7 @@ public class AnadirAmigo extends AppCompatActivity {
         editTextBuscar = findViewById(R.id.editTextBuscador);
         usuarioList = new ArrayList<>();
         recyclerViewListaUsers = findViewById(R.id.recyclerViewListaUsers);
-        usuarioAdapter = new UsuarioAdapter(usuarioList, userId);
+        usuarioAdapter = new UsuarioAdapter(usuarioList, userId,this);
         recyclerViewListaUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewListaUsers.setAdapter(usuarioAdapter);
         imageButtonBackInici = findViewById(R.id.imageButtonBackInici);

@@ -6,4 +6,708 @@
     android:layout_height="match_parent"
     tools:context=".VerPerfilJugador">
 
+    <TextView
+        android:id="@+id/textViewTituloPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Perfil Pedro"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTituloPerfil">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewFotoPerfil"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="35dp"
+                android:contentDescription="Foto de perfil"
+                android:src="@drawable/perfil"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewNombreApellido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="55dp"
+                android:text="Pedro Ruiz"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoPerfil"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/textViewContPart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="30dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+
+            <TextView
+                android:id="@+id/textViewPartidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Partidos"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/textViewPartidos"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+
+            <TextView
+                android:id="@+id/textViewContSeguidores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="30dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+
+            <TextView
+                android:id="@+id/textViewSeguidores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Seguidores"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/textViewSeguidores"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+
+            <TextView
+                android:id="@+id/textViewContSeguidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="30dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+
+            <TextView
+                android:id="@+id/textViewSeguidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Seguidores"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewSeguidores">
+
+                <TableRow
+                    android:background="@drawable/layout_border"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="Spike Stats"
+                        android:textColor="@color/negro1"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Points"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtPointsSpike"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Errors"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtErrorsSpike"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attempts"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtAttemptsSpike"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </TableRow>
+
+                <TableRow
+                    android:background="@drawable/layout_border"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="Block Stats"
+                        android:textColor="@color/negro1"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Points"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtPointsBlock"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Errors"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtErrorsBlock"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attempts"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtAttemptsBlock"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </TableRow>
+
+                <TableRow
+                    android:background="@drawable/layout_border"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="Serve Stats"
+                        android:textColor="@color/negro1"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Points"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtPointsServe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Errors"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtErrorsServe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attempts"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtAttemptsServe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </TableRow>
+
+                <TableRow
+                    android:background="@drawable/layout_border"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="Set Stats"
+                        android:textColor="@color/negro1"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Successfuls"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtSuccessfulSet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Errors"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtErrorsSet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attempts"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtAttemptsSet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </TableRow>
+
+                <TableRow
+                    android:background="@drawable/layout_border"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="Receive Stats"
+                        android:textColor="@color/negro1"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Successfuls"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtSuccessfulReceive"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Errors"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtErrorsReceive"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_border"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attempts"
+                                android:textColor="@color/negro2"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewtAttemptsReceive"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="@color/negro2"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </TableRow>
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
+        android:text="Reportar"
+        android:textColor="@color/white"
+        android:background="@drawable/button_selectorreport"
+        app:layout_constraintStart_toEndOf="@+id/textViewTituloPerfil"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

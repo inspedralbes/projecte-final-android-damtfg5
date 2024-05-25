@@ -1,6 +1,7 @@
 package com.example.projectofinal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
     private List<Usuario> usuarioList;
     private String URL = "http://192.168.1.21:3001/";
+    private Context context;
     int userId;
 
-    public UsuarioAdapter(List<Usuario> usuarioList,int userId) {
+    public UsuarioAdapter(List<Usuario> usuarioList,int userId,Context context) {
         this.usuarioList = usuarioList;
         this.userId = userId;
+        this.context = context;
     }
 
     public void setUsuario(List<Usuario> usuarioList) {
@@ -56,6 +59,16 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             holder.imageViewUsuario.setImageResource(R.drawable.perfil);
         }
         holder.textViewNombreUsuario.setText(usuario.getFirstname() + " " + usuario.getSurname());
+
+        holder.imageViewUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, VerPerfilJugador.class);
+                int userid= usuario.getId();
+                intent.putExtra("userId", userid);
+                context.startActivity(intent);
+            }
+        });
 
         if(usuario.getAmigo().equals("Amigo")){
             holder.buttonSeguir.setText("Amigos");
