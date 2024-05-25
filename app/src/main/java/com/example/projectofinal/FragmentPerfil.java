@@ -59,12 +59,63 @@ public class FragmentPerfil extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflar la vista del fragmento
         view = inflater.inflate(R.layout.fragment_perfil, container, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         int userId = sharedPreferences.getInt("userId", -1);
+        String spikePointsTotalString = String.valueOf(sharedPreferences.getInt("spikePointsTotal", 0));
+        String spikeErrorsTotalString = String.valueOf(sharedPreferences.getInt("spikeErrorsTotal", 0));
+        String spikeAttemptsTotalString = String.valueOf(sharedPreferences.getInt("spikeAttemptsTotal", 0));
+        String blockPointsTotalString = String.valueOf(sharedPreferences.getInt("blockPointsTotal", 0));
+        String blockErrorsTotalString = String.valueOf(sharedPreferences.getInt("blockErrorsTotal", 0));
+        String blockReboundsTotalString = String.valueOf(sharedPreferences.getInt("blockReboundsTotal", 0));
+        String servePointsTotalString = String.valueOf(sharedPreferences.getInt("servePointsTotal", 0));
+        String serveErrorsTotalString = String.valueOf(sharedPreferences.getInt("serveErrorsTotal", 0));
+        String serveAttemptsTotalString = String.valueOf(sharedPreferences.getInt("serveAttemptsTotal", 0));
+        String setSuccessfulTotalString = String.valueOf(sharedPreferences.getInt("setSuccessfulTotal", 0));
+        String setErrorsTotalString = String.valueOf(sharedPreferences.getInt("setErrorsTotal", 0));
+        String setAttemptsTotalString = String.valueOf(sharedPreferences.getInt("setAttemptsTotal", 0));
+        String receiveSuccessfulTotalString = String.valueOf(sharedPreferences.getInt("receiveSuccessfulTotal", 0));
+        String receiveErrorsTotalString = String.valueOf(sharedPreferences.getInt("receiveErrorsTotal", 0));
+        String receiveAttemptsTotalString = String.valueOf(sharedPreferences.getInt("receiveAttemptsTotal", 0));
+        TextView textViewtPointsSpike = view.findViewById(R.id.textViewtPointsSpike);
+        TextView textViewtErrorsSpike = view.findViewById(R.id.textViewtErrorsSpike);
+        TextView textViewtAttemptsSpike = view.findViewById(R.id.textViewtAttemptsSpike);
+        TextView textViewtPointsBlock = view.findViewById(R.id.textViewtPointsBlock);
+        TextView textViewtErrorsBlock = view.findViewById(R.id.textViewtErrorsBlock);
+        TextView textViewtAttemptsBlock = view.findViewById(R.id.textViewtAttemptsBlock);
+        TextView textViewtPointsServe = view.findViewById(R.id.textViewtPointsServe);
+        TextView textViewtErrorsServe = view.findViewById(R.id.textViewtErrorsServe);
+        TextView textViewtAttemptsServe = view.findViewById(R.id.textViewtAttemptsServe);
+        TextView textViewtSuccessfulSet = view.findViewById(R.id.textViewtSuccessfulSet);
+        TextView textViewtErrorsSet = view.findViewById(R.id.textViewtErrorsSet);
+        TextView textViewtAttemptsSet = view.findViewById(R.id.textViewtAttemptsSet);
+        TextView textViewtSuccessfulReceive = view.findViewById(R.id.textViewtSuccessfulReceive);
+        TextView textViewtErrorsReceive = view.findViewById(R.id.textViewtErrorsReceive);
+        TextView textViewtAttemptsReceive = view.findViewById(R.id.textViewtAttemptsReceive);
+
+        textViewtPointsSpike.setText(spikePointsTotalString);
+        textViewtErrorsSpike.setText(spikeErrorsTotalString);
+        textViewtAttemptsSpike.setText(spikeAttemptsTotalString);
+
+        textViewtPointsBlock.setText(blockPointsTotalString);
+        textViewtErrorsBlock.setText(blockErrorsTotalString);
+        textViewtAttemptsBlock.setText(blockReboundsTotalString);
+
+        textViewtPointsServe.setText(servePointsTotalString);
+        textViewtErrorsServe.setText(serveErrorsTotalString);
+        textViewtAttemptsServe.setText(serveAttemptsTotalString);
+
+        textViewtSuccessfulSet.setText(setSuccessfulTotalString);
+        textViewtErrorsSet.setText(setErrorsTotalString);
+        textViewtAttemptsSet.setText(setAttemptsTotalString);
+
+        textViewtSuccessfulReceive.setText(receiveSuccessfulTotalString);
+        textViewtErrorsReceive.setText(receiveErrorsTotalString);
+        textViewtAttemptsReceive.setText(receiveAttemptsTotalString);
+
+
         getDataUser(userId);
         return view;
     }
