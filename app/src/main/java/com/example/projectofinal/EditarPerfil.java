@@ -1,5 +1,6 @@
 package com.example.projectofinal;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,7 +18,8 @@ import com.example.projectofinal.R;
 
 import java.util.Locale;
 
-public class EditarPerfil extends AppCompatActivity {
+public class EditarPerfil extends AppCompatActivity implements GenderPickerBottomSheet.GenderPickerListener {
+    private TextView textViewGendrePick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +33,19 @@ public class EditarPerfil extends AppCompatActivity {
         ConstraintLayout firstLayout = findViewById(R.id.firstLayout);
         ConstraintLayout secondLayout = findViewById(R.id.secondLayout);
         ConstraintLayout fourLayout = findViewById(R.id.fourLayout);
+        ConstraintLayout sevenLayout = findViewById(R.id.sevenLayout);
+        CardView cardViewPrefs = findViewById(R.id.cardViewPrefs);
         EditText editTextNC = findViewById(R.id.editTextNC);
         EditText editTextEmail = findViewById(R.id.editTextEmail);
-       EditText editTextPhone = findViewById(R.id.editTextPhone);
+        EditText editTextPhone = findViewById(R.id.editTextPhone);
+        EditText editTextDescription = findViewById(R.id.editTextDescription);
         ImageButton imageButtonClearNC = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearEmail = findViewById(R.id.imageButtonClear2);
         ImageButton imageButtonClearPhone = findViewById(R.id.imageButtonClear3);
         ImageButton imageButtonBackPerfil = findViewById(R.id.imageButtonBP);
+        ImageButton imageButtonCleardesc = findViewById(R.id.imageButtonCleardesc);
         TextView textViewfecha = findViewById(R.id.textViewFecha);
+        textViewGendrePick = findViewById(R.id.textViewGendre);
         // Habilitar el TextView y cambiar su color a naranja cuando se detecten cambios
         textViewCambiosGuardados.setEnabled(true);
         textViewCambiosGuardados.setTextColor(getResources().getColor(R.color.naranja1));
@@ -49,10 +57,12 @@ public class EditarPerfil extends AppCompatActivity {
         setupEditTextFocusChange(editTextNC, firstLayout, imageButtonClearNC);
         setupEditTextFocusChange(editTextEmail, secondLayout, imageButtonClearEmail);
         setupEditTextFocusChange(editTextPhone, fourLayout, imageButtonClearPhone);
+        setupEditTextFocusChange(editTextDescription, sevenLayout, imageButtonCleardesc);
 
         setupImageButtonClear(editTextNC, imageButtonClearNC);
         setupImageButtonClear(editTextEmail, imageButtonClearEmail);
         setupImageButtonClear(editTextPhone, imageButtonClearPhone);
+        setupImageButtonClear(editTextDescription, imageButtonCleardesc);
 
 
         textViewfecha.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +76,22 @@ public class EditarPerfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        textViewGendrePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GenderPickerBottomSheet bottomSheet = new GenderPickerBottomSheet();
+                bottomSheet.show(getSupportFragmentManager(), "GenderPickerBottomSheet");
+            }
+        });
+
+        cardViewPrefs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent intent = new Intent(EditarPerfil.this,EditarPreferencias.class);
+                startActivity(intent);*/
             }
         });
     }
@@ -110,6 +136,11 @@ public class EditarPerfil extends AppCompatActivity {
                 + month_string + "/" + year_string);
         TextView selectedDateTextView = findViewById(R.id.textViewFecha);
         selectedDateTextView.setText(getString(R.string.selected_date, dateMessage));
+    }
+
+    @Override
+    public void onGenderSelected(String gender) {
+        textViewGendrePick.setText(gender);
     }
 
 

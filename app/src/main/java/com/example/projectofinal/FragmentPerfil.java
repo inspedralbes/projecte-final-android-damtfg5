@@ -70,7 +70,7 @@ public class FragmentPerfil extends Fragment {
     }
 
     private void getDataUser(int userId){
-        String URL = "http://192.168.1.17:3001/";
+        String URL = "http://192.168.1.21:3001/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
