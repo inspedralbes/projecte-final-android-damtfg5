@@ -203,44 +203,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/thirdLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/layout_border"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/secondLayout">
-
-                <TextView
-                    android:id="@+id/textViewCodePhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:drawableEnd="@drawable/expand"
-                    android:gravity="center_vertical"
-                    android:text="ES (+34)"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fourLayout"
-                android:layout_width="278dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/layout_border"
                 android:orientation="vertical"
                 android:padding="5dp"
-                app:layout_constraintStart_toEndOf="@id/thirdLayout"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/secondLayout">
 
                 <TextView
@@ -285,8 +259,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/layout_border"
                 android:padding="5dp"
-                android:paddingStart="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/thirdLayout">
+                app:layout_constraintTop_toBottomOf="@+id/fourLayout">
 
                 <TextView
                     android:id="@+id/textViewFecha"
@@ -297,13 +270,55 @@
                     android:text="Fecha de Nacimiento"
                     android:background="@drawable/textview_selectorbg"
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/midLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/fifthLayout">
+
+                <TextView
+                    android:id="@+id/textViewPais"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Pais de Nacimiento"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextPais"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="España"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPais" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearPais"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -317,13 +332,14 @@
                 android:padding="5dp"
                 android:paddingStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fifthLayout">
+                app:layout_constraintTop_toBottomOf="@+id/midLayout">
 
                 <TextView
                     android:id="@+id/textViewGendre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Género"
+                    android:background="@drawable/textview_selectorbg"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

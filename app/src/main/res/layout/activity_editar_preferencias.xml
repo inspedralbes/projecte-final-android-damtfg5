@@ -6,4 +6,406 @@
     android:layout_height="match_parent"
     tools:context=".EditarPreferencias">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/secondConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonBEP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <TextView
+            android:id="@+id/textViewEditarPrefs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="sans-serif"
+            android:text="Editar Preferencias"
+            android:textColor="@color/negro2"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonBEP"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCambiosGuardados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="17dp"
+            android:clickable="true"
+            android:enabled="false"
+            android:focusable="true"
+            android:text="Guardar"
+            android:textColor="@color/gris"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewEditarPrefs"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondConstraintLayout">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewInfoPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="30dp"
+                android:text="Información de jugador"
+                android:textColor="@color/negro2"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewInfoPlay">
+
+                <TextView
+                    android:id="@+id/textViewPos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Posicion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextPos"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="Libero"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPos" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearPos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secondLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/firstLayout">
+
+                <TextView
+                    android:id="@+id/textViewHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Altura"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextHeight"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="187 cm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewHeight" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/thirdLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/secondLayout">
+
+                <TextView
+                    android:id="@+id/textViewVJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Salto Vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextVJ"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="323 cm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewVJ" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearVJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fourLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:padding="5dp"
+                android:background="@drawable/layout_border"
+                app:layout_constraintTop_toBottomOf="@+id/thirdLayout">
+
+                <!-- TextView para elegir rol -->
+                <TextView
+                    android:id="@+id/textViewChooseRole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elegir Rol"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Botón soloPlayer -->
+                <Button
+                    android:id="@+id/buttonSoloPlayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Solo Player"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseRole"
+                    android:onClick="selectRole" />
+
+                <!-- Botón teamPlayer -->
+                <Button
+                    android:id="@+id/buttonTeamPlayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Team Player"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonSoloPlayer"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseRole"
+                    android:onClick="selectRole" />
+
+                <!-- Botón captain -->
+                <Button
+                    android:id="@+id/buttonCaptain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Captain"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonTeamPlayer"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseRole"
+                    android:onClick="selectRole" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fifthLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:padding="5dp"
+                android:background="@drawable/layout_border"
+                app:layout_constraintTop_toBottomOf="@+id/fourLayout">
+
+                <!-- TextView para elegir rol -->
+                <TextView
+                    android:id="@+id/textViewChooseHand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elegir Mano Dominante"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Botón soloPlayer -->
+                <Button
+                    android:id="@+id/buttonDerecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Derecha"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseHand"
+                    android:onClick="selectHand" />
+
+                <!-- Botón teamPlayer -->
+                <Button
+                    android:id="@+id/buttonIzquierda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Izquierda"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonDerecha"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseHand"
+                    android:onClick="selectHand" />
+
+                <!-- Botón captain -->
+                <Button
+                    android:id="@+id/buttonAmbas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Ambas"
+                    android:background="@drawable/button_multiselectorbg"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="2dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonIzquierda"
+                    app:layout_constraintTop_toBottomOf="@id/textViewChooseHand"
+                    android:onClick="selectHand" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sixLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/fifthLayout">
+
+                <TextView
+                    android:id="@+id/textViewLocalitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Localizacion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/editTextLocalitation"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="Barcelona"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLocalitation" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearLocalitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

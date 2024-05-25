@@ -62,4 +62,7 @@ public interface ApiService {
 
     @POST("hoursPickedByDay")
     Call<List<MatchTime>> getHoursByDay(@Body DayLocationRequest request);
+
+    @GET("/getMunicipis")
+    Call<List<String>> getMunicipis();
 }
