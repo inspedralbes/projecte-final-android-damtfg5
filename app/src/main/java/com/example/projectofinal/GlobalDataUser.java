@@ -3,12 +3,12 @@ package com.example.projectofinal;
 
 public class GlobalDataUser {
     private int idUser;
-    private  String firstname;
+    private String firstname;
     private String surname;
     private int admin;
     private String email;
     private int phone;
-    private Integer totalGames;
+    private int totalGames;
     private String dominantHand;
     private String position;
     private int height;
@@ -20,7 +20,7 @@ public class GlobalDataUser {
     private String availability;
     private String country;
     private String profilePic;
-    private Integer userIdTeam;
+    private int userIdTeam;
     private int spikePointsTotal;
     private int spikeErrorsTotal;
     private int spikeAttemptsTotal;
@@ -30,23 +30,23 @@ public class GlobalDataUser {
     private int servePointsTotal;
     private int serveErrorsTotal;
     private int serveAttemptsTotal;
-    private Integer setSuccessfulTotal;
-    private Integer setErrorsTotal;
-    private Integer setAttemptsTotal;
-    private Integer receiveSuccessfulTotal;
-    private Integer receiveErrorsTotal;
-    private Integer receiveAttemptsTotal;
+    private int setSuccessfulTotal;
+    private int setErrorsTotal;
+    private int setAttemptsTotal;
+    private int receiveSuccessfulTotal;
+    private int receiveErrorsTotal;
+    private int receiveAttemptsTotal;
     private String rol;
-    private Integer teamId;
+    private int teamId;
     private String teamName;
-    private Integer nPlayers;
+    private int nPlayers;
     private String teamLogoPic;
     private String shortName;
-    private Integer teamTotalGames;
-    private Integer wonGames;
-    private Integer lostGames;
-    private Integer totalPoints;
-    private Integer idGame;
+    private int teamTotalGames;
+    private int wonGames;
+    private int lostGames;
+    private int totalPoints;
+    private int idGame;
 
     // Getters y Setters para todos los campos
 
