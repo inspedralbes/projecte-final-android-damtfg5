@@ -41,18 +41,29 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static Socket socket = SocketManager.getInstance();
     static Context context;
 
-    public MatchAdapter(List<Match> matchList) {
+    // Constructor que recibe el contexto
+    public MatchAdapter(Context context, List<Match> matchList) {
+        this.context = context;
         this.matchList = matchList;
     }
 
     @Override
     public int getItemViewType(int position) {
         Match match = matchList.get(position);
-        if (!match.getTeam1().getId().equals("No disponible") || !match.getTeam2().getId().equals("No disponible")) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
+        int userId = sharedPreferences.getInt("userId", 0);
+        String rol = sharedPreferences.getString("rol", "");
+        if (!rol.equals("soloPlayer")) {
             return TYPE_TWO_TEAMS;
         } else {
             return TYPE_FIVE_VS_FIVE;
         }
+        /*if (!match.getTeam1().getId().equals("No disponible") || !match.getTeam2().getId().equals("No disponible")) {
+            return TYPE_TWO_TEAMS;
+        } else {
+            return TYPE_FIVE_VS_FIVE;
+        }*/
     }
 
     @NonNull

@@ -39,7 +39,7 @@ public class DisponiblesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         matchList = new ArrayList<>();
-        adapter = new MatchAdapter(matchList);
+        adapter = new MatchAdapter(getApplicationContext(), matchList);
         recyclerView.setAdapter(adapter);
 
         imageButtonBackPartidos = findViewById(R.id.imageButtonBackPartidos);

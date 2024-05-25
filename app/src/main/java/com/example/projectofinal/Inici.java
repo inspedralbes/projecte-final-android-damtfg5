@@ -17,11 +17,17 @@ import android.widget.ImageButton;
 
 import com.example.projectofinal.databinding.ActivityIniciBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.socket.client.Socket;
+
 public class Inici extends AppCompatActivity {
     ActivityIniciBinding binding;
     CardView cardView;
     ImageButton imageButton;
     boolean isCardOpen = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +79,9 @@ public class Inici extends AppCompatActivity {
         int lostGames = sharedPreferences.getInt("lostGames", 0);
         int totalPoints = sharedPreferences.getInt("totalPoints", 0);
         int idGame = sharedPreferences.getInt("idGame", 0);
+        int admin = sharedPreferences.getInt("admin", 0);
 
-        Log.d("SharedPreferences", "userId: " + userId);
+        /*Log.d("SharedPreferences", "userId: " + userId);
         Log.d("SharedPreferences", "userName: " + userName);
         Log.d("SharedPreferences", "userEmail: " + userEmail);
         Log.d("SharedPreferences", "userPhone: " + userPhone);
@@ -111,6 +118,8 @@ public class Inici extends AppCompatActivity {
         Log.d("SharedPreferences", "teamName: " + teamName);
         Log.d("SharedPreferences", "nPlayers: " + nPlayers);
         Log.d("SharedPreferences", "teamLogoPic"+ teamLogoPic);
+        Log.d("SharedPreferences", "admin: "+ admin);*/
+
         cardView = findViewById(R.id.cardView);
         imageButton = findViewById(R.id.imageButtonMas);
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{

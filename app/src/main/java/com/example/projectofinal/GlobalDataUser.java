@@ -5,6 +5,7 @@ public class GlobalDataUser {
     private int idUser;
     private  String firstname;
     private String surname;
+    private int admin;
     private String email;
     private int phone;
     private Integer totalGames;
@@ -48,6 +49,15 @@ public class GlobalDataUser {
     private Integer idGame;
 
     // Getters y Setters para todos los campos
+
+
+    public int isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
 
     public int getIdUser() {
         return idUser;

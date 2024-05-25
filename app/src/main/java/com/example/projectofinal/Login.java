@@ -15,9 +15,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import io.socket.client.Socket;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +35,8 @@ public class Login extends AppCompatActivity {
     private ImageButton imageButtonMostrarContraseña;
     private boolean contraseñaVisible = false;
     private String URL = "http://192.168.1.17:3001/";
+    private static Socket socket = SocketManager.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +128,18 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<GlobalDataUser> call, Response<GlobalDataUser> response) {
                 if (response.isSuccessful()) {
                     GlobalDataUser userData = response.body();
-                    Log.d("EMAIIIIIIIIIIIIIIIIIIIIIIIL", "onResponse: " + userData.getEmail());
+                    JSONObject userDataJson = new JSONObject();
+                    socket.connect();
+                    try {
+                        userDataJson.put("id", userData.getIdUser());
+                        userDataJson.put("name", userData.getFirstname());
+                        userDataJson.put("rol", userData.getRol());
+                        userDataJson.put("admin", userData.isAdmin());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // Emitir el objeto JSON al socket
+                    socket.emit("login", userDataJson);
                     saveUserData(userData);
                     // ... y así sucesivamente para todos los campos
                 } else {
@@ -185,7 +202,7 @@ public class Login extends AppCompatActivity {
         editor.putInt("lostGames", userData.getLostGames() != null ? userData.getLostGames() : 0);
         editor.putInt("totalPoints", userData.getTotalPoints() != null ? userData.getTotalPoints() : 0);
         editor.putInt("idGame", userData.getIdGame() != null ? userData.getIdGame() : 0);
-
+        editor.putInt("admin", userData.isAdmin());
         editor.apply();
     }
 
