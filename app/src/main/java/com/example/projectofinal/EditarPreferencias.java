@@ -6,13 +6,13 @@ import androidx.preference.PreferenceManager;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,9 +40,11 @@ public class EditarPreferencias extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String position = sharedPreferences.getString("position", "");
         int height = sharedPreferences.getInt("height", 0);
+        String heightString = String.valueOf(height);
         int verticalJump = sharedPreferences.getInt("verticalJump", 0);
+        String verticalJumpString = String.valueOf(verticalJump);
         String rol = sharedPreferences.getString("rol", "");
-        int dominantHand = sharedPreferences.getInt("dominantHand", 0);
+        String dominantHand = sharedPreferences.getString("dominantHand", "");
         String location = sharedPreferences.getString("location", "");
 
         ConstraintLayout firstLayout = findViewById(R.id.firstLayout);
@@ -61,7 +63,9 @@ public class EditarPreferencias extends AppCompatActivity {
         municipiNames = new ArrayList<>();
 
         editTextPos.setText(position);
-
+        editTextHeight.setText(heightString);
+        editTextVJ.setText(verticalJumpString);
+        editTextLocalitation.setText(location);
 
         setupEditTextFocusChange(editTextPos, firstLayout, imageButtonClearPos);
         setupImageButtonClear(editTextPos, imageButtonClearPos);
@@ -79,6 +83,11 @@ public class EditarPreferencias extends AppCompatActivity {
         buttonDerecha = findViewById(R.id.buttonDerecha);
         buttonIzquierda = findViewById(R.id.buttonIzquierda);
         buttonAmbas = findViewById(R.id.buttonAmbas);
+
+        // Seleccionar el botón correspondiente al rol
+        selectRoleBasedOnPreferences(rol);
+        // Seleccionar el botón correspondiente a la mano dominante
+        selectHandBasedOnPreferences(dominantHand);
 
         imageButtonBEP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +193,34 @@ public class EditarPreferencias extends AppCompatActivity {
                 break;
             case "buttonAmbas":
                 // Lógica para el rol de captain
+                break;
+        }
+    }
+
+    private void selectRoleBasedOnPreferences(String rol) {
+        switch (rol) {
+            case "soloPlayer":
+                buttonSoloPlayer.setSelected(true);
+                break;
+            case "teamPlayer":
+                buttonTeamPlayer.setSelected(true);
+                break;
+            case "captain":
+                buttonCaptain.setSelected(true);
+                break;
+        }
+    }
+
+    private void selectHandBasedOnPreferences(String dominantHand) {
+        switch (dominantHand) {
+            case "Derecha":
+                buttonDerecha.setSelected(true);
+                break;
+            case "Izquierda":
+                buttonIzquierda.setSelected(true);
+                break;
+            case "Ambas":
+                buttonAmbas.setSelected(true);
                 break;
         }
     }

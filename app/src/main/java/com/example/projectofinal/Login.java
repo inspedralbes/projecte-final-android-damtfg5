@@ -164,7 +164,7 @@ public class Login extends AppCompatActivity {
         editor.putString("userEmail", userData.getEmail());
         editor.putInt("userPhone", userData.getPhone());
         editor.putInt("totalGames", userData.getTotalGames() != null ? userData.getTotalGames() : 0);
-        editor.putInt("dominantHand", userData.getDominantHand() != null ? userData.getDominantHand() : 0);
+        editor.putString("dominantHand", userData.getDominantHand());
         editor.putString("position", userData.getPosition());
         editor.putInt("height", userData.getHeight());
         editor.putInt("verticalJump", userData.getVerticalJump());

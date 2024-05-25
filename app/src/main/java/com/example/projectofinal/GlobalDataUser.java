@@ -9,7 +9,7 @@ public class GlobalDataUser {
     private String email;
     private int phone;
     private Integer totalGames;
-    private Integer dominantHand;
+    private String dominantHand;
     private String position;
     private int height;
     private int verticalJump;
@@ -107,11 +107,11 @@ public class GlobalDataUser {
         this.totalGames = totalGames;
     }
 
-    public Integer getDominantHand() {
+    public String getDominantHand() {
         return dominantHand;
     }
 
-    public void setDominantHand(Integer dominantHand) {
+    public void setDominantHand(String dominantHand) {
         this.dominantHand = dominantHand;
     }
 

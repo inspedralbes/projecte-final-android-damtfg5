@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.bumptech.glide.Glide;
 import com.example.projectofinal.DatePickerFragment;
 import com.example.projectofinal.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -32,6 +35,7 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
         config.locale = locale;
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String profilePic = sharedPreferences.getString("profilePic", "");
         String userName = sharedPreferences.getString("userName", "");
         String userEmail = sharedPreferences.getString("userEmail", "");
         int userPhone = sharedPreferences.getInt("userPhone", 0);
@@ -59,6 +63,7 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
         EditText editTextPhone = findViewById(R.id.editTextPhone);
         EditText editTextPais = findViewById(R.id.editTextPais);
         EditText editTextDescription = findViewById(R.id.editTextDescription);
+        ImageView imageViewFotoPerfil = findViewById(R.id.imageViewUsuario);
         ImageButton imageButtonClearNC = findViewById(R.id.imageButtonClear1);
         ImageButton imageButtonClearEmail = findViewById(R.id.imageButtonClear2);
         ImageButton imageButtonClearPhone = findViewById(R.id.imageButtonClear3);
@@ -89,6 +94,17 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
             textViewGendrePick.setText(gender);
         }
 
+        if (!profilePic.isEmpty()) {
+            Glide.with(this)
+                    .load(profilePic)
+                    .into(imageViewFotoPerfil);
+        }
+
+        /*if (usuario.getProfilePic() != null && !usuario.getProfilePic().isEmpty()) {
+            Picasso.get().load(usuario.getProfilePic()).into(holder.imageViewUsuario);
+        } else {
+            holder.imageViewUsuario.setImageResource(R.drawable.perfil);
+        }*/
 
         setupEditTextFocusChange(editTextNC, firstLayout, imageButtonClearNC);
         setupEditTextFocusChange(editTextEmail, secondLayout, imageButtonClearEmail);

@@ -41,7 +41,7 @@ public class Inici extends AppCompatActivity {
         String userEmail = sharedPreferences.getString("userEmail", "");
         int userPhone = sharedPreferences.getInt("userPhone", 0);
         int totalGames = sharedPreferences.getInt("totalGames", 0);
-        int dominantHand = sharedPreferences.getInt("dominantHand", 0);
+        String dominantHand = sharedPreferences.getString("dominantHand", "");
         String position = sharedPreferences.getString("position", "");
         int height = sharedPreferences.getInt("height", 0);
         int verticalJump = sharedPreferences.getInt("verticalJump", 0);
