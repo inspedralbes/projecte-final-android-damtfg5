@@ -13,7 +13,11 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -37,6 +41,7 @@ public class ReservaPista extends AppCompatActivity {
     MapView map;
     ImageButton imageButtonZoomIn;
     ImageButton imageButtonZoomOut;
+    AutoCompleteTextView editTextLocalitation;
     private String URL = "http://192.168.1.21:3001/";
 
     @Override
@@ -47,6 +52,7 @@ public class ReservaPista extends AppCompatActivity {
         imageButtonBackReserva = findViewById(R.id.imageButtonBackReserva);
         imageButtonZoomIn = findViewById(R.id.imageButtonZoomIn);
         imageButtonZoomOut = findViewById(R.id.imageButtonZoomOut);
+        editTextLocalitation = findViewById(R.id.editTextBuscador);
 
         imageButtonBackReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +100,33 @@ public class ReservaPista extends AppCompatActivity {
         mapController.setZoom(14.0);
         mapController.setCenter(startPoint);
         map.invalidate();
-        getSpacesFromServer("Barcelona");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<String>> call = apiService.getMunicipis();
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful()) {
+                    List<String> municipis = response.body();
+                    if (municipis != null) {
+                        setupAutoCompleteTextView(municipis);
+                    }
+                } else {
+                    Toast.makeText(ReservaPista.this, "Error: " + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Toast.makeText(ReservaPista.this, "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void getSpacesFromServer(String municipi) {
@@ -169,6 +201,19 @@ public class ReservaPista extends AppCompatActivity {
         });
         map.getOverlays().add(marker);
         map.invalidate();
+    }
+    private void setupAutoCompleteTextView(List<String> municipis) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, municipis);
+        editTextLocalitation.setAdapter(adapter);
+        editTextLocalitation.setThreshold(1);
+        editTextLocalitation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Obtener el texto seleccionado del adaptador y llamar a getSpacesFromServer
+                String selectedText = (String) parent.getItemAtPosition(position);
+                getSpacesFromServer(selectedText);
+            }
+        });
     }
 
     private void zoomIn() {
