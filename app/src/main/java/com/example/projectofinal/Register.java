@@ -81,8 +81,8 @@ public class Register extends AppCompatActivity {
                 String email = editTextEmail.getText().toString().trim();
                 String password = hashPassword(editTextContraseña.getText().toString().trim());
                 String phone = editTextTelefono.getText().toString().trim();
-                String country = "España"; // Obtén el valor del EditText correspondiente
-                String birthDate = "2003-12-26"; // Obtén el valor del EditText correspondiente
+                String country = "";
+                String birthDate = "";
 
                 // Crear un objeto RegisterRequest con los datos del registro
                 RegisterRequest registerRequest = new RegisterRequest(firstname, surname, email, password, phone, country, birthDate);
