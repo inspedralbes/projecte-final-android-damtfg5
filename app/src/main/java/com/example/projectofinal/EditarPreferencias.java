@@ -29,7 +29,7 @@ public class EditarPreferencias extends AppCompatActivity {
     private Button buttonSoloPlayer, buttonTeamPlayer, buttonCaptain;
     private Button buttonDerecha, buttonIzquierda, buttonAmbas;
     private AutoCompleteTextView editTextLocalitation;
-    private String URL = "http://192.168.1.21:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     private List<String> municipiNames;
 
     @Override

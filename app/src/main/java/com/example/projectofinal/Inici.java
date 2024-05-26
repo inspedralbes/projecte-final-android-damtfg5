@@ -36,7 +36,7 @@ public class Inici extends AppCompatActivity {
         replaceFragment(new FragmentJugar());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        int userId = sharedPreferences.getInt("userId", -1);
+        /*int userId = sharedPreferences.getInt("userId", -1);
         String userName = sharedPreferences.getString("userName", "");
         String userEmail = sharedPreferences.getString("userEmail", "");
         int userPhone = sharedPreferences.getInt("userPhone", 0);
@@ -79,7 +79,7 @@ public class Inici extends AppCompatActivity {
         int lostGames = sharedPreferences.getInt("lostGames", 0);
         int totalPoints = sharedPreferences.getInt("totalPoints", 0);
         int idGame = sharedPreferences.getInt("idGame", 0);
-        int admin = sharedPreferences.getInt("admin", 0);
+        int admin = sharedPreferences.getInt("admin", 0);*/
 
         /*Log.d("SharedPreferences", "userId: " + userId);
         Log.d("SharedPreferences", "userName: " + userName);

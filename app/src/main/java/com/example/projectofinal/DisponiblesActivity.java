@@ -68,9 +68,18 @@ public class DisponiblesActivity extends AppCompatActivity {
             }
         });
 
-        socket.emit("getMatches", "");
-        socket.connect();
-        socket.on("matches", onMatches);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
+        int userId = sharedPreferences.getInt("userId", 0);
+        String rol = sharedPreferences.getString("rol", "");
+        if (!rol.equals("soloPlayer")) {
+            socket.emit("getMatches", "");
+            socket.on("matches", onMatches);
+        } else {
+            socket.emit("getMatchesSolos", "");
+            socket.on("matches", onSoloMatches);
+        }
+
     }
 
     private Emitter.Listener onMatches = new Emitter.Listener() {
@@ -114,6 +123,70 @@ public class DisponiblesActivity extends AppCompatActivity {
                                         data.getInt("team2_totalPoints"),
                                         data.getString("team2_idGame")
                                 );
+
+                                Match match = new Match(matchId, matchDate, matchTime, matchLocation, status, team1, team2);
+                                matchList.add(match);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    };
+    private Emitter.Listener onSoloMatches = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    matchList.clear();
+                    for (Object arg : args) {
+                        try {
+                            JSONArray jsonArray = (JSONArray) arg;
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject data = jsonArray.getJSONObject(i);
+                                int matchId = data.getInt("match_id");
+                                String matchDate = data.getString("matchDate");
+                                String matchTime = data.getString("matchTime");
+                                String matchLocation = data.getString("matchLocation");
+                                String status = data.getString("status");
+                                Team team1 = new Team(
+                                        data.getString("team1_id"),
+                                        data.getString("team1_name"),
+                                        data.getInt("team1_nPlayers"),
+                                        data.getString("team1_logoPic"),
+                                        data.getString("team1_shortName"),
+                                        data.getInt("team1_totalGames"),
+                                        data.getInt("team1_wonGames"),
+                                        data.getInt("team1_lostGames"),
+                                        data.getInt("team1_totalPoints"),
+                                        data.getString("team1_idGame")
+                                );
+                                // Obtén el array de jugadores y asignalo al equipo
+                                JSONArray playersArray1 = data.getJSONArray("playersTeam1");
+                                team1.setPlayersFromJsonArray(playersArray1);
+
+                                Team team2 = new Team(
+                                        data.getString("team2_id"),
+                                        data.getString("team2_name"),
+                                        data.getInt("team2_nPlayers"),
+                                        data.getString("team2_logoPic"),
+                                        data.getString("team2_shortName"),
+                                        data.getInt("team2_totalGames"),
+                                        data.getInt("team2_wonGames"),
+                                        data.getInt("team2_lostGames"),
+                                        data.getInt("team2_totalPoints"),
+                                        data.getString("team2_idGame")
+                                );
+                                // Verificar si playersTeam2 existe en los datos
+                                if (data.has("playersTeam2")) {
+                                    // Obtén el array de jugadores del equipo 2 y asígnalo al equipo
+                                    JSONArray playersArray2 = data.getJSONArray("playersTeam2");
+                                    team2.setPlayersFromJsonArray(playersArray2);
+                                }
 
                                 Match match = new Match(matchId, matchDate, matchTime, matchLocation, status, team1, team2);
                                 matchList.add(match);

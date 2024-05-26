@@ -1,5 +1,6 @@
 package com.example.projectofinal;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -7,12 +8,16 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -45,9 +50,10 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private CardView selectedCardView = null;
     private Socket mSocket;
     int teamId,userId;
-    private String URL = "http://192.168.1.21:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     private String selectedDay = "";
     private String selectedHour = "";
+    private String rol, type, teamName="";
     String municipi;
 
     @Override
@@ -63,9 +69,21 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         }
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        teamId = sharedPreferences.getInt("teamId", -1);
+        rol = sharedPreferences.getString("rol", "");
         userId = sharedPreferences.getInt("userId", -1);
+        Log.d("ROL", "onCreate: " + rol);
+        if(!rol.equals("soloPlayer")){
+            Log.d("TEATAEHAHA", "onCreate: TEAM PLAYTETAFASFASFAFAFFSAFAF");
 
+            type = "teamMatch";
+            teamId = sharedPreferences.getInt("teamId", -1);
+        }else{
+            Log.d("SAOLOLOLOLOLOLLO", "onCreate: SOLOLOLOLOLOLOLO PLAYTETAFASFASFAFAFFSAFAF");
+            showInputDialog();
+            type = "soloMatch";
+
+
+        }
         textViewTitle = findViewById(R.id.textViewtitleRP);
         imageButtonBackMarkerInfo = findViewById(R.id.imageButtonBackMarkerInfo);
         switchShowAvailableHours = findViewById(R.id.switchShowAvailableHours);
@@ -117,7 +135,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
                     bookingObject.put("time", selectedHour);
                     bookingObject.put("location", municipi);
                     bookingObject.put("userId",userId);
-
+                    bookingObject.put("matchType", type);
                     // Enviar el objeto de reserva al servidor
                     mSocket.emit("createMatch", bookingObject);
                     Toast.makeText(MarkerInfoActivity.this, "Reserva enviada", Toast.LENGTH_SHORT).show();
@@ -217,6 +235,73 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
         DayItem selectedDayItem = dayAdapter.getItem(position);
         selectedDay = selectedDayItem.getDate();
         checkAvailability(selectedDay, municipi);
+    }
+    private void showInputDialog() {
+        // Create an EditText to get user input
+        final EditText input = new EditText(this);
+
+        // Create a dialog using AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter your team Name");
+        builder.setView(input);  // Add the EditText to the dialog
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Retrieve the input text
+                String userInput = input.getText().toString();
+                // Handle the user input (e.g., display it, save it, etc.)
+                teamName = userInput;
+                Context context = getApplicationContext(); // or use 'this' if in an Activity
+                int resourceId = R.drawable.logovolleypal;
+                Uri uri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
+                String uriString = uri.toString();
+                TeamData teamData = new TeamData(teamName, uriString, "tT");
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(URL) // Reemplaza esto con la URL base de tu servidor
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                // Crea una instancia de la interfaz ApiService
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                // Realiza la solicitud POST al servidor
+                Call<TeamData> call = apiService.createTeam(teamData);
+                Log.d("FAWFASFAFASFAFASFAFFASASF", "onCreate: A PUNTOOOOOOOOOOOOOO");
+                call.enqueue(new Callback<TeamData>() {
+                    @Override
+                    public void onResponse(Call<TeamData> call, Response<TeamData> response) {
+                        if (response.isSuccessful()) {
+                            TeamData teamDataResponse = response.body();
+                            Log.d("name", "onResponse: " + teamDataResponse.getTeamName());
+                            if (teamDataResponse != null) {
+                                int id = teamDataResponse.getId();
+                                teamId = id;
+                            } else {
+                            }
+
+                        } else {
+                            Log.d("TAG", "onResponse:earaerarearaara " );
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<TeamData> call, Throwable t) {
+                        Log.d("FAWFASFAFASFAFASFAFFASASF", "onCreate: A PUNTOOOOOOOOOOOOOO");
+
+                    }
+                });
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();  // Show the dialog
     }
 
     private void updateHourCards(List<MatchTime> availableHours) {

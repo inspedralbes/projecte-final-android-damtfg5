@@ -25,7 +25,7 @@ public class CrearEquipo extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageButtonUsuario;
     private Uri imageUri;
-    private String URL = "http://192.168.1.21:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +78,10 @@ public class CrearEquipo extends AppCompatActivity {
                 ApiService apiService = retrofit.create(ApiService.class);
 
                 // Realiza la solicitud POST al servidor
-                Call<Void> call = apiService.createTeam(teamData);
-                call.enqueue(new Callback<Void>() {
+                Call<TeamData> call = apiService.createTeam(teamData);
+                call.enqueue(new Callback<TeamData>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<TeamData> call, Response<TeamData> response) {
                         if (response.isSuccessful()) {
                             // Manejar la respuesta exitosa
                             Toast.makeText(CrearEquipo.this, "Equipo creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class CrearEquipo extends AppCompatActivity {
                         }
                     }
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<TeamData> call, Throwable t) {
                         Toast.makeText(CrearEquipo.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 });

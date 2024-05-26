@@ -1,5 +1,7 @@
 package com.example.projectofinal;
 
+import java.util.List;
+
 public class Match {
     private int matchId;
     private String matchDate;
@@ -8,7 +10,6 @@ public class Match {
     private String status;
     private Team team1;
     private Team team2;
-
     // Constructor
     public Match(int matchId, String matchDate, String matchTime, String matchLocation, String status, Team team1, Team team2) {
         this.matchId = matchId;

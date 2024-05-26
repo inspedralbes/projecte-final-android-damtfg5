@@ -1,5 +1,10 @@
 package com.example.projectofinal;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 public class Team {
     private String id;
     private String teamName;
@@ -11,6 +16,8 @@ public class Team {
     private int lostGames;
     private int totalPoints;
     private String idGame;
+    private List<Usuario> players;
+
 
     // Constructor
     public Team(String id, String teamName, int nPlayers, String logoPic, String shortName, int totalGames, int wonGames, int lostGames, int totalPoints, String idGame) {
@@ -24,6 +31,35 @@ public class Team {
         this.lostGames = lostGames;
         this.totalPoints = totalPoints;
         this.idGame = idGame;
+    }
+
+    public void setPlayersFromJsonArray(JSONArray playersArray) {
+        List<Usuario> playersList = new ArrayList<>();
+        for (int i = 0; i < playersArray.length(); i++) {
+            try {
+                JSONObject playerObj = playersArray.getJSONObject(i);
+                int id = playerObj.getInt("id");
+                String firstname = playerObj.getString("firstname");
+                String surname = playerObj.getString("surname");
+                String profilePic = playerObj.getString("profilePic");
+                // Crear un objeto Usuario con los datos y agregarlo a la lista
+                Usuario player = new Usuario(id, firstname, surname, profilePic);
+                playersList.add(player);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        // Asignar la lista de jugadores al atributo players
+        this.players = playersList;
+    }
+
+
+    public List<Usuario> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Usuario> players) {
+        this.players = players;
     }
 
     public String getId() {

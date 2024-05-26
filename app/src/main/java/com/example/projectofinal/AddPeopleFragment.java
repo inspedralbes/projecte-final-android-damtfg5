@@ -34,7 +34,7 @@ public class AddPeopleFragment extends DialogFragment {
     private AddPeopleAdapter adapter;
     private List<Usuario> usuarioList;
     private EditText editTextBuscador;
-    private String URL = "http://192.168.1.21:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     int userId;
     @Nullable
     @Override

@@ -17,7 +17,7 @@ public interface ApiService {
     Call<Void> registerUser(@Body RegisterRequest registerRequest);
 
     @POST("/createTeam")
-    Call<Void> createTeam(@Body TeamData teamData);
+    Call<TeamData> createTeam(@Body TeamData teamData);
 
     @POST("/getUsers")
     Call<List<Usuario>> getUsers(@Body UserIdRequest userIdRequest);

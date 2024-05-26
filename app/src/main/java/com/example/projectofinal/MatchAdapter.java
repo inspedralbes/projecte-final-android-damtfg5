@@ -3,6 +3,7 @@ package com.example.projectofinal;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -226,13 +227,95 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
     static class FiveVsFiveViewHolder extends RecyclerView.ViewHolder {
-
+        private TextView textViewDateMatch;
+        private TextView textViewTimeMatch;
+        private TextView textViewLocalitationMatch;
+        private ImageView imageViewTeam1User1;
+        private ImageView imageViewTeam1User2;
+        private ImageView imageViewTeam1User3;
+        private ImageView imageViewTeam1User4;
+        private ImageView imageViewTeam1User5;
+        private ImageView imageViewTeam2User1;
+        private ImageView imageViewTeam2User2;
+        private ImageView imageViewTeam2User3;
+        private ImageView imageViewTeam2User4;
+        private ImageView imageViewTeam2User5;
+        private TextView texViewNom1Team1, texViewNom2Team1, texViewNom3Team1, texViewNom4Team1, texViewNom5Team1, texViewNom1Team2, texViewNom2Team2, texViewNom3Team2, texViewNom4Team2, texViewNom5Team2;
+        private Button buttonEntrarMatch;
         public FiveVsFiveViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            textViewDateMatch = itemView.findViewById(R.id.textViewDateMatch);
+            textViewTimeMatch = itemView.findViewById(R.id.textViewTimeMatch);
+            textViewLocalitationMatch = itemView.findViewById(R.id.textViewLocalitationMatch);
+            imageViewTeam1User1 = itemView.findViewById(R.id.imageViewTeam1Jugador1);
+            imageViewTeam1User2 = itemView.findViewById(R.id.imageViewTeam1Jugador2);
+            imageViewTeam1User3 = itemView.findViewById(R.id.imageViewTeam1Jugador3);
+            imageViewTeam1User4 = itemView.findViewById(R.id.imageViewTeam1Jugador4);
+            imageViewTeam1User5 = itemView.findViewById(R.id.imageViewTeam1Jugador5);
+
+            texViewNom1Team1 = itemView.findViewById(R.id.texViewNomTeam1J1);
+            texViewNom2Team1 = itemView.findViewById(R.id.texViewNomTeam1J2);
+            texViewNom3Team1 = itemView.findViewById(R.id.texViewNomTeam1J3);
+            texViewNom4Team1 = itemView.findViewById(R.id.texViewNomTeam1J4);
+            texViewNom5Team1 = itemView.findViewById(R.id.texViewNomTeam1J5);
+
+            imageViewTeam2User1 = itemView.findViewById(R.id.imageViewTeam2Jugador1);
+            imageViewTeam2User2 = itemView.findViewById(R.id.imageViewTeam2Jugador2);
+            imageViewTeam2User3 = itemView.findViewById(R.id.imageViewTeam2Jugador3);
+            imageViewTeam2User4 = itemView.findViewById(R.id.imageViewTeam2Jugador4);
+            imageViewTeam2User5 = itemView.findViewById(R.id.imageViewTeam2Jugador5);
+
+            texViewNom1Team2 = itemView.findViewById(R.id.texViewNomTeam2J1);
+            texViewNom2Team2 = itemView.findViewById(R.id.texViewNomTeam2J2);
+            texViewNom3Team2 = itemView.findViewById(R.id.texViewNomTeam2J3);
+            texViewNom4Team2 = itemView.findViewById(R.id.texViewNomTeam2J4);
+            texViewNom5Team2 = itemView.findViewById(R.id.texViewNomTeam2J5);
+
+            buttonEntrarMatch = itemView.findViewById(R.id.buttonEntrarMatch);
+
+
         }
 
         public void bind(Match match) {
             // Aquí puedes implementar la lógica para el diseño FiveVsFive
+            textViewDateMatch.setText(match.getMatchDate());
+            textViewTimeMatch.setText(match.getMatchTime());
+            textViewLocalitationMatch.setText(match.getMatchLocation());
+
+            // Team 1
+            List<Usuario> playersTeam1 = match.getTeam1().getPlayers();
+            if (playersTeam1 != null && playersTeam1.size() > 0) {
+                loadPlayerImage(playersTeam1.get(0), imageViewTeam1User1, texViewNom1Team1);
+                loadPlayerImage(playersTeam1.get(1), imageViewTeam1User2, texViewNom2Team1);
+                loadPlayerImage(playersTeam1.get(2), imageViewTeam1User3, texViewNom3Team1);
+                loadPlayerImage(playersTeam1.get(3), imageViewTeam1User4, texViewNom4Team1);
+                loadPlayerImage(playersTeam1.get(4), imageViewTeam1User5, texViewNom5Team1);
+            }
+
+            // Team 2
+            List<Usuario> playersTeam2 = match.getTeam2().getPlayers();
+            if (playersTeam2 != null && playersTeam2.size() > 0) {
+                loadPlayerImage(playersTeam2.get(0), imageViewTeam2User1, texViewNom1Team2);
+                loadPlayerImage(playersTeam2.get(1), imageViewTeam2User2, texViewNom2Team2);
+                loadPlayerImage(playersTeam2.get(1), imageViewTeam2User3, texViewNom3Team2);
+                loadPlayerImage(playersTeam2.get(1), imageViewTeam2User4, texViewNom4Team2);
+                loadPlayerImage(playersTeam2.get(1), imageViewTeam2User5, texViewNom5Team2);
+            }
         }
+
+        private void loadPlayerImage(Usuario player, ImageView imageView, TextView textView) {
+            String playerName = TextUtils.isEmpty(player.getFirstname()) ? "Disponible" : player.getFirstname();
+            textView.setText(playerName);
+
+            if (!TextUtils.isEmpty(player.getProfilePic())) {
+                Picasso.get().load(player.getProfilePic()).into(imageView);
+            } else {
+                imageView.setImageResource(R.drawable.add_black);
+            }
+        }
+
+
+
     }
 }
