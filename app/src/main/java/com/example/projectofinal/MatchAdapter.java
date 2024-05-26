@@ -278,6 +278,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void bind(Match match) {
+            Log.d("IDDDDDDDDDDDDDDDDD", "bind: " + match.getMatchId());
             // Aquí puedes implementar la lógica para el diseño FiveVsFive
             textViewDateMatch.setText(match.getMatchDate());
             textViewTimeMatch.setText(match.getMatchTime());
