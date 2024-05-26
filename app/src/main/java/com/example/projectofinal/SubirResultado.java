@@ -105,18 +105,35 @@ public class SubirResultado extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             // La solicitud fue exitosa
                             Log.d("SubirResultado", "Estadísticas subidas exitosamente");
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            int userIdTeam = sharedPreferences.getInt("userIdTeam", 0);
+                            int userId = sharedPreferences.getInt("userId", 0);
+                            String rol = sharedPreferences.getString("rol", "");
                             JSONObject matchData = new JSONObject();
-                            try {
-                                matchData.put("idTeam1", team1Id);
-                                matchData.put("idTeam2", team2Id);
-                                matchData.put("id", gameId);
-                                matchData.put("status","FINALIZADA");
-                                matchData.put("userId", userId);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if(!rol.equals("soloPlayer")){
+                                try {
+                                    matchData.put("idTeam1", team1Id);
+                                    matchData.put("idTeam2", team2Id);
+                                    matchData.put("id", gameId);
+                                    matchData.put("status","FINALIZADA");
+                                    matchData.put("userId", userId);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                socket.emit("joinMatch", matchData);
+                            }else{
+                                try {
+                                    matchData.put("idTeam1", team1Id);
+                                    matchData.put("idTeam2", team2Id);
+                                    matchData.put("matchGameId", gameId);
+                                    matchData.put("userId", userId);
+                                    matchData.put("crearPartida", "FINALIZADA");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                socket.emit("joinMatchSolo", matchData);
                             }
-                            socket.emit("joinMatch", matchData);
                             Intent intent1 = new Intent(SubirResultado.this, Inici.class);
                             startActivity(intent1);
                         } else {
