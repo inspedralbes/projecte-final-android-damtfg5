@@ -148,14 +148,22 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             textViewTimeMatch.setText(match.getMatchTime());
             textViewLocalitationMatch.setText(match.getMatchLocation());
             if(match.getTeam1().getLogoPic()!= null && !match.getTeam1().getLogoPic().isEmpty()){
-                Picasso.get().load(match.getTeam1().getLogoPic()).into(imageViewTeam1);
+                Picasso.get()
+                        .load(match.getTeam1().getLogoPic())
+                        .resize(500, 500) // Ajusta las dimensiones según sea necesario
+                        .centerCrop()
+                        .into(imageViewTeam1);
             }
             else{
                 imageViewTeam1.setImageResource(R.drawable.add_black);
             }
 
             if(match.getTeam2().getLogoPic()!= null && !match.getTeam2().getLogoPic().isEmpty()){
-                Picasso.get().load(match.getTeam2().getLogoPic()).into(imageViewTeam2);
+                Picasso.get()
+                        .load(match.getTeam2().getLogoPic())
+                        .resize(500, 500) // Ajusta las dimensiones según sea necesario
+                        .centerCrop()
+                        .into(imageViewTeam2);
             }
             else{
                 imageViewTeam2.setImageResource(R.drawable.add_black);
@@ -493,8 +501,8 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (player.getProfilePic() != null && !player.getProfilePic().isEmpty()) {
                 Picasso.get()
                         .load(player.getProfilePic())
-                        .placeholder(R.drawable.add_black) // Imagen de marcador de posición mientras se carga la imagen
-                        .error(R.drawable.add_black) // Imagen por defecto en caso de error
+                        .resize(500, 500) // Ajusta las dimensiones según sea necesario
+                        .centerCrop()
                         .into(imageView);
             } else {
                 imageView.setImageResource(R.drawable.add_black); // Imagen por defecto si no hay URL

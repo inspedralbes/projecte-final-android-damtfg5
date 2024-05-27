@@ -64,7 +64,7 @@ public class EditarPreferencias extends AppCompatActivity {
         ImageButton imageButtonClearVJ = findViewById(R.id.imageButtonClearVJ);
         ImageButton imageButtonClearLocalitation = findViewById(R.id.imageButtonClearLocalitation);
         ImageButton imageButtonBEP = findViewById(R.id.imageButtonBEP);
-        TextView textViewGuardarCambios = findViewById(R.id.textViewCambiosGuardados);
+        Button textViewGuardarCambios = findViewById(R.id.textViewCambiosGuardados);
         editTextLocalitation = findViewById(R.id.editTextLocalitation);
         municipiNames = new ArrayList<>();
 
@@ -140,39 +140,51 @@ public class EditarPreferencias extends AppCompatActivity {
 
     private void guardarCambios() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        String newPosition = editTextPos.getText().toString();
+        int newHeight = Integer.parseInt(editTextHeight.getText().toString());
+        String newDominantHand = editTextVJ.getText().toString();
+        int newVerticalJump = Integer.parseInt(editTextVJ.getText().toString());
+        String newLocation = editTextLocalitation.getText().toString();
+
+        editor.putString("position", newPosition);
+        editor.putInt("height", newHeight);
+        editor.putString("dominantHand", newDominantHand);
+        editor.putInt("verticalJump", newVerticalJump);
+        editor.putString("location", newLocation);
+        editor.apply();
+
         int userId = sharedPreferences.getInt("userId", -1);
         Toast.makeText(EditarPreferencias.this, "Guardando cambios...", Toast.LENGTH_SHORT).show();
+
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("position", editTextPos.getText().toString());
-        requestBody.put("height", Integer.parseInt(editTextHeight.getText().toString()));
-        requestBody.put("dominantHand", editTextVJ.getText().toString());
-        requestBody.put("vj", Integer.parseInt(editTextVJ.getText().toString()));
-        requestBody.put("location", editTextLocalitation.getText().toString());
-        requestBody.put("userId", userId); // Reemplaza "user_id_aqui" con el ID de usuario correspondiente
+        requestBody.put("position", newPosition);
+        requestBody.put("height", newHeight);
+        requestBody.put("dominantHand", newDominantHand);
+        requestBody.put("vj", newVerticalJump);
+        requestBody.put("location", newLocation);
+        requestBody.put("userId", userId);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
-        // Realizar la llamada Retrofit
+
         Call<Void> call = apiService.updateUserPreferencesForAndroid(requestBody);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Mostrar un mensaje de éxito
                     Toast.makeText(EditarPreferencias.this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Mostrar un mensaje de error en caso de respuesta no exitosa
-                    Toast.makeText(EditarPreferencias.this, "Error al guardar los cambios", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Mostrar un mensaje de error en caso de fallo en la solicitud
-                Toast.makeText(EditarPreferencias.this, "Error al enviar la solicitud", Toast.LENGTH_SHORT).show();
             }
         });
     }
