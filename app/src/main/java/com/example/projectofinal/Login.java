@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
     private EditText editTextPassword;
     private ImageButton imageButtonMostrarContraseña;
     private boolean contraseñaVisible = false;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
     private static Socket socket = SocketManager.getInstance();
 
     @Override
@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this, Inici.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Credenciales incorrectas o estas baneado", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(Login.this, "Error en el servidor", Toast.LENGTH_SHORT).show();
@@ -111,7 +111,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void getDataUser(int userId){
-        String URL = "http://192.168.1.17:3001/";
+        String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())

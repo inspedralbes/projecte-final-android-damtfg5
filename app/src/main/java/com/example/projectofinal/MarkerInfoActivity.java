@@ -50,7 +50,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private CardView selectedCardView = null;
     private Socket mSocket;
     int teamId,userId;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
     private String selectedDay = "";
     private String selectedHour = "";
     private String rol, type, teamName="";

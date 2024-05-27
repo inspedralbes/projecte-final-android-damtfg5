@@ -20,6 +20,7 @@ public class GlobalDataUser {
     private String availability;
     private String country;
     private String profilePic;
+    private String ban;
     private int userIdTeam;
     private int spikePointsTotal;
     private int spikeErrorsTotal;
