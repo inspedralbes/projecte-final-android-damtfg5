@@ -69,6 +69,11 @@ public class VerPerfilJugador extends AppCompatActivity {
         TextView textViewtSuccessfulReceive = findViewById(R.id.textViewtSuccessfulReceive);
         TextView textViewtErrorsReceive = findViewById(R.id.textViewtErrorsReceive);
         TextView textViewtAttemptsReceive = findViewById(R.id.textViewtAttemptsReceive);
+        TextView editTextPos = findViewById(R.id.editTextPos);
+        TextView editTextHeight = findViewById(R.id.editTextHeight);
+        TextView editTextViewVJ = findViewById(R.id.editTextViewVJ);
+        TextView editTextViewChooseHand = findViewById(R.id.editTextViewChooseHand);
+        TextView editTextLocalitation = findViewById(R.id.editTextLocalitation);
         imageButtonBVP = findViewById(R.id.imageButtonBVP);
         buttonReport = findViewById(R.id.buttonReport);
 
@@ -125,6 +130,18 @@ public class VerPerfilJugador extends AppCompatActivity {
                     String receiveSuccessfulTotal = String.valueOf(userData.getReceiveSuccessfulTotal());
                     String receiveErrorsTotal = String.valueOf(userData.getReceiveErrorsTotal());
                     String receiveAttemptsTotal = String.valueOf(userData.getReceiveAttemptsTotal());
+
+                    String hand = userData.getDominantHand();
+                    String position = userData.getPosition();
+                    String height = String.valueOf(userData.getHeight());
+                    String localidad = userData.getLocation();
+                    String verticalJump = String.valueOf(userData.getVerticalJump());
+
+                    editTextHeight.setText(height);
+                    editTextPos.setText(position);
+                    editTextLocalitation.setText(localidad);
+                    editTextViewVJ.setText(verticalJump);
+                    editTextViewChooseHand.setText(hand);
 
                     textViewTituloPerfil.setText(userData.getFirstname());
                     textViewNombreApellido.setText(userData.getFirstname()+" "+userData.getSurname());
@@ -189,7 +206,9 @@ public class VerPerfilJugador extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                socket.connect();
                 socket.emit("reportUser",reportData);
+                socket.disconnect();
                 Toast.makeText(VerPerfilJugador.this, "Reporte enviado: " + reporte, Toast.LENGTH_SHORT).show();
             }
         });

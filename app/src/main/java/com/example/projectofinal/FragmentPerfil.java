@@ -79,6 +79,12 @@ public class FragmentPerfil extends Fragment {
         String receiveSuccessfulTotalString = String.valueOf(sharedPreferences.getInt("receiveSuccessfulTotal", 0));
         String receiveErrorsTotalString = String.valueOf(sharedPreferences.getInt("receiveErrorsTotal", 0));
         String receiveAttemptsTotalString = String.valueOf(sharedPreferences.getInt("receiveAttemptsTotal", 0));
+        String dominantHand = sharedPreferences.getString("dominantHand", "");
+        String position = sharedPreferences.getString("position", "");
+        String height = String.valueOf(sharedPreferences.getInt("height", 0));
+        String verticalJump = String.valueOf(sharedPreferences.getInt("verticalJump", 0));
+        String location = sharedPreferences.getString("location", "");
+
         TextView textViewtPointsSpike = view.findViewById(R.id.textViewtPointsSpike);
         TextView textViewtErrorsSpike = view.findViewById(R.id.textViewtErrorsSpike);
         TextView textViewtAttemptsSpike = view.findViewById(R.id.textViewtAttemptsSpike);
@@ -94,6 +100,19 @@ public class FragmentPerfil extends Fragment {
         TextView textViewtSuccessfulReceive = view.findViewById(R.id.textViewtSuccessfulReceive);
         TextView textViewtErrorsReceive = view.findViewById(R.id.textViewtErrorsReceive);
         TextView textViewtAttemptsReceive = view.findViewById(R.id.textViewtAttemptsReceive);
+
+        TextView editTextPos = view.findViewById(R.id.editTextPos);
+        TextView editTextHeight = view.findViewById(R.id.editTextHeight);
+        TextView editTextViewVJ = view.findViewById(R.id.editTextViewVJ);
+        TextView editTextViewChooseHand = view.findViewById(R.id.editTextViewChooseHand);
+        TextView editTextLocalitation = view.findViewById(R.id.editTextLocalitation);
+
+
+        editTextHeight.setText(String.valueOf(height));
+        editTextPos.setText(position);
+        editTextLocalitation.setText(location);
+        editTextViewVJ.setText(verticalJump);
+        editTextViewChooseHand.setText(dominantHand);
 
         textViewtPointsSpike.setText(spikePointsTotalString);
         textViewtErrorsSpike.setText(spikeErrorsTotalString);

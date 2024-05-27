@@ -65,4 +65,9 @@ public interface ApiService {
 
     @GET("/getMunicipis")
     Call<List<String>> getMunicipis();
+
+    @POST("/updateUserForAndroid")
+    Call<Void> updateUserForAndroid(@Body UpdateUserRequest updateUserRequest);
+    @POST("updateUserPreferencesForAndroid")
+    Call<Void> updateUserPreferencesForAndroid(@Body Map<String, Object> requestBody);
 }

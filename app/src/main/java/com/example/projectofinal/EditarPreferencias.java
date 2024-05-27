@@ -12,10 +12,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +31,9 @@ public class EditarPreferencias extends AppCompatActivity {
     private Button buttonSoloPlayer, buttonTeamPlayer, buttonCaptain;
     private Button buttonDerecha, buttonIzquierda, buttonAmbas;
     private AutoCompleteTextView editTextLocalitation;
+    private EditText editTextPos; // Declarar editTextPos a nivel de clase
+    private EditText editTextHeight;
+    private EditText editTextVJ;
     private String URL = "http://192.168.1.17:3001/";
     private List<String> municipiNames;
 
@@ -50,14 +56,15 @@ public class EditarPreferencias extends AppCompatActivity {
         ConstraintLayout secondLayout = findViewById(R.id.secondLayout);
         ConstraintLayout thirdLayout = findViewById(R.id.thirdLayout);
         ConstraintLayout sixLayout = findViewById(R.id.sixLayout);
-        EditText editTextPos = findViewById(R.id.editTextPos);
-        EditText editTextHeight = findViewById(R.id.editTextHeight);
-        EditText editTextVJ = findViewById(R.id.textViewHand);
+        editTextPos = findViewById(R.id.editTextPos);
+        editTextHeight = findViewById(R.id.editTextHeight);
+        editTextVJ = findViewById(R.id.textViewHand);
         ImageButton imageButtonClearPos = findViewById(R.id.imageButtonClearPos);
         ImageButton imageButtonClearHeight = findViewById(R.id.imageButtonClearHeight);
         ImageButton imageButtonClearVJ = findViewById(R.id.imageButtonClearVJ);
         ImageButton imageButtonClearLocalitation = findViewById(R.id.imageButtonClearLocalitation);
         ImageButton imageButtonBEP = findViewById(R.id.imageButtonBEP);
+        TextView textViewGuardarCambios = findViewById(R.id.textViewCambiosGuardados);
         editTextLocalitation = findViewById(R.id.editTextLocalitation);
         municipiNames = new ArrayList<>();
 
@@ -87,6 +94,14 @@ public class EditarPreferencias extends AppCompatActivity {
         selectRoleBasedOnPreferences(rol);
         // Seleccionar el botón correspondiente a la mano dominante
         selectHandBasedOnPreferences(dominantHand);
+
+        // Configurar el OnClickListener para textViewCambiosGuardados
+        textViewGuardarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarCambios();
+            }
+        });
 
         imageButtonBEP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +134,45 @@ public class EditarPreferencias extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
                 Toast.makeText(EditarPreferencias.this, "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void guardarCambios() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int userId = sharedPreferences.getInt("userId", -1);
+        Toast.makeText(EditarPreferencias.this, "Guardando cambios...", Toast.LENGTH_SHORT).show();
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("position", editTextPos.getText().toString());
+        requestBody.put("height", Integer.parseInt(editTextHeight.getText().toString()));
+        requestBody.put("dominantHand", editTextVJ.getText().toString());
+        requestBody.put("vj", Integer.parseInt(editTextVJ.getText().toString()));
+        requestBody.put("location", editTextLocalitation.getText().toString());
+        requestBody.put("userId", userId); // Reemplaza "user_id_aqui" con el ID de usuario correspondiente
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+        // Realizar la llamada Retrofit
+        Call<Void> call = apiService.updateUserPreferencesForAndroid(requestBody);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Mostrar un mensaje de éxito
+                    Toast.makeText(EditarPreferencias.this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Mostrar un mensaje de error en caso de respuesta no exitosa
+                    Toast.makeText(EditarPreferencias.this, "Error al guardar los cambios", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Mostrar un mensaje de error en caso de fallo en la solicitud
+                Toast.makeText(EditarPreferencias.this, "Error al enviar la solicitud", Toast.LENGTH_SHORT).show();
             }
         });
     }

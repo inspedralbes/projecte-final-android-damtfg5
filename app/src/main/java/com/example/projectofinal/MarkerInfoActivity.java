@@ -48,7 +48,7 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     private Switch switchShowAvailableHours;
     GridLayout gridLayout;
     private CardView selectedCardView = null;
-    private Socket mSocket;
+    private Socket mSocket = SocketManager.getInstance();
     int teamId,userId;
     private String URL = "http://192.168.1.17:3001/";
     private String selectedDay = "";
@@ -60,13 +60,6 @@ public class MarkerInfoActivity extends AppCompatActivity implements DayAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marker_info);
-
-        try {
-            mSocket = IO.socket(URL);
-            mSocket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         rol = sharedPreferences.getString("rol", "");
