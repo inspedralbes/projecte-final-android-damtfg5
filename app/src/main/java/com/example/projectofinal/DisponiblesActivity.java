@@ -206,7 +206,6 @@ public class DisponiblesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (socket != null) {
-            socket.disconnect();
             socket.off("matches", onMatches);
         }
     }

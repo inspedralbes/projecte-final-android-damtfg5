@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,7 +86,7 @@ public class VerPerfilJugador extends AppCompatActivity {
             }
         });
 
-        String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+        String URL = "http://192.168.1.17:3001/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -103,6 +103,9 @@ public class VerPerfilJugador extends AppCompatActivity {
             public void onResponse(Call<GlobalDataUser> call, Response<GlobalDataUser> response) {
                 if (response.isSuccessful()) {
                     GlobalDataUser userData = response.body();
+
+                    Picasso.get().load(userData.getProfilePic()).into(imageViewFotoPerfil);
+
 
                     String totalGames = String.valueOf(userData.getTotalGames());
                     String spikePointsTotal = String.valueOf(userData.getSpikePointsTotal());
@@ -143,6 +146,8 @@ public class VerPerfilJugador extends AppCompatActivity {
                     textViewtSuccessfulReceive.setText(receiveSuccessfulTotal);
                     textViewtErrorsReceive.setText(receiveErrorsTotal);
                     textViewtAttemptsReceive.setText(receiveAttemptsTotal);
+
+
                 } else {
                     Log.e("VerPerfilJugador", "Error: " + response.code());
                 }

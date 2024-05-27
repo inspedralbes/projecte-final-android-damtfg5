@@ -156,13 +156,231 @@
                 app:layout_constraintStart_toEndOf="@+id/view2"
                 app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstLayout"
+                android:layout_width="387dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSeguidos">
+
+                <TextView
+                    android:id="@+id/textViewPos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Posicion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/editTextPos"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="Libero"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPos" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearPos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secondLayout"
+                android:layout_width="386dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstLayout">
+
+                <TextView
+                    android:id="@+id/textViewHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Altura"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/editTextHeight"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="187 cm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewHeight" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/thirdLayout"
+                android:layout_width="386dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/secondLayout">
+
+                <TextView
+                    android:id="@+id/textViewVJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Salto Vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/editTextViewVJ"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="323 cm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewVJ" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearVJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fifthLayout"
+                android:layout_width="388dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_border"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thirdLayout">
+
+                <!-- TextView para elegir rol -->
+
+                <TextView
+                    android:id="@+id/textViewChooseHand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elegir Mano Dominante"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Botón soloPlayer -->
+                <TextView
+                    android:id="@+id/editTextViewChooseHand"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="Derecha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewChooseHand" />
+
+                <!-- Botón teamPlayer -->
+
+                <!-- Botón captain -->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sixLayout"
+                android:layout_width="384dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fifthLayout">
+
+                <TextView
+                    android:id="@+id/textViewLocalitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Localizacion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/editTextLocalitation"
+                    style="@style/OrangeCursorEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="Barcelona"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLocalitation" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonClearLocalitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:stretchColumns="*"
                 android:layout_margin="10dp"
+                android:stretchColumns="*"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewSeguidores">
+                app:layout_constraintTop_toBottomOf="@+id/sixLayout">
 
                 <TableRow
                     android:background="@drawable/layout_border"
@@ -207,7 +425,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -237,7 +455,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -267,7 +485,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </TableRow>
@@ -315,7 +533,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -345,7 +563,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -375,7 +593,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </TableRow>
@@ -423,7 +641,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -453,7 +671,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -483,7 +701,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </TableRow>
@@ -531,7 +749,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -561,7 +779,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -591,7 +809,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </TableRow>
@@ -639,7 +857,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -669,7 +887,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -699,7 +917,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="12"
-                                android:textColor="@color/negro2"/>
+                                android:textColor="@color/negro2" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </TableRow>

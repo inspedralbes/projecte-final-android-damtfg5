@@ -12,7 +12,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class EditarPreferencias extends AppCompatActivity {
     private Button buttonSoloPlayer, buttonTeamPlayer, buttonCaptain;
     private Button buttonDerecha, buttonIzquierda, buttonAmbas;
     private AutoCompleteTextView editTextLocalitation;
-    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     private List<String> municipiNames;
 
     @Override
@@ -53,7 +52,7 @@ public class EditarPreferencias extends AppCompatActivity {
         ConstraintLayout sixLayout = findViewById(R.id.sixLayout);
         EditText editTextPos = findViewById(R.id.editTextPos);
         EditText editTextHeight = findViewById(R.id.editTextHeight);
-        EditText editTextVJ = findViewById(R.id.editTextVJ);
+        EditText editTextVJ = findViewById(R.id.textViewHand);
         ImageButton imageButtonClearPos = findViewById(R.id.imageButtonClearPos);
         ImageButton imageButtonClearHeight = findViewById(R.id.imageButtonClearHeight);
         ImageButton imageButtonClearVJ = findViewById(R.id.imageButtonClearVJ);

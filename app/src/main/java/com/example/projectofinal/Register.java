@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
     private EditText editTextContraseña,editTextNomCognom,editTextEmail,editTextTelefono;
     private ImageButton imageButtonMostrarContraseña;
     private boolean contraseñaVisible = false;
-    private String URL = "http://volleypal.dam.inspedralbes.cat:3001/";
+    private String URL = "http://192.168.1.17:3001/";
     Button buttonLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
