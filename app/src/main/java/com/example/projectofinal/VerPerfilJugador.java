@@ -74,6 +74,9 @@ public class VerPerfilJugador extends AppCompatActivity {
         TextView editTextViewVJ = findViewById(R.id.editTextViewVJ);
         TextView editTextViewChooseHand = findViewById(R.id.editTextViewChooseHand);
         TextView editTextLocalitation = findViewById(R.id.editTextLocalitation);
+        TextView textViewSeguidores = findViewById(R.id.textViewContSeguidores);
+        TextView editTextDescription = findViewById(R.id.editTextDescription);
+
         imageButtonBVP = findViewById(R.id.imageButtonBVP);
         buttonReport = findViewById(R.id.buttonReport);
 
@@ -136,15 +139,19 @@ public class VerPerfilJugador extends AppCompatActivity {
                     String height = String.valueOf(userData.getHeight());
                     String localidad = userData.getLocation();
                     String verticalJump = String.valueOf(userData.getVerticalJump());
+                    String num_friends = String.valueOf(userData.getNum_friends());
+                    String bio = userData.getBio();
 
                     editTextHeight.setText(height);
                     editTextPos.setText(position);
                     editTextLocalitation.setText(localidad);
                     editTextViewVJ.setText(verticalJump);
                     editTextViewChooseHand.setText(hand);
+                    textViewSeguidores.setText(num_friends);
+                    editTextDescription.setText(bio);
 
                     textViewTituloPerfil.setText(userData.getFirstname());
-                    textViewNombreApellido.setText(userData.getFirstname()+" "+userData.getSurname());
+                    textViewNombreApellido.setText(userData.getFirstname());
                     textViewContPart.setText(totalGames);
                     textViewtPointsSpike.setText(spikePointsTotal);
                     textViewtErrorsSpike.setText(spikeErrorsTotal);

@@ -203,6 +203,7 @@ public class Login extends AppCompatActivity {
         editor.putInt("totalPoints", userData.getTotalPoints() != null ? userData.getTotalPoints() : 0);
         editor.putInt("idGame", userData.getIdGame() != null ? userData.getIdGame() : 0);
         editor.putInt("admin", userData.isAdmin());
+        editor.putInt("num_friends", userData.getNum_friends());
         editor.apply();
     }
 

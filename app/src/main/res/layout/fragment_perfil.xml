@@ -50,113 +50,84 @@
                     android:id="@+id/textViewNombreApellido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="55dp"
+                    android:layout_marginTop="136dp"
                     android:text="Daniel Gonzalez"
                     android:textColor="@color/black"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewFotoPerfil"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toStartOf="@+id/imageViewFotoPerfil"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewContPart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="172dp"
                     android:text="0"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+                    app:layout_constraintTop_toTopOf="@+id/imageViewFotoPerfil" />
 
                 <TextView
                     android:id="@+id/textViewPartidos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="12dp"
                     android:text="Partidos"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewFotoPerfil"
                     app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
 
                 <View
                     android:id="@+id/view"
                     android:layout_width="2dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="32dp"
                     android:background="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textViewPartidos"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+                    app:layout_constraintBottom_toTopOf="@+id/textViewSeguidores"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewSeguidores"
+                    app:layout_constraintHorizontal_bias="0.566"
+                    app:layout_constraintStart_toEndOf="@+id/textViewContPart"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/textViewContSeguidores"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="70dp"
                     android:text="0"
                     android:textColor="@color/black"
                     android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.222"
                     app:layout_constraintStart_toEndOf="@+id/view"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewSeguidores"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Seguidores"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="80dp"
+                    android:text="Amigos"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/view"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="2dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="45dp"
-                    android:background="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textViewSeguidores"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
-
-                <TextView
-                    android:id="@+id/textViewContSeguidos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="30dp"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewFotoPerfil" />
-
-                <TextView
-                    android:id="@+id/textViewSeguidos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Seguidores"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewContPart" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewContSeguidores" />
 
                 <Button
                     android:id="@+id/editPerfil"
                     android:layout_width="180dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="132dp"
                     android:background="@drawable/button_selectorbg1"
-                    android:text="Editar Perfil"
                     android:onClick="launchEditarPerfil"
+                    android:text="Editar Perfil"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewPartidos" />
 
@@ -164,13 +135,12 @@
                     android:id="@+id/hazteVip"
                     android:layout_width="180dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/button_selectorbg2"
                     android:text="Hazte Vip"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewSeguidos" />
+                    tools:layout_editor_absoluteY="237dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/firstLayout"
@@ -182,7 +152,7 @@
                     android:padding="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hazteVip">
+                    app:layout_constraintTop_toBottomOf="@+id/editPerfil">
 
                     <TextView
                         android:id="@+id/textViewPos"
@@ -346,6 +316,51 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/sevenLayout"
+                    android:layout_width="378dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/layout_border"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sixLayout">
+
+                    <TextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/editTextDescription"
+                        style="@style/OrangeCursorEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Ingrese la descripción"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonCleardesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/clear"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/sixLayout"
                     android:layout_width="384dp"
                     android:layout_height="50dp"
@@ -366,7 +381,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <AutoCompleteTextView
+                    <TextView
                         android:id="@+id/editTextLocalitation"
                         style="@style/OrangeCursorEditTextStyle"
                         android:layout_width="match_parent"
@@ -394,9 +409,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
                     android:stretchColumns="*"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sixLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/sevenLayout">
 
                     <TableRow
                         android:background="@drawable/layout_border"

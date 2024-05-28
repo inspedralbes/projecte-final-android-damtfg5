@@ -84,7 +84,9 @@ public class FragmentPerfil extends Fragment {
         String height = String.valueOf(sharedPreferences.getInt("height", 0));
         String verticalJump = String.valueOf(sharedPreferences.getInt("verticalJump", 0));
         String location = sharedPreferences.getString("location", "");
-
+        String bio = sharedPreferences.getString("bio", "");
+        int friends = sharedPreferences.getInt("num_friends", -1);
+        Log.d("riendssss", "onCreateView: " + friends);
         TextView textViewtPointsSpike = view.findViewById(R.id.textViewtPointsSpike);
         TextView textViewtErrorsSpike = view.findViewById(R.id.textViewtErrorsSpike);
         TextView textViewtAttemptsSpike = view.findViewById(R.id.textViewtAttemptsSpike);
@@ -100,19 +102,22 @@ public class FragmentPerfil extends Fragment {
         TextView textViewtSuccessfulReceive = view.findViewById(R.id.textViewtSuccessfulReceive);
         TextView textViewtErrorsReceive = view.findViewById(R.id.textViewtErrorsReceive);
         TextView textViewtAttemptsReceive = view.findViewById(R.id.textViewtAttemptsReceive);
+        TextView num_friends = view.findViewById(R.id.textViewContSeguidores);
 
         TextView editTextPos = view.findViewById(R.id.editTextPos);
         TextView editTextHeight = view.findViewById(R.id.editTextHeight);
         TextView editTextViewVJ = view.findViewById(R.id.editTextViewVJ);
         TextView editTextViewChooseHand = view.findViewById(R.id.editTextViewChooseHand);
         TextView editTextLocalitation = view.findViewById(R.id.editTextLocalitation);
-
+        TextView editTextViewBio = view.findViewById(R.id.editTextDescription);
 
         editTextHeight.setText(String.valueOf(height));
         editTextPos.setText(position);
         editTextLocalitation.setText(location);
         editTextViewVJ.setText(verticalJump);
         editTextViewChooseHand.setText(dominantHand);
+        editTextViewBio.setText(bio);
+        num_friends.setText(String.valueOf(friends));
 
         textViewtPointsSpike.setText(spikePointsTotalString);
         textViewtErrorsSpike.setText(spikeErrorsTotalString);
@@ -160,7 +165,7 @@ public class FragmentPerfil extends Fragment {
                     Log.d("TAG usuario", "onResponse: " + usuario.getTotalGames());
                     // Actualizar el nombre de usuario en la vista
                     TextView textViewNombreApellido = view.findViewById(R.id.textViewNombreApellido);
-                    textViewNombreApellido.setText(usuario.getFirstname() + " " + usuario.getSurname());
+                    textViewNombreApellido.setText(usuario.getFirstname());
 
                     // Actualizar el número de partidos en la vista
                     TextView textViewContPart = view.findViewById(R.id.textViewContPart);
