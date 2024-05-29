@@ -485,6 +485,23 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/textViewCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cerrar sesión"
+                android:textSize="18sp"
+                android:drawablePadding="20dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/logout"
+                android:textColor="@color/rojo"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewPrefs"
+                android:padding="18dp"/>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

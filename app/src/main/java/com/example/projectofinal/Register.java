@@ -81,8 +81,8 @@ public class Register extends AppCompatActivity {
                 String email = editTextEmail.getText().toString().trim();
                 String password = hashPassword(editTextContraseña.getText().toString().trim());
                 String phone = editTextTelefono.getText().toString().trim();
-                String country = "";
-                String birthDate = "";
+                String country = "NULL";
+                String birthDate = "2000-01-01";
 
                 // Crear un objeto RegisterRequest con los datos del registro
                 RegisterRequest registerRequest = new RegisterRequest(firstname, surname, email, password, phone, country, birthDate);
@@ -102,7 +102,8 @@ public class Register extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             // Registro exitoso
                             Toast.makeText(Register.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                            // Aquí puedes realizar acciones adicionales después del registro exitoso
+                            Intent intent = new Intent(Register.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             // Registro fallido
                             Toast.makeText(Register.this, "Error en el registro", Toast.LENGTH_SHORT).show();
@@ -118,10 +119,6 @@ public class Register extends AppCompatActivity {
                 });
             }
         });
-    }
-    public void launchMain(View view){
-        Intent intent = new Intent(Register.this, MainActivity.class);
-        startActivity(intent);
     }
     private String hashPassword(String password) {
         try {

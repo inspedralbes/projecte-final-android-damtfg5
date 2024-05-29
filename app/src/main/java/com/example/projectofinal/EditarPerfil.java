@@ -71,6 +71,7 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
         TextView textViewfecha = findViewById(R.id.textViewFecha);
         textViewGendre = findViewById(R.id.textViewGendre);
         textViewGendrePick = findViewById(R.id.textViewGendrePick);
+        TextView logout = findViewById(R.id.textViewCerrarSesion);
 
         textViewCambiosGuardados.setEnabled(true);
         textViewCambiosGuardados.setTextColor(getResources().getColor(R.color.naranja1));
@@ -191,6 +192,13 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
             public void onClick(View v) {
                 Intent intent = new Intent(EditarPerfil.this, EditarPreferencias.class);
                 startActivity(intent);
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent logout = new Intent(EditarPerfil.this,MainActivity.class);
+                startActivity(logout);
             }
         });
     }
