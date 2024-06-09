@@ -34,7 +34,7 @@ public class EditarPreferencias extends AppCompatActivity {
     private EditText editTextPos; // Declarar editTextPos a nivel de clase
     private EditText editTextHeight;
     private EditText editTextVJ;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://192.168.1.17:3005/";
     private List<String> municipiNames;
 
     @Override

@@ -28,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarEquipo extends AppCompatActivity {
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://192.168.1.17:3005/";
     int userId;
     ConstraintLayout firstLayout,secondLayout;
     EditText editTextNE,editTextAbreviacion;

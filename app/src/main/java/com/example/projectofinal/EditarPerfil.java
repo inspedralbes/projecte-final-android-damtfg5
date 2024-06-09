@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarPerfil extends AppCompatActivity implements GenderPickerBottomSheet.GenderPickerListener {
     private TextView textViewGendrePick, textViewGendre;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://192.168.1.17:3005/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

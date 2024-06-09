@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder> {
 
     private List<Usuario> usuarioList;
-    private String URL = "http://192.168.1.17:3001/";
+    private String URL = "http://192.168.1.17:3005/";
     private Context context;
     int userId;
 
