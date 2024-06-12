@@ -25,11 +25,18 @@ import android.widget.ImageButton;
 
 import com.example.projectofinal.databinding.ActivityIniciBinding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
 public class Inici extends AppCompatActivity {
     ActivityIniciBinding binding;
     private static final int REQUEST_NOTIFICATION_PERMISSION = 100;
     CardView cardView;
     ImageButton imageButton;
+    private Socket socket = SocketManager.getInstance();
     boolean isCardOpen = false;
 
     @Override
@@ -38,12 +45,22 @@ public class Inici extends AppCompatActivity {
         binding = ActivityIniciBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new FragmentJugar());
-
         // Request notification permission for Android 13+
         requestNotificationPermission();
         // Create notification channel and show notification
         createNotificationChannel();
-        showNotification();
+        socket.on("sendNotification", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d("TAG", "call: se escucha");
+
+                
+                showNotification("Te han enviando una nueva solicitud de amistad", "Nueva solicitud de amistad");
+
+            }
+        });
+
+
 
         cardView = findViewById(R.id.cardView);
         imageButton = findViewById(R.id.imageButtonMas);
@@ -119,13 +136,13 @@ public class Inici extends AppCompatActivity {
         }
     }
 
-    private void showNotification() {
+    private void showNotification(String msg, String title) {
 
         // Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channelID")
                 .setSmallIcon(R.drawable.logovolleypal) // Ensure logovolleypal exists
-                .setContentTitle("My notification")
-                .setContentText("Much longer text that cannot fit one line...")
+                .setContentTitle("Solicitud de amistad")
+                .setContentText(msg)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true); // Auto cancel notification when clicked
 
@@ -160,7 +177,7 @@ public class Inici extends AppCompatActivity {
         if (requestCode == REQUEST_NOTIFICATION_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("Notification", "Notification permission granted");
-                showNotification(); // Show notification after permission is granted
+                showNotification("Has aceptado las notificaciones, asi se te enviaran." , "Aceptado la solicitud de notificaciones."); // Show notification after permission is granted
             } else {
                 Log.d("Notification", "Notification permission denied");
             }
