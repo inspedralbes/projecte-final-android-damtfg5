@@ -94,7 +94,7 @@ public class VerPerfilJugador extends AppCompatActivity {
             }
         });
 
-        String URL = "http://192.168.1.17:3005/";
+        String URL = "http://volleyadmin.dam.inspedralbes.cat:3005/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())

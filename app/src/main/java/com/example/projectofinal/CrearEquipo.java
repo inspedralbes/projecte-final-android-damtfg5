@@ -3,8 +3,10 @@ package com.example.projectofinal;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +27,8 @@ public class CrearEquipo extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageButtonUsuario;
     private Uri imageUri;
-    private String URL = "http://192.168.1.17:3005/";
+    private String URL = "http://volleyadmin.dam.inspedralbes.cat:3005/";
+    private int userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,8 @@ public class CrearEquipo extends AppCompatActivity {
         setupEditTextFocusChange(editTextAbreviacion, secondLayout, imageButtonClearAbreviacion);
         setupImageButtonClear(editTextNE, imageButtonClearNE);
         setupImageButtonClear(editTextAbreviacion, imageButtonClearAbreviacion);
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        userId = sharedPreferences.getInt("userId", -1);
         imageButtonUsuario = findViewById(R.id.imageViewUsuario);
         imageButtonUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +68,11 @@ public class CrearEquipo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String teamName = editTextNE.getText().toString();
-                String logoPic = imageUri.toString();
+                String logoPic = imageUri != null ? imageUri.toString() : "sin foto";
                 String shortName = editTextAbreviacion.getText().toString();
 
                 // Crea un objeto TeamData con los datos del equipo
-                TeamData teamData = new TeamData(teamName, logoPic, shortName);
+                TeamData teamData = new TeamData(userId, teamName, logoPic, shortName);
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(URL) // Reemplaza esto con la URL base de tu servidor
                         .addConverterFactory(GsonConverterFactory.create())
@@ -85,12 +89,23 @@ public class CrearEquipo extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             // Manejar la respuesta exitosa
                             Toast.makeText(CrearEquipo.this, "Equipo creado exitosamente", Toast.LENGTH_SHORT).show();
+                            // Actualizar los valores en SharedPreferences
+                            // Obtener el id del equipo de la respuesta
+                            int idTeam = response.body().getId();
+                            Log.d("iddddd", "onResponse: " + idTeam);
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("idTeam", idTeam);
+                            editor.putString("rol", "captain");
+
+                            editor.apply();
                             // Puedes manejar cualquier otra acción aquí, como regresar a la actividad anterior
                         } else {
                             // Manejar el error
                             Toast.makeText(CrearEquipo.this, "Error al crear el equipo", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<TeamData> call, Throwable t) {
                         Toast.makeText(CrearEquipo.this, "Error de conexión", Toast.LENGTH_SHORT).show();
@@ -141,5 +156,4 @@ public class CrearEquipo extends AppCompatActivity {
             }
         });
     }
-
 }

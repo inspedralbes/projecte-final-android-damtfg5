@@ -30,7 +30,7 @@ public class AnadirAmigo extends AppCompatActivity {
     private UsuarioAdapter usuarioAdapter;
     private List<Usuario> usuarioList;
     private EditText editTextBuscar;
-    private String URL = "http://192.168.1.17:3005/";
+    private String URL = "http://volleyadmin.dam.inspedralbes.cat:3005/";
     private List<Usuario> listaCompletaUsuarios = new ArrayList<>();
     private List<Usuario> listaUsuariosAleatorios = new ArrayList<>();
     int userId;

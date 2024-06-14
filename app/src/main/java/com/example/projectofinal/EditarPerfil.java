@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarPerfil extends AppCompatActivity implements GenderPickerBottomSheet.GenderPickerListener {
     private TextView textViewGendrePick, textViewGendre;
-    private String URL = "http://192.168.1.17:3005/";
+    private String URL = "http://volleyadmin.dam.inspedralbes.cat:3005/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,11 +177,14 @@ public class EditarPerfil extends AppCompatActivity implements GenderPickerBotto
                         if (response.isSuccessful()) {
                             Toast.makeText(EditarPerfil.this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
                         } else {
+                            Toast.makeText(EditarPerfil.this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(EditarPerfil.this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }

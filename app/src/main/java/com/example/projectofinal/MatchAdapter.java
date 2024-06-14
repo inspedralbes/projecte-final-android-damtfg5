@@ -51,7 +51,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int TYPE_FIVE_VS_FIVE = 1;
     private List<Match> matchList;
     private static Socket socket = SocketManager.getInstance();
-    private static String URL = "http://192.168.1.17:3005/";
+    private static String URL = "http://volleyadmin.dam.inspedralbes.cat:3005/";
 
     static Context context;
 
